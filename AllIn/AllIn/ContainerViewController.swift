@@ -69,7 +69,7 @@ class ContainerViewController: UIViewController {
     
     let menuViewExpandedOffset: CGFloat = 250
     
-    let minProportion: CGFloat = 0.66
+    let minProportion: CGFloat = 0.88
     
     
     //MARK: Actions
@@ -82,14 +82,13 @@ class ContainerViewController: UIViewController {
                 currentState = .Expanding
                 addMenuViewController()
             }
+            
         case .changed:
             // Move mainview with gesture
             let screenWidth = view.bounds.size.width
             var centerX = recognizer.view!.center.x + recognizer.translation(in: view).x
             // Don't move if view has moved to left
-            if (centerX < screenWidth/2) {
-                centerX = screenWidth/2
-            }
+            centerX = ( centerX < screenWidth/2 ) ? screenWidth : centerX
             
             // Calculate proportion
             var proportion: CGFloat = (centerX - screenWidth/2)/(view.bounds.size.width - menuViewExpandedOffset)
@@ -102,6 +101,7 @@ class ContainerViewController: UIViewController {
             
             // scale main view
             recognizer.view!.transform = CGAffineTransform.identity.scaledBy(x: proportion, y: proportion)
+            
         case .ended:
             // Judge whether move halfway
             let hasMovedHalfway = recognizer.view!.center.x > view.bounds.size.width
@@ -138,10 +138,8 @@ class ContainerViewController: UIViewController {
         }
         else{
             // To hide
-            doTheAniminate(mainPosition: view.bounds.size.width/2, mainProportion: 1, blackCoverAlpha: 1, completion: { (finished: Bool)->Void in
-                // Update state
+            doTheAniminate(mainPosition: view.bounds.size.width/2, mainProportion: 1, blackCoverAlpha: 1, completion: { (finish: Bool)-> Void in
                 self.currentState = .Collapsed
-                // Movie
                 self.menuViewController?.view.removeFromSuperview()
                 self.menuViewController = nil
                 self.blackCover?.removeFromSuperview()
@@ -154,7 +152,7 @@ class ContainerViewController: UIViewController {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.mainNavigationController.view.center.x = mainPosition
             self.blackCover?.alpha = blackCoverAlpha
-            
+            // Scale main view
             self.mainNavigationController.view.transform = CGAffineTransform.identity.scaledBy(x: mainProportion, y: mainProportion)
         }, completion: completion)
         
@@ -177,7 +175,7 @@ class ContainerViewController: UIViewController {
     func addMenuViewController(){
         if(menuViewController==nil){
             menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menuView") as? MenuViewController
-            view.insertSubview(self.menuViewController!.view, at: 0)
+            view.insertSubview(menuViewController!.view, belowSubview: mainNavigationController.view)
             
             addChildViewController(menuViewController!)
             menuViewController!.didMove(toParentViewController: self)
