@@ -20,21 +20,21 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // Add main view
-        mainViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainView") as! MainViewController
-        view.addSubview(mainViewController.view)
+        // Initialize Main View
+        mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainNavigation") as! UINavigationController
+        view.addSubview(mainNavigationController.view)
         
-        // Establish father-child relationship
-        addChildViewController(mainViewController)
-        mainViewController.didMove(toParentViewController: self)
+        // Navigation Bar left button item
+        mainViewController = mainNavigationController.viewControllers.first as! MainViewController
+        mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
         
         // Add Pan Gesture
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(recognizer:)))
-        mainViewController.view.addGestureRecognizer(panGestureRecognizer)
+        mainNavigationController.view.addGestureRecognizer(panGestureRecognizer)
         
         // Add Tap Gesture to pick up the menu
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlePanGesture as () -> ()))
-        mainViewController.view.addGestureRecognizer(tapGestureRecognizer)
+        mainNavigationController.view.addGestureRecognizer(tapGestureRecognizer)
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,8 +43,9 @@ class ContainerViewController: UIViewController {
     }
 
     //MARK: Properties
-    var mainViewController:MainViewController!
-    var menuViewController:MenuViewController?
+    var mainNavigationController: UINavigationController!
+    var mainViewController: MainViewController!
+    var menuViewController: MenuViewController?
     var currentState = MenuState.Collapsed{
         didSet{
             // show shadow when collapsed
@@ -85,16 +86,17 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    func addMenuViewController(){
-        if(menuViewController==nil){
-            menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menuView") as? MenuViewController
-            view.insertSubview(self.menuViewController!.view, at: 0)
-            
-            addChildViewController(menuViewController!)
-            menuViewController!.didMove(toParentViewController: self)
+    @objc func showMenu() {
+        if currentState == .Expanded{
+            animateMainView(shouldExpand: false)
+        }
+        else{
+            addMenuViewController()
+            animateMainView(shouldExpand: true)
         }
     }
     
+    //MARK: Animmation
     func animateMainView(shouldExpand: Bool) {
         if(shouldExpand){
             // To expand
@@ -115,16 +117,27 @@ class ContainerViewController: UIViewController {
     }
     
     func animateMainViewXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .curveEaseInOut, animations: { self.mainViewController.view.frame.origin.x = targetPosition }, completion: completion)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .curveEaseInOut, animations: { self.mainNavigationController.view.frame.origin.x = targetPosition }, completion: completion)
     }
     
     func showShadowForMainViewController(_ shouldShowShadow: Bool) {
         // set/cancel shadow for MainView
         if(shouldShowShadow){
-            mainViewController.view.layer.shadowOpacity = 0.8
+            mainNavigationController.view.layer.shadowOpacity = 0.8
         }
         else{
-            mainViewController.view.layer.shadowOpacity = 0
+            mainNavigationController.view.layer.shadowOpacity = 0
+        }
+    }
+    
+    //MARK: Menu view controller
+    func addMenuViewController(){
+        if(menuViewController==nil){
+            menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menuView") as? MenuViewController
+            view.insertSubview(self.menuViewController!.view, at: 0)
+            
+            addChildViewController(menuViewController!)
+            menuViewController!.didMove(toParentViewController: self)
         }
     }
 }

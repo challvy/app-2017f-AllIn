@@ -20,10 +20,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="484-gd-6fN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="222" y="6"/>
+            <point key="canvasLocation" x="-306" y="6"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="ueC-jC-8oX">
@@ -44,10 +45,13 @@
                         <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="hjD-Lq-BvX"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ExC-bc-uO2">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="CrT-Yh-Jxy"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zqm-3n-ZPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="949.60000000000002" y="5.8470764617691158"/>
+            <point key="canvasLocation" x="1628" y="5.8470764617691158"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="DJh-cy-zRx">
@@ -71,7 +75,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L30-gE-r8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1621.5999999999999" y="5.8470764617691158"/>
+            <point key="canvasLocation" x="2300" y="5.8470764617691158"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4dP-FD-j2p">
+            <objects>
+                <navigationController storyboardIdentifier="mainNavigation" automaticallyAdjustsScrollViewInsets="NO" id="fdi-UW-SDd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gBT-ov-l2t">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7Dm-ND-lc3" kind="relationship" relationship="rootViewController" id="CKM-wd-FCg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bwH-4c-7cH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="892" y="6"/>
         </scene>
     </scenes>
 </document>
