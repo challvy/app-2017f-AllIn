@@ -29,11 +29,11 @@ class ContainerViewController: UIViewController {
         self.view.addSubview(imageView)
         
         // Initialize Main View
-        mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainNavigation") as! UINavigationController
+        mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "contentNavigation") as! UINavigationController
         view.addSubview(mainNavigationController.view)
         
         // Navigation Bar left button item
-        mainViewController = mainNavigationController.viewControllers.first as! MainViewController
+        mainViewController = mainNavigationController.viewControllers.first as! ContentTableViewController
         mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
         
         // Add Pan Gesture
@@ -53,7 +53,7 @@ class ContainerViewController: UIViewController {
     //MARK: Properties
     var mainNavigationController: UINavigationController!
     
-    var mainViewController: MainViewController!
+    var mainViewController: ContentTableViewController!
     
     var menuViewController: MenuViewController?
     
