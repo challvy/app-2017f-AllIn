@@ -7,8 +7,12 @@
 
 import UIKit
 
-class ContentTableViewController: UITableViewController {
-
+class DigestTableViewController: UITableViewController {
+    
+    //MARK: Properties
+    @IBOutlet weak var menuBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var digestNavigationItem: UINavigationItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +21,13 @@ class ContentTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(displayP3Red:65/256, green:171/256, blue:225/256, alpha:1.0)
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+        menuBarButtonItem.tintColor = UIColor.white
+        digestNavigationItem.title = "All In"
+        digestNavigationItem.titleView?.tintColor = UIColor.white
+ 
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,23 +39,27 @@ class ContentTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cellIdentifier = "DigestTableViewCell"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DigestTableViewCell else {
+            fatalError("The dequeued cell is not an instance of DigestTableViewCel")
+        }
 
-        // Configure the cell...
+        cell.titleLabel.text =  "震惊！UC部门惨遭解散"
+        cell.abstractLabel.text = "没什么好讲的就这样吧"
 
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.
@@ -65,7 +80,7 @@ class ContentTableViewController: UITableViewController {
         }    
     }
     */
-
+ 
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -81,14 +96,25 @@ class ContentTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+        case "showContent":
+            guard let contentViewController = segue.destination as? ContentViewController else{
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            contentViewController.titleContent = "震惊！UC部门惨遭解散"
+        default:
+            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+        }
     }
-    */
+ 
 
 }

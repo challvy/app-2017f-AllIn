@@ -1,19 +1,28 @@
 //
-//  MenuViewController.swift
+//  ContentViewController.swift
 //  AllIn
 //
-//  Created by apple on 2017/12/3.
+//  Created by apple on 2017/12/5.
 //
 
 import UIKit
 
-@IBDesignable
-class MenuViewController: UIViewController {
+class ContentViewController: UIViewController {
 
+    //MARK: Properties
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    var titleContent: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let titleContent = titleContent{
+                titleLabel.text = titleContent
+        }
+        
+         
     }
 
     override func didReceiveMemoryWarning() {

@@ -29,20 +29,22 @@ class ContainerViewController: UIViewController {
         self.view.addSubview(imageView)
         
         // Initialize Main View
-        mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "contentNavigation") as! UINavigationController
+        mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "digestNavigation") as! UINavigationController
         view.addSubview(mainNavigationController.view)
         
         // Navigation Bar left button item
-        mainViewController = mainNavigationController.viewControllers.first as! ContentTableViewController
+        mainViewController = mainNavigationController.viewControllers.first as! DigestTableViewController
         mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
         
         // Add Pan Gesture
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(recognizer:)))
         mainNavigationController.view.addGestureRecognizer(panGestureRecognizer)
         
+        /*
         // Add Tap Gesture to pick up the menu
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlePanGesture as () -> ()))
         mainNavigationController.view.addGestureRecognizer(tapGestureRecognizer)
+        */
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,11 +55,9 @@ class ContainerViewController: UIViewController {
     //MARK: Properties
     var mainNavigationController: UINavigationController!
     
-    var mainViewController: ContentTableViewController!
+    var mainViewController: DigestTableViewController!
     
     var menuViewController: MenuViewController?
-    
-    var blackCover: UIView?
     
     var currentState = MenuState.Collapsed{
         didSet{
@@ -69,11 +69,14 @@ class ContainerViewController: UIViewController {
     
     let menuViewExpandedOffset: CGFloat = 250
     
-    let minProportion: CGFloat = 0.88
-    
     
     //MARK: Actions
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer){
+        
+        if mainNavigationController.visibleViewController != mainViewController {
+            return
+        }
+        
         switch recognizer.state {
         case .began:
             // Judge direction
@@ -85,22 +88,12 @@ class ContainerViewController: UIViewController {
             
         case .changed:
             // Move mainview with gesture
-            let screenWidth = view.bounds.size.width
-            var centerX = recognizer.view!.center.x + recognizer.translation(in: view).x
-            // Don't move if view has moved to left
-            centerX = ( centerX < screenWidth/2 ) ? screenWidth : centerX
+            var positionX = recognizer.view!.frame.origin.x + recognizer.translation(in: view).x
+            positionX = positionX < 0 ? 0 : positionX
             
-            // Calculate proportion
-            var proportion: CGFloat = (centerX - screenWidth/2)/(view.bounds.size.width - menuViewExpandedOffset)
-            proportion = 1 - proportion * (1 - minProportion)
-            
-            blackCover?.alpha = (proportion - minProportion) / (1 - minProportion)
-            
-            recognizer.view!.center.x = centerX
+            // Don't move in the left
+            recognizer.view!.frame.origin.x = positionX
             recognizer.setTranslation(CGPoint.zero, in: view)
-            
-            // scale main view
-            recognizer.view!.transform = CGAffineTransform.identity.scaledBy(x: proportion, y: proportion)
             
         case .ended:
             // Judge whether move halfway
@@ -112,9 +105,14 @@ class ContainerViewController: UIViewController {
     }
     
     @objc func handlePanGesture() {
-        if currentState == .Expanded{
-            animateMainView(shouldExpand: false)
+        if mainNavigationController.visibleViewController != mainViewController{
+            return
         }
+        if(currentState != .Expanded){
+            return
+        }
+        
+        animateMainView(shouldExpand: false)
     }
     
     @objc func showMenu() {
@@ -133,30 +131,19 @@ class ContainerViewController: UIViewController {
             // To expand
             currentState = .Expanded
             // Movie
-            let mainPosition = view.bounds.size.width * (1 + minProportion/2) - menuViewExpandedOffset
-            doTheAniminate(mainPosition: mainPosition, mainProportion: minProportion, blackCoverAlpha: 0)
+            animateMainViewXPosition(targetPosition: mainNavigationController.view.frame.width - menuViewExpandedOffset)
         }
         else{
             // To hide
-            doTheAniminate(mainPosition: view.bounds.size.width/2, mainProportion: 1, blackCoverAlpha: 1, completion: { (finish: Bool)-> Void in
+            animateMainViewXPosition(targetPosition: 0, completion: {
+                (finished: Bool) -> Void in
                 self.currentState = .Collapsed
                 self.menuViewController?.view.removeFromSuperview()
                 self.menuViewController = nil
-                self.blackCover?.removeFromSuperview()
-                self.blackCover = nil
             })
         }
     }
     
-    func doTheAniminate(mainPosition: CGFloat, mainProportion: CGFloat, blackCoverAlpha: CGFloat, completion: ((Bool) -> Void)! = nil) {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            self.mainNavigationController.view.center.x = mainPosition
-            self.blackCover?.alpha = blackCoverAlpha
-            // Scale main view
-            self.mainNavigationController.view.transform = CGAffineTransform.identity.scaledBy(x: mainProportion, y: mainProportion)
-        }, completion: completion)
-        
-    }
     func animateMainViewXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .curveEaseInOut, animations: { self.mainNavigationController.view.frame.origin.x = targetPosition }, completion: completion)
     }
@@ -179,11 +166,6 @@ class ContainerViewController: UIViewController {
             
             addChildViewController(menuViewController!)
             menuViewController!.didMove(toParentViewController: self)
-            
-            // Add black cover
-            blackCover = UIView(frame: self.view.frame.offsetBy(dx: 0, dy: 0))
-            blackCover!.backgroundColor = UIColor.black
-            self.view.insertSubview(blackCover!, belowSubview: mainNavigationController.view)
         }
     }
 }
