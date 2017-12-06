@@ -34,6 +34,9 @@ class ContainerViewController: UIViewController {
         
         // Navigation Bar left button item
         mainViewController = mainNavigationController.viewControllers.first as! DigestTableViewController
+        
+        mainViewController.delegate = self
+        
         mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
         
         // Add Pan Gesture
@@ -67,7 +70,7 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    let menuViewExpandedOffset: CGFloat = 250
+    let menuViewExpandedOffset: CGFloat = 350
     
     
     //MARK: Actions
@@ -162,6 +165,9 @@ class ContainerViewController: UIViewController {
     func addMenuViewController(){
         if(menuViewController==nil){
             menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menuView") as? MenuViewController
+            
+            menuViewController?.delegate = mainViewController
+            menuViewController!.menuCells = MenuCell.loadMenuCell()
             view.insertSubview(menuViewController!.view, belowSubview: mainNavigationController.view)
             
             addChildViewController(menuViewController!)
@@ -170,3 +176,9 @@ class ContainerViewController: UIViewController {
     }
 }
 
+//MARK: DigestTableViewController Delegate
+extension ContainerViewController: DigestTableViewControllerDelegate {
+    func collapseMenuViewController(){
+        animateMainView(shouldExpand: false)
+    }
+}

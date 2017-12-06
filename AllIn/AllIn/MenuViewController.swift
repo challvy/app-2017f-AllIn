@@ -10,15 +10,19 @@ import UIKit
 @IBDesignable
 class MenuViewController: UIViewController {
 
+    //MARK: Properties
+    
+    @IBInspectable @IBOutlet weak var menuTableView: UITableView!
+    var delegate: MenuViewControllerDelegate?
+    var menuCells: [MenuCell]!
+    
+    enum CellIdentifiers {
+            static let menuCell = "MenuTableViewCell"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //menuTableView.reloadData()
     }
     
 
@@ -32,4 +36,28 @@ class MenuViewController: UIViewController {
     }
     */
 
+}
+
+//MARK: Table View Data Source
+extension MenuViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuCells.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.menuCell, for: indexPath) as? MenuTableViewCell else {
+            fatalError("The dequeued cell is not an instance of MenuTableViewCell")
+        }
+        cell.configureForMenu(menuCells[indexPath.row])
+        return cell
+    }
+}
+
+//MARK: Table View Delegate
+extension MenuViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let menuCell = menuCells[indexPath.row]
+        delegate?.didSelectMenuCell(menuCell)
+    }
 }

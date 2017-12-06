@@ -17,4 +17,12 @@ struct MenuCell{
         self.title = title
         self.image = image
     }
+    
+    static func loadMenuCell() -> [MenuCell] {
+        return [
+            MenuCell(title: "QQ", image: nil),
+            MenuCell(title: "Weibo", image: nil),
+            MenuCell(title: "CSDN Blog", image: nil)
+        ]
+    }
 }

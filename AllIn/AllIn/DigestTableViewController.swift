@@ -12,6 +12,7 @@ class DigestTableViewController: UITableViewController {
     //MARK: Properties
     @IBOutlet weak var menuBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var digestNavigationItem: UINavigationItem!
+    var delegate: DigestTableViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,4 +118,11 @@ class DigestTableViewController: UITableViewController {
     }
  
 
+}
+
+extension DigestTableViewController: MenuViewControllerDelegate{
+    func didSelectMenuCell(_ menuCell: MenuCell){
+        print("did select menu cell\n")
+        delegate?.collapseMenuViewController()
+    }
 }
