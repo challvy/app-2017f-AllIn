@@ -70,7 +70,7 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    let menuViewExpandedOffset: CGFloat = 350
+    let menuViewExpandedOffset: CGFloat = 150
     
     
     //MARK: Actions
