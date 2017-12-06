@@ -20,21 +20,34 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // Set StatusBar Content Light Color
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+        // Add background for root container
+        let imageView = UIImageView(image: UIImage(named: "back"))
+        imageView.frame = UIScreen.main.bounds
+        self.view.addSubview(imageView)
+        
         // Initialize Main View
-        mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainNavigation") as! UINavigationController
+        mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "digestNavigation") as! UINavigationController
         view.addSubview(mainNavigationController.view)
         
         // Navigation Bar left button item
-        mainViewController = mainNavigationController.viewControllers.first as! MainViewController
+        mainViewController = mainNavigationController.viewControllers.first as! DigestTableViewController
+        
+        mainViewController.delegate = self
+        
         mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
         
         // Add Pan Gesture
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(recognizer:)))
         mainNavigationController.view.addGestureRecognizer(panGestureRecognizer)
         
+        /*
         // Add Tap Gesture to pick up the menu
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlePanGesture as () -> ()))
         mainNavigationController.view.addGestureRecognizer(tapGestureRecognizer)
+        */
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,8 +57,11 @@ class ContainerViewController: UIViewController {
 
     //MARK: Properties
     var mainNavigationController: UINavigationController!
-    var mainViewController: MainViewController!
+    
+    var mainViewController: DigestTableViewController!
+    
     var menuViewController: MenuViewController?
+    
     var currentState = MenuState.Collapsed{
         didSet{
             // show shadow when collapsed
@@ -54,10 +70,16 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    let menuViewExpandedOffset: CGFloat = 250
+    let menuViewExpandedOffset: CGFloat = 150
+    
     
     //MARK: Actions
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer){
+        
+        if mainNavigationController.visibleViewController != mainViewController {
+            return
+        }
+        
         switch recognizer.state {
         case .began:
             // Judge direction
@@ -66,11 +88,16 @@ class ContainerViewController: UIViewController {
                 currentState = .Expanding
                 addMenuViewController()
             }
+            
         case .changed:
             // Move mainview with gesture
-            let positionX = recognizer.view!.frame.origin.x + recognizer.translation(in: view).x
-            recognizer.view!.frame.origin.x = positionX < 0 ? 0 : positionX
+            var positionX = recognizer.view!.frame.origin.x + recognizer.translation(in: view).x
+            positionX = positionX < 0 ? 0 : positionX
+            
+            // Don't move in the left
+            recognizer.view!.frame.origin.x = positionX
             recognizer.setTranslation(CGPoint.zero, in: view)
+            
         case .ended:
             // Judge whether move halfway
             let hasMovedHalfway = recognizer.view!.center.x > view.bounds.size.width
@@ -81,9 +108,14 @@ class ContainerViewController: UIViewController {
     }
     
     @objc func handlePanGesture() {
-        if currentState == .Expanded{
-            animateMainView(shouldExpand: false)
+        if mainNavigationController.visibleViewController != mainViewController{
+            return
         }
+        if(currentState != .Expanded){
+            return
+        }
+        
+        animateMainView(shouldExpand: false)
     }
     
     @objc func showMenu() {
@@ -102,14 +134,13 @@ class ContainerViewController: UIViewController {
             // To expand
             currentState = .Expanded
             // Movie
-            animateMainViewXPosition(targetPosition: mainViewController.view.frame.width - menuViewExpandedOffset)
+            animateMainViewXPosition(targetPosition: mainNavigationController.view.frame.width - menuViewExpandedOffset)
         }
         else{
             // To hide
-            animateMainViewXPosition(targetPosition: 0, completion: { (finished: Bool) -> Void in
-                // Update state
+            animateMainViewXPosition(targetPosition: 0, completion: {
+                (finished: Bool) -> Void in
                 self.currentState = .Collapsed
-                // Movie
                 self.menuViewController?.view.removeFromSuperview()
                 self.menuViewController = nil
             })
@@ -134,7 +165,10 @@ class ContainerViewController: UIViewController {
     func addMenuViewController(){
         if(menuViewController==nil){
             menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menuView") as? MenuViewController
-            view.insertSubview(self.menuViewController!.view, at: 0)
+            
+            menuViewController?.delegate = mainViewController
+            menuViewController!.menuCells = MenuCell.loadMenuCell()
+            view.insertSubview(menuViewController!.view, belowSubview: mainNavigationController.view)
             
             addChildViewController(menuViewController!)
             menuViewController!.didMove(toParentViewController: self)
@@ -142,3 +176,9 @@ class ContainerViewController: UIViewController {
     }
 }
 
+//MARK: DigestTableViewController Delegate
+extension ContainerViewController: DigestTableViewControllerDelegate {
+    func collapseMenuViewController(){
+        animateMainView(shouldExpand: false)
+    }
+}

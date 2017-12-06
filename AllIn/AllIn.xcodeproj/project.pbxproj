@@ -13,8 +13,14 @@
 		182B97B81FCC0E71002D9A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B71FCC0E71002D9A55 /* Assets.xcassets */; };
 		182B97BB1FCC0E71002D9A55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B91FCC0E71002D9A55 /* LaunchScreen.storyboard */; };
 		182B97C61FCC0E71002D9A55 /* AllInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97C51FCC0E71002D9A55 /* AllInTests.swift */; };
-		183D0CAB1FD3E3C600069BDB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D0CAA1FD3E3C600069BDB /* MainViewController.swift */; };
 		183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */; };
+		18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C21FD51D1300E33377 /* DigestTableViewController.swift */; };
+		18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */; };
+		18E1111C1FD829D30042504C /* MenuViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1111B1FD829D30042504C /* MenuViewControllerDelegate.swift */; };
+		18E1111E1FD82CD80042504C /* DigestTableVIewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1111D1FD82CD80042504C /* DigestTableVIewControllerDelegate.swift */; };
+		18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */; };
+		18F57D401FD6D8B2000D7D91 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F57D3F1FD6D8B2000D7D91 /* MenuTableViewCell.swift */; };
+		18F57D421FD6DCAB000D7D91 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F57D411FD6DCAB000D7D91 /* MenuCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +44,14 @@
 		182B97C11FCC0E71002D9A55 /* AllInTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllInTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		182B97C51FCC0E71002D9A55 /* AllInTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllInTests.swift; sourceTree = "<group>"; };
 		182B97C71FCC0E71002D9A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		183D0CAA1FD3E3C600069BDB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		18D787C21FD51D1300E33377 /* DigestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewController.swift; sourceTree = "<group>"; };
+		18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewCell.swift; sourceTree = "<group>"; };
+		18E1111B1FD829D30042504C /* MenuViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewControllerDelegate.swift; sourceTree = "<group>"; };
+		18E1111D1FD82CD80042504C /* DigestTableVIewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableVIewControllerDelegate.swift; sourceTree = "<group>"; };
+		18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		18F57D3F1FD6D8B2000D7D91 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		18F57D411FD6DCAB000D7D91 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,13 +94,19 @@
 			isa = PBXGroup;
 			children = (
 				182B97B01FCC0E71002D9A55 /* AppDelegate.swift */,
-				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
 				182B97B41FCC0E71002D9A55 /* Main.storyboard */,
-				182B97B71FCC0E71002D9A55 /* Assets.xcassets */,
 				182B97B91FCC0E71002D9A55 /* LaunchScreen.storyboard */,
+				182B97B71FCC0E71002D9A55 /* Assets.xcassets */,
 				182B97BC1FCC0E71002D9A55 /* Info.plist */,
-				183D0CAA1FD3E3C600069BDB /* MainViewController.swift */,
+				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
+				18E1111D1FD82CD80042504C /* DigestTableVIewControllerDelegate.swift */,
+				18D787C21FD51D1300E33377 /* DigestTableViewController.swift */,
+				18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */,
+				18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */,
+				18E1111B1FD829D30042504C /* MenuViewControllerDelegate.swift */,
 				183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */,
+				18F57D3F1FD6D8B2000D7D91 /* MenuTableViewCell.swift */,
+				18F57D411FD6DCAB000D7D91 /* MenuCell.swift */,
 			);
 			path = AllIn;
 			sourceTree = "<group>";
@@ -204,10 +222,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				183D0CAB1FD3E3C600069BDB /* MainViewController.swift in Sources */,
 				182B97B31FCC0E71002D9A55 /* ContainerViewController.swift in Sources */,
 				182B97B11FCC0E71002D9A55 /* AppDelegate.swift in Sources */,
+				18F57D421FD6DCAB000D7D91 /* MenuCell.swift in Sources */,
+				18F57D401FD6D8B2000D7D91 /* MenuTableViewCell.swift in Sources */,
 				183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */,
+				18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */,
+				18E1111E1FD82CD80042504C /* DigestTableVIewControllerDelegate.swift in Sources */,
+				18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */,
+				18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */,
+				18E1111C1FD829D30042504C /* MenuViewControllerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
