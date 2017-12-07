@@ -24,20 +24,7 @@ class ContentViewController: UIViewController {
         if let digestCell = digestCell{
                 titleLabel.text = digestCell.title
         }
-        
-        // Set Button
-        let bundle = Bundle(for: type(of: self))
-        let isFavorite = UIImage(named: "isFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
-        let notFavorite = UIImage(named: "notFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
-        
-        favoriteButton.setImage(notFavorite, for: .normal)
-        favoriteButton.setImage(isFavorite, for: .highlighted)
-        favoriteButton.setImage(isFavorite, for: .selected)
-        favoriteButton.setImage(isFavorite, for: [.highlighted, .selected])
-        // Add constraints
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        setFavoriteButton(digestCell!.isFavorite)
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +36,7 @@ class ContentViewController: UIViewController {
     //MARK: Actions
     @IBAction func favorite(_ sender: UIButton){
         isChanged = !isChanged
+        favoriteButton.isSelected = !favoriteButton.isSelected
     }
     
     @IBAction func backUpper(_ sender: UIBarButtonItem){
@@ -59,8 +47,23 @@ class ContentViewController: UIViewController {
         }
     }
     
-    private func setFavoriteButton(){
+    private func setFavoriteButton(_ favorite: Bool){
+        // Set Button
+        let bundle = Bundle(for: type(of: self))
+        let isFavorite = UIImage(named: "isFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
+        let notFavorite = UIImage(named: "notFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
         
+        favoriteButton.setImage(isFavorite, for: .normal)
+        favoriteButton.setImage(notFavorite, for: .highlighted)
+        favoriteButton.setImage(notFavorite, for: .selected)
+        favoriteButton.setImage(notFavorite, for: [.highlighted, .selected])
+        
+        // Add constraints
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        favoriteButton.isSelected = favorite
     }
     /*
     // MARK: - Navigation
