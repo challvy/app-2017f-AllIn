@@ -22,7 +22,7 @@ class ContentViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
         if let digestCell = digestCell{
-                titleLabel.text = digestCell.title
+            titleLabel.text = digestCell.title
         }
         setFavoriteButton(digestCell!.isFavorite)
     }

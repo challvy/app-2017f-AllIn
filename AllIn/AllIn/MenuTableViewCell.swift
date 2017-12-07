@@ -20,7 +20,9 @@ class MenuTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
+        self.cellTitleLabel.textColor = UIColor(displayP3Red:64/256, green:64/256, blue:64/256, alpha:1.0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

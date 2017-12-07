@@ -36,18 +36,19 @@ class ContainerViewController: UIViewController {
         mainViewController = mainNavigationController.viewControllers.first as! DigestTableViewController
         
         mainViewController.delegate = self
-        mainViewController.curSource = "All In"
+        mainViewController.curSource = "AllIn"
         
         let exampleQQ = DigestCell(title: "QQ的标题", abstract: "QQ的摘要")!
         let exampleWeibo = DigestCell(title: "UC震惊部惨遭解散", abstract: "这是Weibo的内容")!
         mainViewController.allIn = [
-            "All In" : [ exampleQQ, exampleWeibo],
+            "AllIn" : [ exampleQQ, exampleWeibo],
             "Favorites" : [],
             "QQ" : [exampleQQ],
             "Weibo" : [exampleWeibo]
         ]
         
         mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
+        mainViewController.navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "MenuImage") //MenuImage is here!
         
         // Add Pan Gesture
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(recognizer:)))
@@ -80,7 +81,7 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    let menuViewExpandedOffset: CGFloat = 200
+    let menuViewExpandedOffset: CGFloat = 80
     
     
     //MARK: Actions
