@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182B106F1FD8F47100A8FCE0 /* DigestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B106E1FD8F47100A8FCE0 /* DigestCell.swift */; };
+		182B10731FD90D2300A8FCE0 /* ContentViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B10721FD90D2300A8FCE0 /* ContentViewControllerDelegate.swift */; };
 		182B97B11FCC0E71002D9A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97B01FCC0E71002D9A55 /* AppDelegate.swift */; };
 		182B97B31FCC0E71002D9A55 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */; };
 		182B97B61FCC0E71002D9A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B41FCC0E71002D9A55 /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		182B106E1FD8F47100A8FCE0 /* DigestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestCell.swift; sourceTree = "<group>"; };
+		182B10721FD90D2300A8FCE0 /* ContentViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewControllerDelegate.swift; sourceTree = "<group>"; };
 		182B97AD1FCC0E71002D9A55 /* AllIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		182B97B01FCC0E71002D9A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -93,20 +97,22 @@
 		182B97AF1FCC0E71002D9A55 /* AllIn */ = {
 			isa = PBXGroup;
 			children = (
-				182B97B01FCC0E71002D9A55 /* AppDelegate.swift */,
 				182B97B41FCC0E71002D9A55 /* Main.storyboard */,
 				182B97B91FCC0E71002D9A55 /* LaunchScreen.storyboard */,
 				182B97B71FCC0E71002D9A55 /* Assets.xcassets */,
 				182B97BC1FCC0E71002D9A55 /* Info.plist */,
+				182B97B01FCC0E71002D9A55 /* AppDelegate.swift */,
 				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
 				18E1111D1FD82CD80042504C /* DigestTableVIewControllerDelegate.swift */,
 				18D787C21FD51D1300E33377 /* DigestTableViewController.swift */,
 				18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */,
-				18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */,
+				182B106E1FD8F47100A8FCE0 /* DigestCell.swift */,
 				18E1111B1FD829D30042504C /* MenuViewControllerDelegate.swift */,
 				183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */,
 				18F57D3F1FD6D8B2000D7D91 /* MenuTableViewCell.swift */,
 				18F57D411FD6DCAB000D7D91 /* MenuCell.swift */,
+				182B10721FD90D2300A8FCE0 /* ContentViewControllerDelegate.swift */,
+				18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */,
 			);
 			path = AllIn;
 			sourceTree = "<group>";
@@ -225,9 +231,11 @@
 				182B97B31FCC0E71002D9A55 /* ContainerViewController.swift in Sources */,
 				182B97B11FCC0E71002D9A55 /* AppDelegate.swift in Sources */,
 				18F57D421FD6DCAB000D7D91 /* MenuCell.swift in Sources */,
+				182B10731FD90D2300A8FCE0 /* ContentViewControllerDelegate.swift in Sources */,
 				18F57D401FD6D8B2000D7D91 /* MenuTableViewCell.swift in Sources */,
 				183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */,
 				18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */,
+				182B106F1FD8F47100A8FCE0 /* DigestCell.swift in Sources */,
 				18E1111E1FD82CD80042504C /* DigestTableVIewControllerDelegate.swift in Sources */,
 				18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */,
 				18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */,

@@ -36,6 +36,16 @@ class ContainerViewController: UIViewController {
         mainViewController = mainNavigationController.viewControllers.first as! DigestTableViewController
         
         mainViewController.delegate = self
+        mainViewController.curSource = "All In"
+        
+        let exampleQQ = DigestCell(title: "QQ的标题", abstract: "QQ的摘要")!
+        let exampleWeibo = DigestCell(title: "UC震惊部惨遭解散", abstract: "这是Weibo的内容")!
+        mainViewController.allIn = [
+            "All In" : [ exampleQQ, exampleWeibo],
+            "Favorites" : [],
+            "QQ" : [exampleQQ],
+            "Weibo" : [exampleWeibo]
+        ]
         
         mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
         
@@ -70,7 +80,7 @@ class ContainerViewController: UIViewController {
         }
     }
     
-    let menuViewExpandedOffset: CGFloat = 150
+    let menuViewExpandedOffset: CGFloat = 200
     
     
     //MARK: Actions
