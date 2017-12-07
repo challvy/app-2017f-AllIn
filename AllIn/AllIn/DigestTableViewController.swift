@@ -35,16 +35,18 @@ class DigestTableViewController: UITableViewController {
         
         // Navigation Settings
         
+        curDigestCells = allIn[curSource]
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.barTintColor = UIColor(displayP3Red:65/256, green:171/256, blue:225/256, alpha:1.0)
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         
         menuBarButtonItem.tintColor = UIColor.white
         digestNavigationItem.title = curSource
         digestNavigationItem.titleView?.tintColor = UIColor.white
- 
-        curDigestCells = allIn[curSource]
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
