@@ -113,7 +113,6 @@
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="l7Q-9k-bbT">
                                             <rect key="frame" x="160" y="7" width="55" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Favorite"/>
                                             <connections>
                                                 <action selector="favorite:" destination="622-fj-SMW" eventType="touchUpInside" id="fez-jE-oqt"/>
                                             </connections>
@@ -127,6 +126,7 @@
                         <viewLayoutGuide key="safeArea" id="YQA-1h-5cN"/>
                     </view>
                     <connections>
+                        <outlet property="favoriteButton" destination="l7Q-9k-bbT" id="d63-lz-y5O"/>
                         <outlet property="titleLabel" destination="Hx1-cc-Vxi" id="Ms7-4z-boo"/>
                     </connections>
                 </viewController>
@@ -143,7 +143,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ph1-Em-R1Q">
-                                <rect key="frame" x="0.0" y="177" width="375" height="490"/>
+                                <rect key="frame" x="0.0" y="177" width="375" height="363"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
