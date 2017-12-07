@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import Foundation
+
+protocol DigestTableViewControllerDelegate {
+    func collapseMenuViewController()
+}
 
 class DigestTableViewController: UITableViewController {
     

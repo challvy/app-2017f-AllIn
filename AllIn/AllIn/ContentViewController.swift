@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import Foundation
+
+protocol ContentViewControllerDelegate {
+    func didBackFromContent(_ isChanged: Bool, digestCell: DigestCell)
+}
 
 class ContentViewController: UIViewController {
 

@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import Foundation
+
+protocol MenuViewControllerDelegate {
+    func didSelectMenuCell(_ menuCell: MenuCell)
+}
 
 @IBDesignable
 class MenuViewController: UIViewController {
