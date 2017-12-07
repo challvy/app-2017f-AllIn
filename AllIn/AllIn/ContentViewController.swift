@@ -12,14 +12,16 @@ class ContentViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var titleLabel: UILabel!
     
-    var titleContent: String?
+    var digestCell: DigestCell?
+    var delegate: ContentViewControllerDelegate?
+    var isChanged = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
-        if let titleContent = titleContent{
-                titleLabel.text = titleContent
+        if let digestCell = digestCell{
+                titleLabel.text = digestCell.title
         }
         
          
@@ -30,7 +32,20 @@ class ContentViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    //MARK: Actions
+    @IBAction func favorite(_ sender: UIButton){
+        isChanged = !isChanged
+    }
+    
+    @IBAction func backUpper(_ sender: UIBarButtonItem){
+        if let owningNavigationController = navigationController{
+            owningNavigationController.popViewController(animated: true)
+            delegate?.didBackFromContent(isChanged, digestCell: digestCell!)
+            owningNavigationController.navigationBar.isHidden = false
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

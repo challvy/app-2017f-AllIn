@@ -12,7 +12,17 @@ class DigestTableViewController: UITableViewController {
     //MARK: Properties
     @IBOutlet weak var menuBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var digestNavigationItem: UINavigationItem!
+    
     var delegate: DigestTableViewControllerDelegate?
+    
+    var allIn: [String : [DigestCell]]!
+    var curDigestCells : [DigestCell]?
+    var curSource: String!
+    let isReadedAccessoryViewSize: CGFloat = 10
+    
+    enum CellIdentifiers {
+        static let digestTableViewCell = "DigestTableViewCell"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +33,16 @@ class DigestTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        // Navigation Settings
+        
         self.navigationController?.navigationBar.barTintColor = UIColor(displayP3Red:65/256, green:171/256, blue:225/256, alpha:1.0)
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+        
         menuBarButtonItem.tintColor = UIColor.white
-        digestNavigationItem.title = "All In"
+        digestNavigationItem.title = curSource
         digestNavigationItem.titleView?.tintColor = UIColor.white
  
+        curDigestCells = allIn[curSource]
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,19 +59,33 @@ class DigestTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        guard let digestCells = curDigestCells else{
+            return 0
+        }
+        return digestCells.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "DigestTableViewCell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? DigestTableViewCell else {
-            fatalError("The dequeued cell is not an instance of DigestTableViewCel")
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.digestTableViewCell, for: indexPath) as? DigestTableViewCell else {
+            fatalError("The dequeued cell is not an instance of DigestTableViewCell")
         }
-
-        cell.titleLabel.text =  "震惊！UC部门惨遭解散"
-        cell.abstractLabel.text = "没什么好讲的就这样吧"
-
+        guard let digestCell = curDigestCells?[indexPath.row] else {
+            fatalError("digestCell = nil")
+        }
+        
+        if(!digestCell.isReaded){
+            cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: isReadedAccessoryViewSize, height: isReadedAccessoryViewSize))
+            cell.accessoryView?.layer.cornerRadius = isReadedAccessoryViewSize/2
+            cell.accessoryView?.backgroundColor = UIColor(red: 240/255, green: 0/255, blue: 0/255, alpha: 0.7)
+        } else{
+            cell.accessoryView = nil
+        }
+        
+        cell.titleLabel.text =  digestCell.title
+        cell.abstractLabel.text = digestCell.abstract ?? ""
+        
         return cell
     }
  
@@ -110,8 +138,14 @@ class DigestTableViewController: UITableViewController {
             guard let contentViewController = segue.destination as? ContentViewController else{
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            
-            contentViewController.titleContent = "震惊！UC部门惨遭解散"
+            guard let selectedDigestTableViewCell = sender as? DigestTableViewCell else{
+                fatalError("Unexpected sender: \(String(describing: sender))")
+            }
+            guard let indexPath = tableView.indexPath(for: selectedDigestTableViewCell) else{
+                fatalError("The selected cell is not being display by the table")
+            }
+            contentViewController.digestCell = curDigestCells![indexPath.row]
+            contentViewController.delegate = self
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
@@ -122,7 +156,29 @@ class DigestTableViewController: UITableViewController {
 
 extension DigestTableViewController: MenuViewControllerDelegate{
     func didSelectMenuCell(_ menuCell: MenuCell){
-        print("did select menu cell\n")
+        curSource = menuCell.title
+        curDigestCells = allIn[curSource]
+        digestNavigationItem.title = curSource
+        self.tableView.reloadData()
         delegate?.collapseMenuViewController()
+    }
+}
+
+extension DigestTableViewController: ContentViewControllerDelegate{
+    func didBackFromContent(_ isChanged: Bool, digestCell: DigestCell){
+        digestCell.isReaded = true
+        if(isChanged){
+            digestCell.isFavorite = !digestCell.isFavorite
+            if(digestCell.isFavorite){
+                allIn["Favorites"]?.append(digestCell)
+            }
+            else{
+                if let indexOfDigestCell = allIn["Favorites"]?.index(of: digestCell){
+                    allIn["Favorites"]?.remove(at: indexOfDigestCell)
+                    curDigestCells = allIn[curSource]
+                }
+            }
+        }
+        self.tableView.reloadData()
     }
 }

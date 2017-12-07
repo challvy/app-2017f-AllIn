@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct MenuCell{
+public class MenuCell{
     
     let title: String
     let image: UIImage?
@@ -20,9 +20,10 @@ struct MenuCell{
     
     static func loadMenuCell() -> [MenuCell] {
         return [
+            MenuCell(title: "All In", image: nil),
+            MenuCell(title: "Favorites", image: nil),
             MenuCell(title: "QQ", image: nil),
-            MenuCell(title: "Weibo", image: nil),
-            MenuCell(title: "CSDN Blog", image: nil)
+            MenuCell(title: "Weibo", image: nil)
         ]
     }
 }
