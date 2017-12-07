@@ -11,6 +11,7 @@ class ContentViewController: UIViewController {
 
     //MARK: Properties
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     var digestCell: DigestCell?
     var delegate: ContentViewControllerDelegate?
@@ -24,7 +25,19 @@ class ContentViewController: UIViewController {
                 titleLabel.text = digestCell.title
         }
         
-         
+        // Set Button
+        let bundle = Bundle(for: type(of: self))
+        let isFavorite = UIImage(named: "isFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
+        let notFavorite = UIImage(named: "notFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
+        
+        favoriteButton.setImage(notFavorite, for: .normal)
+        favoriteButton.setImage(isFavorite, for: .highlighted)
+        favoriteButton.setImage(isFavorite, for: .selected)
+        favoriteButton.setImage(isFavorite, for: [.highlighted, .selected])
+        // Add constraints
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,6 +59,9 @@ class ContentViewController: UIViewController {
         }
     }
     
+    private func setFavoriteButton(){
+        
+    }
     /*
     // MARK: - Navigation
 

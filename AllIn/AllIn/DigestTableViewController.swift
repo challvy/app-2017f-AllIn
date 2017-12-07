@@ -78,7 +78,7 @@ class DigestTableViewController: UITableViewController {
         if(!digestCell.isReaded){
             cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: isReadedAccessoryViewSize, height: isReadedAccessoryViewSize))
             cell.accessoryView?.layer.cornerRadius = isReadedAccessoryViewSize/2
-            cell.accessoryView?.backgroundColor = UIColor(red: 240/255, green: 0/255, blue: 0/255, alpha: 0.7)
+            cell.accessoryView?.backgroundColor = UIColor(red: 0xf3/255, green: 0x68/255, blue: 0x38/255, alpha: 0.7)
         } else{
             cell.accessoryView = nil
         }
