@@ -20,10 +20,10 @@ public class MenuCell{
     
     static func loadMenuCell() -> [MenuCell] {
         return [
-            MenuCell(title: "AllIn", image: #imageLiteral(resourceName: "AllInerImage")),
+            MenuCell(title: "AllIn", image: #imageLiteral(resourceName: "AllInImage")),
+            MenuCell(title: "Favorites", image: #imageLiteral(resourceName: "isFavoriteImage")),
             MenuCell(title: "QQ", image: #imageLiteral(resourceName: "QQImage")),
-            MenuCell(title: "Weibo", image: #imageLiteral(resourceName: "WeiboImage")),
-            MenuCell(title: "Favorites", image: #imageLiteral(resourceName: "isFavoriteImage"))
+            MenuCell(title: "Weibo", image: #imageLiteral(resourceName: "WeiboImage"))
         ]
     }
 }

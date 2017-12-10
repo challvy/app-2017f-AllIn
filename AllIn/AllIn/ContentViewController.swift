@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import Foundation
+
+protocol ContentViewControllerDelegate {
+    func didBackFromContent(_ isChanged: Bool, digestCell: DigestCell)
+}
 
 class ContentViewController: UIViewController {
 
@@ -22,7 +27,7 @@ class ContentViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
         if let digestCell = digestCell{
-            titleLabel.text = digestCell.title
+                titleLabel.text = digestCell.title
         }
         setFavoriteButton(digestCell!.isFavorite)
     }
@@ -50,10 +55,10 @@ class ContentViewController: UIViewController {
     private func setFavoriteButton(_ favorite: Bool){
         // Set Button
         let bundle = Bundle(for: type(of: self))
-        let isFavorite = UIImage(named: "isFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
+        //let isFavorite = UIImage(named: "isFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
         let notFavorite = UIImage(named: "notFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
         
-        favoriteButton.setImage(isFavorite, for: .normal)
+        favoriteButton.setImage(notFavorite, for: .normal)
         favoriteButton.setImage(notFavorite, for: .highlighted)
         favoriteButton.setImage(notFavorite, for: .selected)
         favoriteButton.setImage(notFavorite, for: [.highlighted, .selected])
