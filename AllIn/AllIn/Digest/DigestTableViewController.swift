@@ -49,11 +49,9 @@ class DigestTableViewController: UITableViewController {
     }
     
     @objc func refreshData() {
-        //移除老数据
         self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
-
+        
         if let rssLink = curURLString {
-            self.allIn[curSource]!.removeAll()
             
             var req = URLRequest(urlString: rssLink)!
             req.timeoutInterval = 5
@@ -63,13 +61,20 @@ class DigestTableViewController: UITableViewController {
                 if error != nil{
                     print(error!.localizedDescription)
                 } else{
+                    print("get data from Rss Source in refreshData")
                     let parser = XMLParser(data: data!)
                     let rssXMLParser = RssXMLParser()
                     parser.delegate = rssXMLParser
                     parser.parse()
-                    for rssitem in rssXMLParser.rssItems{
-                        self.allIn[self.curSource]!.append(DigestCell(rssItem: rssitem))
+
+                    for (index, rssItem) in rssXMLParser.rssItems.enumerated() {
+                        if(DigestCell.checkItemExist(digestCells: self.allIn[self.curSource]!, rssItem: rssItem)){
+                            print("Break at index: ", index)
+                            break
+                        }
+                        self.allIn[self.curSource]!.insert(DigestCell(rssItem: rssItem), at: index)
                     }
+                    
                     DispatchQueue.main.async {
                         self.curDigestCells = self.allIn[self.curSource]
                         self.tableView.reloadData()
@@ -78,6 +83,7 @@ class DigestTableViewController: UITableViewController {
                 }
             }
             dataTask.resume()
+            
         } else{
             self.refreshControl!.endRefreshing()
         }
@@ -109,7 +115,6 @@ class DigestTableViewController: UITableViewController {
         guard let digestCells = curDigestCells else{
             return 0
         }
-        print("reload")
         return digestCells.count
     }
 
@@ -137,7 +142,12 @@ class DigestTableViewController: UITableViewController {
         
         cell.titleLabel.text =  digestCell.rssItem._title
         cell.dateLabel.text = digestCell.rssItem._pubDate
-        cell.accessoryType = .disclosureIndicator
+        
+        if(!digestCell.isReaded){
+            cell.accessoryType = .disclosureIndicator
+        } else{
+            cell.accessoryType = .none
+        }
         
         return cell
     }
@@ -236,13 +246,18 @@ extension DigestTableViewController: MenuViewControllerDelegate{
                 if error != nil{
                     print(error!.localizedDescription)
                 } else{
+                    print("get data from Rss Source in didSelectMenuCell")
                     let parser = XMLParser(data: data!)
                     let rssXMLParser = RssXMLParser()
                     parser.delegate = rssXMLParser
                     parser.parse()
-                    print(rssXMLParser.rssItems[0]._title)
-                    for rssitem in rssXMLParser.rssItems{
-                        self.allIn[self.curSource]!.append(DigestCell(rssItem: rssitem))
+                    
+                    for (index, rssItem) in rssXMLParser.rssItems.enumerated() {
+                        if(DigestCell.checkItemExist(digestCells: self.allIn[self.curSource]!, rssItem: rssItem)) {
+                            print("Break at index: ", index)
+                            break
+                        }
+                        self.allIn[self.curSource]!.insert(DigestCell(rssItem: rssItem), at: index)
                     }
                     DispatchQueue.main.async {
                         self.curDigestCells = self.allIn[self.curSource]
@@ -250,6 +265,7 @@ extension DigestTableViewController: MenuViewControllerDelegate{
                     }
                 }
             }
+            
             dataTask.resume()
         } else{
             curDigestCells = allIn[curSource]
@@ -265,7 +281,8 @@ extension DigestTableViewController: ContentViewControllerDelegate{
         if(isChanged){
             digestCell.isFavorite = !digestCell.isFavorite
             if(digestCell.isFavorite){
-                allIn["Favorites"]?.append(digestCell)
+                allIn["Favorites"] = allIn["Favorites"] ?? []
+                allIn["Favorites"]!.append(digestCell)
             }
             else{
                 if let indexOfDigestCell = allIn["Favorites"]?.index(of: digestCell){

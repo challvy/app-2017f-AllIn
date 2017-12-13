@@ -22,4 +22,27 @@ public class DigestCell: NSObject {
         isFavorite = false
         isReaded = false
     }
+    
+    static func checkItemExist(digestCells: [DigestCell], rssItem: RssItem) -> Bool {
+        for digestCell in digestCells {
+            if digestCell.rssItem._link == rssItem._link {
+                print("Yes it exist")
+                return true
+            }
+        }
+        return false
+    }
+    
+    /*
+     // Error: digestCells is a let constant
+    static func addNewItems(digestCells: [DigestCell], rssItems: [RssItem]){
+        for (index, item) in rssItems.enumerated() {
+            if(DigestCell.checkItemExist(digestCells: digestCells, rssItem: item)){
+                break
+            }
+            digestCells.insert(DigestCell.init(rssItem: item), at: index)
+        }
+    }
+    */
+    
 }
