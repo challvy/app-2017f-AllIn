@@ -10,22 +10,16 @@ import Foundation
 public class DigestCell: NSObject {
     
     //MARK: Properties
-    var title: String
-    var abstract: String?
+    var rssItem: RssItem
     var isFavorite = false
     var isReaded = false
     
     //MARK: Initialization
     
-    init?(title: String, abstract: String?){
-        guard !title.isEmpty else{
-            return nil
-        }
-        
+    init(rssItem: RssItem){
         // Initialize stored properties
-        self.title = title
-        self.abstract = abstract
-        self.isFavorite = false
-        self.isReaded = false
+        self.rssItem = rssItem
+        isFavorite = false
+        isReaded = false
     }
 }

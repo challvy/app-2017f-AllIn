@@ -10,7 +10,6 @@
 		182B106F1FD8F47100A8FCE0 /* DigestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B106E1FD8F47100A8FCE0 /* DigestCell.swift */; };
 		182B10751FD9681600A8FCE0 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B10741FD9681600A8FCE0 /* FeedModel.swift */; };
 		182B10771FD969FE00A8FCE0 /* FeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B10761FD969FE00A8FCE0 /* FeedManager.swift */; };
-		182B10791FD979CC00A8FCE0 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B10781FD979CC00A8FCE0 /* HttpRequest.swift */; };
 		182B97B11FCC0E71002D9A55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97B01FCC0E71002D9A55 /* AppDelegate.swift */; };
 		182B97B31FCC0E71002D9A55 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */; };
 		182B97B61FCC0E71002D9A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B41FCC0E71002D9A55 /* Main.storyboard */; };
@@ -18,6 +17,9 @@
 		182B97C61FCC0E71002D9A55 /* AllInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97C51FCC0E71002D9A55 /* AllInTests.swift */; };
 		183942891FDD593700D292B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 183942881FDD593700D292B3 /* Images.xcassets */; };
 		183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */; };
+		1867B5E71FE00381007472A0 /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1867B5E61FE00381007472A0 /* SwiftHTTP.framework */; };
+		1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EC1FE007A1007472A0 /* RssItem.swift */; };
+		1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */; };
 		18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C21FD51D1300E33377 /* DigestTableViewController.swift */; };
 		18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */; };
 		18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */; };
@@ -39,7 +41,6 @@
 		182B106E1FD8F47100A8FCE0 /* DigestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestCell.swift; sourceTree = "<group>"; };
 		182B10741FD9681600A8FCE0 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		182B10761FD969FE00A8FCE0 /* FeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedManager.swift; sourceTree = "<group>"; };
-		182B10781FD979CC00A8FCE0 /* HttpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		182B97AD1FCC0E71002D9A55 /* AllIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		182B97B01FCC0E71002D9A55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +52,9 @@
 		182B97C71FCC0E71002D9A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		183942881FDD593700D292B3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		1867B5E61FE00381007472A0 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = Carthage/Build/iOS/SwiftHTTP.framework; sourceTree = "<group>"; };
+		1867B5EC1FE007A1007472A0 /* RssItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItem.swift; sourceTree = "<group>"; };
+		1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssXMLParser.swift; sourceTree = "<group>"; };
 		18D787C21FD51D1300E33377 /* DigestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewController.swift; sourceTree = "<group>"; };
 		18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewCell.swift; sourceTree = "<group>"; };
 		18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1867B5E71FE00381007472A0 /* SwiftHTTP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +87,7 @@
 				182B97AF1FCC0E71002D9A55 /* AllIn */,
 				182B97C41FCC0E71002D9A55 /* AllInTests */,
 				182B97AE1FCC0E71002D9A55 /* Products */,
+				1867B5E51FE00381007472A0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,21 +103,15 @@
 		182B97AF1FCC0E71002D9A55 /* AllIn */ = {
 			isa = PBXGroup;
 			children = (
+				1867B5EB1FE00719007472A0 /* RssFeed */,
+				1867B5EA1FE006F9007472A0 /* Menu */,
+				1867B5E91FE006DA007472A0 /* Digest */,
+				182B97B01FCC0E71002D9A55 /* AppDelegate.swift */,
+				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
+				18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */,
 				182B97B41FCC0E71002D9A55 /* Main.storyboard */,
 				182B97B71FCC0E71002D9A55 /* Assets.xcassets */,
 				182B97BC1FCC0E71002D9A55 /* Info.plist */,
-				182B97B01FCC0E71002D9A55 /* AppDelegate.swift */,
-				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
-				18D787C21FD51D1300E33377 /* DigestTableViewController.swift */,
-				18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */,
-				182B106E1FD8F47100A8FCE0 /* DigestCell.swift */,
-				183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */,
-				18F57D3F1FD6D8B2000D7D91 /* MenuTableViewCell.swift */,
-				18F57D411FD6DCAB000D7D91 /* MenuCell.swift */,
-				18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */,
-				182B10741FD9681600A8FCE0 /* FeedModel.swift */,
-				182B10761FD969FE00A8FCE0 /* FeedManager.swift */,
-				182B10781FD979CC00A8FCE0 /* HttpRequest.swift */,
 				183942881FDD593700D292B3 /* Images.xcassets */,
 			);
 			path = AllIn;
@@ -126,6 +126,45 @@
 			path = AllInTests;
 			sourceTree = "<group>";
 		};
+		1867B5E51FE00381007472A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1867B5E61FE00381007472A0 /* SwiftHTTP.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1867B5E91FE006DA007472A0 /* Digest */ = {
+			isa = PBXGroup;
+			children = (
+				18D787C21FD51D1300E33377 /* DigestTableViewController.swift */,
+				18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */,
+				182B106E1FD8F47100A8FCE0 /* DigestCell.swift */,
+			);
+			path = Digest;
+			sourceTree = "<group>";
+		};
+		1867B5EA1FE006F9007472A0 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */,
+				18F57D3F1FD6D8B2000D7D91 /* MenuTableViewCell.swift */,
+				18F57D411FD6DCAB000D7D91 /* MenuCell.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		1867B5EB1FE00719007472A0 /* RssFeed */ = {
+			isa = PBXGroup;
+			children = (
+				182B10761FD969FE00A8FCE0 /* FeedManager.swift */,
+				182B10741FD9681600A8FCE0 /* FeedModel.swift */,
+				1867B5EC1FE007A1007472A0 /* RssItem.swift */,
+				1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */,
+			);
+			path = RssFeed;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,6 +175,7 @@
 				182B97A91FCC0E71002D9A55 /* Sources */,
 				182B97AA1FCC0E71002D9A55 /* Frameworks */,
 				182B97AB1FCC0E71002D9A55 /* Resources */,
+				1867B5E81FE0038C007472A0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -223,6 +263,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1867B5E81FE0038C007472A0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftHTTP.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		182B97A91FCC0E71002D9A55 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -232,14 +289,15 @@
 				182B97B11FCC0E71002D9A55 /* AppDelegate.swift in Sources */,
 				18F57D421FD6DCAB000D7D91 /* MenuCell.swift in Sources */,
 				18F57D401FD6D8B2000D7D91 /* MenuTableViewCell.swift in Sources */,
+				1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */,
 				183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */,
 				18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */,
 				182B106F1FD8F47100A8FCE0 /* DigestCell.swift in Sources */,
 				182B10751FD9681600A8FCE0 /* FeedModel.swift in Sources */,
 				18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */,
-				182B10791FD979CC00A8FCE0 /* HttpRequest.swift in Sources */,
 				182B10771FD969FE00A8FCE0 /* FeedManager.swift in Sources */,
 				18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */,
+				1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +444,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ALWNDMAU64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = AllIn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.nju.AllIn;
@@ -402,7 +464,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ALWNDMAU64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = AllIn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.nju.AllIn;

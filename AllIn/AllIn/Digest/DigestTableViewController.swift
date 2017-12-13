@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import SwiftHTTP
 
 protocol DigestTableViewControllerDelegate {
     func collapseMenuViewController()
@@ -20,9 +21,10 @@ class DigestTableViewController: UITableViewController {
     
     var delegate: DigestTableViewControllerDelegate?
     
-    var allIn: [String : [DigestCell]]!
+    var allIn: [String : [DigestCell]] = [:]
     var curDigestCells : [DigestCell]?
     var curSource: String!
+    var curURLString: String?
     let isReadedAccessoryViewSize: CGFloat = 10
     
     enum CellIdentifiers {
@@ -41,8 +43,46 @@ class DigestTableViewController: UITableViewController {
         // Navigation Settings
         
         curDigestCells = allIn[curSource]
+        refreshControl = UIRefreshControl()
+        refreshControl!.addTarget(self, action: #selector(self.refreshData as ()->Void), for: .valueChanged)
+        
     }
+    
+    @objc func refreshData() {
+        //移除老数据
+        self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
 
+        if let rssLink = curURLString {
+            self.allIn[curSource]!.removeAll()
+            
+            var req = URLRequest(urlString: rssLink)!
+            req.timeoutInterval = 5
+            let session = URLSession.shared
+            
+            let dataTask = session.dataTask(with: req){ (data, response, error) -> Void in
+                if error != nil{
+                    print(error!.localizedDescription)
+                } else{
+                    let parser = XMLParser(data: data!)
+                    let rssXMLParser = RssXMLParser()
+                    parser.delegate = rssXMLParser
+                    parser.parse()
+                    for rssitem in rssXMLParser.rssItems{
+                        self.allIn[self.curSource]!.append(DigestCell(rssItem: rssitem))
+                    }
+                    DispatchQueue.main.async {
+                        self.curDigestCells = self.allIn[self.curSource]
+                        self.tableView.reloadData()
+                        self.refreshControl!.endRefreshing()
+                    }
+                }
+            }
+            dataTask.resume()
+        } else{
+            self.refreshControl!.endRefreshing()
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.barTintColor = UIColor(displayP3Red:65/256, green:171/256, blue:225/256, alpha:1.0)
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
@@ -69,6 +109,7 @@ class DigestTableViewController: UITableViewController {
         guard let digestCells = curDigestCells else{
             return 0
         }
+        print("reload")
         return digestCells.count
     }
 
@@ -82,6 +123,9 @@ class DigestTableViewController: UITableViewController {
             fatalError("digestCell = nil")
         }
         
+        
+        /*
+        // 未读消息显示小红点
         if(!digestCell.isReaded){
             cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: isReadedAccessoryViewSize, height: isReadedAccessoryViewSize))
             cell.accessoryView?.layer.cornerRadius = isReadedAccessoryViewSize/2
@@ -89,14 +133,27 @@ class DigestTableViewController: UITableViewController {
         } else{
             cell.accessoryView = nil
         }
+         */
         
-        cell.titleLabel.text =  digestCell.title
-        cell.abstractLabel.text = digestCell.abstract ?? ""
+        cell.titleLabel.text =  digestCell.rssItem._title
+        cell.dateLabel.text = digestCell.rssItem._pubDate
+        cell.accessoryType = .disclosureIndicator
         
         return cell
     }
  
-
+    /*
+    override public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        //设置cell的显示动画为3D缩放
+        //xy方向缩放的初始值为0.1
+        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
+        //设置动画时间为0.25秒，xy方向缩放的最终值为1
+        UIView.animate(withDuration: 0.25, animations: {
+            cell.layer.transform=CATransform3DMakeScale(1, 1, 1)
+        })
+    }
+     */
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -153,6 +210,7 @@ class DigestTableViewController: UITableViewController {
             }
             contentViewController.digestCell = curDigestCells![indexPath.row]
             contentViewController.delegate = self
+            self.navigationController?.navigationBar.isHidden = true
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
@@ -164,9 +222,39 @@ class DigestTableViewController: UITableViewController {
 extension DigestTableViewController: MenuViewControllerDelegate{
     func didSelectMenuCell(_ menuCell: MenuCell){
         curSource = menuCell.title
-        curDigestCells = allIn[curSource]
         digestNavigationItem.title = curSource
-        self.tableView.reloadData()
+        
+        curURLString = menuCell.urlString
+        if let rssLink = curURLString {
+            self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
+            
+            var req = URLRequest(urlString: rssLink)!
+            req.timeoutInterval = 5
+            let session = URLSession.shared
+            
+            let dataTask = session.dataTask(with: req){ (data, response, error) -> Void in
+                if error != nil{
+                    print(error!.localizedDescription)
+                } else{
+                    let parser = XMLParser(data: data!)
+                    let rssXMLParser = RssXMLParser()
+                    parser.delegate = rssXMLParser
+                    parser.parse()
+                    print(rssXMLParser.rssItems[0]._title)
+                    for rssitem in rssXMLParser.rssItems{
+                        self.allIn[self.curSource]!.append(DigestCell(rssItem: rssitem))
+                    }
+                    DispatchQueue.main.async {
+                        self.curDigestCells = self.allIn[self.curSource]
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+            dataTask.resume()
+        } else{
+            curDigestCells = allIn[curSource]
+            self.tableView.reloadData()
+        }
         delegate?.collapseMenuViewController()
     }
 }

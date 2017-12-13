@@ -24,12 +24,29 @@ class ContentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        
         // Do any additional setup after loading the view.
         if let digestCell = digestCell{
-                titleLabel.text = digestCell.title
+                titleLabel.text = digestCell.rssItem._title
         }
         setFavoriteButton(digestCell!.isFavorite)
+        
+        if let rssLink = digestCell?.rssItem._link {
+            print(rssLink)
+            var req = URLRequest(urlString: rssLink)!
+            req.timeoutInterval = 5
+            let session = URLSession.shared
+            
+            let dataTask = session.dataTask(with: req){ (data, response, error) -> Void in
+                if error != nil{
+                    print(error!.localizedDescription)
+                } else{
+                    print(String.init(data: data!, encoding: String.Encoding.utf8))
+                }
+            }
+            dataTask.resume()
+        } else{
+        }
     }
     
     override func didReceiveMemoryWarning() {
