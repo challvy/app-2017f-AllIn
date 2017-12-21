@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 import SwiftHTTP
 
-protocol DigestTableViewControllerDelegate {
+@objc protocol DigestTableViewControllerDelegate {
     func collapseMenuViewController()
 }
 
@@ -19,7 +19,7 @@ class DigestTableViewController: UITableViewController {
     @IBOutlet weak var menuBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var digestNavigationItem: UINavigationItem!
     
-    var delegate: DigestTableViewControllerDelegate?
+    weak var delegate: DigestTableViewControllerDelegate?
     
     var allIn: [String : [DigestCell]] = [:]
     var curDigestCells : [DigestCell]?

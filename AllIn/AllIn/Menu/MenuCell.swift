@@ -11,6 +11,14 @@ import os.log
 
 public class MenuCell: NSObject, NSCoding {
     
+    static let rssSourceIcon = [
+        "AllIn": #imageLiteral(resourceName: "AllInImage"),
+        "QQ": #imageLiteral(resourceName: "QQImage"),
+        "Favorites": #imageLiteral(resourceName: "isFavoriteImage"),
+        "ZhihuDaily":  #imageLiteral(resourceName: "ZhihuDailyImage"),
+        "Weibo":  #imageLiteral(resourceName: "WeiboImage"),
+    ]
+    
     //MARK: Properties
     var title: String
     var image: UIImage?
@@ -27,6 +35,16 @@ public class MenuCell: NSObject, NSCoding {
     init(title: String, image: UIImage?, urlString: String?){
         self.title = title
         self.image = image
+        self.urlString = urlString
+    }
+    
+    init?(json: [String: Any]){
+        guard let title = json["title"] as? String,
+            let urlString = json["urlString"] as? String
+            else{
+                return nil
+        }
+        self.title = title
         self.urlString = urlString
     }
     

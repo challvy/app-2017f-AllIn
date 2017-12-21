@@ -8,7 +8,7 @@
 import UIKit
 import Foundation
 
-protocol MenuViewControllerDelegate {
+@objc protocol MenuViewControllerDelegate {
     func didSelectMenuCell(_ menuCell: MenuCell)
 }
 
@@ -16,9 +16,9 @@ protocol MenuViewControllerDelegate {
 class MenuViewController: UIViewController {
 
     //MARK: Properties
-    
+    @IBOutlet weak var allInImageView: UIImageView!
     @IBInspectable @IBOutlet weak var menuTableView: UITableView!
-    var delegate: MenuViewControllerDelegate?
+    weak var delegate: MenuViewControllerDelegate?
     var menuCells: [MenuCell]!
     
     enum CellIdentifiers {
@@ -28,6 +28,9 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //menuTableView.reloadData()
+        let alInImageClick = UITapGestureRecognizer(target: self, action: #selector(allInImageViewClick))
+        allInImageView.addGestureRecognizer(alInImageClick)
+        allInImageView.isUserInteractionEnabled = true
     }
     
 
@@ -41,6 +44,10 @@ class MenuViewController: UIViewController {
     }
     */
 
+    @objc func allInImageViewClick() -> Void {
+        let signInSignup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "signInSignUpView") as! SignInSignUpViewController
+        self.present(signInSignup, animated: true, completion: nil)
+    }
 }
 
 //MARK: Table View Data Source
