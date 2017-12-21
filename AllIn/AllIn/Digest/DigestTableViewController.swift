@@ -218,6 +218,7 @@ class DigestTableViewController: UITableViewController {
             guard let indexPath = tableView.indexPath(for: selectedDigestTableViewCell) else{
                 fatalError("The selected cell is not being display by the table")
             }
+            contentViewController.curSource = curSource
             contentViewController.digestCell = curDigestCells![indexPath.row]
             contentViewController.delegate = self
             self.navigationController?.navigationBar.isHidden = true
@@ -236,6 +237,7 @@ extension DigestTableViewController: MenuViewControllerDelegate{
         
         curURLString = menuCell.urlString
         if let rssLink = curURLString {
+            print(rssLink)
             self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
             
             var req = URLRequest(urlString: rssLink)!

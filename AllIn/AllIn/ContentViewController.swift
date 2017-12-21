@@ -17,23 +17,36 @@ class ContentViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var contentText: UITextView!
+    @IBOutlet weak var fontSizeButton: UIButton!
+    @IBOutlet weak var fontBoldButton: UIButton!
     
     var digestCell: DigestCell?
     var delegate: ContentViewControllerDelegate?
     var isChanged = false
+    var curSource: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "ReturnImage")
+        fontSizeButton.setImage(#imageLiteral(resourceName: "FontSizeImage"), for: .normal)
+        fontSizeButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        fontSizeButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        
+        fontBoldButton.setImage(#imageLiteral(resourceName: "FontBoldImage"), for: .normal)
+        fontBoldButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        fontBoldButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
+        
         if let digestCell = digestCell{
-                titleLabel.text = digestCell.rssItem._title
+            titleLabel.text = digestCell.rssItem._title
         }
         setFavoriteButton(digestCell!.isFavorite)
         
         if let rssLink = digestCell?.rssItem._link {
             print(rssLink)
-            var req = URLRequest(urlString: rssLink)!
+            var req = URLRequest(urlString: "http://feeds.feedburner.com/zhihu-daily")!
             req.timeoutInterval = 5
             let session = URLSession.shared
             
@@ -41,11 +54,20 @@ class ContentViewController: UIViewController {
                 if error != nil{
                     print(error!.localizedDescription)
                 } else{
-                    print(String.init(data: data!, encoding: String.Encoding.utf8))
+                    if self.curSource == "知乎日报"{
+                        let parser = XMLParser(data: data!)
+                        let zhihuDailyXMLParser = ZhihuDailyXMLParser()
+                        parser.delegate = zhihuDailyXMLParser
+                        parser.parse()
+                        
+                        DispatchQueue.main.async {
+                            //self.contentText.text.append(zhihuDailyXMLParser.curContent)
+                            self.contentText.text = String.init(data: data!, encoding: String.Encoding.utf8)
+                        }
+                    }
                 }
             }
             dataTask.resume()
-        } else{
         }
     }
     
@@ -72,8 +94,9 @@ class ContentViewController: UIViewController {
     private func setFavoriteButton(_ favorite: Bool){
         // Set Button
         let bundle = Bundle(for: type(of: self))
+        
         //let isFavorite = UIImage(named: "isFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
-        let notFavorite = UIImage(named: "notFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
+        let notFavorite = UIImage(named: "isFavoriteImage", in: bundle, compatibleWith: self.traitCollection)
         
         favoriteButton.setImage(notFavorite, for: .normal)
         favoriteButton.setImage(notFavorite, for: .highlighted)
@@ -82,9 +105,8 @@ class ContentViewController: UIViewController {
         
         // Add constraints
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        
+        favoriteButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        favoriteButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
         favoriteButton.isSelected = favorite
     }
     /*

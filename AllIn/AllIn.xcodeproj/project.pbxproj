@@ -15,11 +15,11 @@
 		182B97B61FCC0E71002D9A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B41FCC0E71002D9A55 /* Main.storyboard */; };
 		182B97B81FCC0E71002D9A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B71FCC0E71002D9A55 /* Assets.xcassets */; };
 		182B97C61FCC0E71002D9A55 /* AllInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97C51FCC0E71002D9A55 /* AllInTests.swift */; };
-		183942891FDD593700D292B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 183942881FDD593700D292B3 /* Images.xcassets */; };
 		183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */; };
 		1867B5E71FE00381007472A0 /* SwiftHTTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1867B5E61FE00381007472A0 /* SwiftHTTP.framework */; };
 		1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EC1FE007A1007472A0 /* RssItem.swift */; };
 		1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */; };
+		1872690A1FE6B1C1002D060F /* ZhihuDailyXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */; };
 		18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C21FD51D1300E33377 /* DigestTableViewController.swift */; };
 		18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */; };
 		18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */; };
@@ -50,11 +50,11 @@
 		182B97C11FCC0E71002D9A55 /* AllInTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllInTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		182B97C51FCC0E71002D9A55 /* AllInTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllInTests.swift; sourceTree = "<group>"; };
 		182B97C71FCC0E71002D9A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		183942881FDD593700D292B3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		1867B5E61FE00381007472A0 /* SwiftHTTP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHTTP.framework; path = Carthage/Build/iOS/SwiftHTTP.framework; sourceTree = "<group>"; };
 		1867B5EC1FE007A1007472A0 /* RssItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItem.swift; sourceTree = "<group>"; };
 		1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssXMLParser.swift; sourceTree = "<group>"; };
+		187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhihuDailyXMLParser.swift; sourceTree = "<group>"; };
 		18D787C21FD51D1300E33377 /* DigestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewController.swift; sourceTree = "<group>"; };
 		18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewCell.swift; sourceTree = "<group>"; };
 		18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +112,6 @@
 				182B97B41FCC0E71002D9A55 /* Main.storyboard */,
 				182B97B71FCC0E71002D9A55 /* Assets.xcassets */,
 				182B97BC1FCC0E71002D9A55 /* Info.plist */,
-				183942881FDD593700D292B3 /* Images.xcassets */,
 			);
 			path = AllIn;
 			sourceTree = "<group>";
@@ -161,6 +160,7 @@
 				182B10741FD9681600A8FCE0 /* FeedModel.swift */,
 				1867B5EC1FE007A1007472A0 /* RssItem.swift */,
 				1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */,
+				187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */,
 			);
 			path = RssFeed;
 			sourceTree = "<group>";
@@ -248,7 +248,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				183942891FDD593700D292B3 /* Images.xcassets in Resources */,
 				182B97B81FCC0E71002D9A55 /* Assets.xcassets in Resources */,
 				182B97B61FCC0E71002D9A55 /* Main.storyboard in Resources */,
 			);
@@ -292,6 +291,7 @@
 				1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */,
 				183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */,
 				18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */,
+				1872690A1FE6B1C1002D060F /* ZhihuDailyXMLParser.swift in Sources */,
 				182B106F1FD8F47100A8FCE0 /* DigestCell.swift in Sources */,
 				182B10751FD9681600A8FCE0 /* FeedModel.swift in Sources */,
 				18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */,
@@ -444,7 +444,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ALWNDMAU64;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -464,7 +464,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ALWNDMAU64;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

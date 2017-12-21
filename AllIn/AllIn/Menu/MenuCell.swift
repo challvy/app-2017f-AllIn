@@ -52,7 +52,7 @@ public class MenuCell: NSObject, NSCoding {
         return [
             MenuCell(title: "AllIn", image: #imageLiteral(resourceName: "AllInImage"), urlString: nil),
             MenuCell(title: "Favorites", image: #imageLiteral(resourceName: "isFavoriteImage"), urlString: nil),
-            MenuCell(title: "知乎日报", image: nil, urlString: "http://feeds.feedburner.com/zhihu-daily"),
+            MenuCell(title: "知乎日报", image: #imageLiteral(resourceName: "ZhihuDailyImage"), urlString: "http://feeds.feedburner.com/zhihu-daily"),
             MenuCell(title: "QQ", image: #imageLiteral(resourceName: "QQImage"),  urlString: nil),
             MenuCell(title: "Weibo", image: #imageLiteral(resourceName: "WeiboImage"),  urlString: nil),
         ]
