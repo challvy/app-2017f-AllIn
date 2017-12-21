@@ -76,6 +76,13 @@ class ContainerViewController: UIViewController {
     
     
     //MARK: Actions
+    @IBAction func unwindToContainer(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? SignInSignUpViewController,
+            let user = sourceViewController.user {
+            print("Hit here")
+        }
+    }
+    
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer){
         
         if mainNavigationController.visibleViewController != mainViewController {
@@ -182,5 +189,9 @@ class ContainerViewController: UIViewController {
 extension ContainerViewController: DigestTableViewControllerDelegate {
     func collapseMenuViewController(){
         animateMainView(shouldExpand: false)
+    }
+    func didClickAllInImageView(){
+        let signInSignup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "signInSignUpView") as! SignInSignUpViewController
+        self.present(signInSignup, animated: true, completion: nil)
     }
 }

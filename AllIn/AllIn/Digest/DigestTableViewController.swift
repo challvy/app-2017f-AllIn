@@ -11,6 +11,7 @@ import SwiftHTTP
 
 @objc protocol DigestTableViewControllerDelegate {
     func collapseMenuViewController()
+    func didClickAllInImageView()
 }
 
 class DigestTableViewController: UITableViewController {
@@ -294,5 +295,9 @@ extension DigestTableViewController: ContentViewControllerDelegate{
             }
         }
         self.tableView.reloadData()
+    }
+    
+    func didClickAllInImageView(){
+        self.delegate?.didClickAllInImageView()
     }
 }

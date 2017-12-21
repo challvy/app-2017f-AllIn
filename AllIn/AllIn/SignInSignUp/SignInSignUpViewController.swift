@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import os.log
 
 class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
 
+    static let UnWindSignInSignUpSegue = "unwindToContainerWithSender"
+    
     //MARK: Properties
     var txtAccount: UITextField!
     var txtPassword: UITextField!
@@ -17,6 +20,8 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
     var btnSignIn: UIButton!
     var btnSignUp: UIButton!
     var btnCancel: UIButton!
+    
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,16 +153,19 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
                     (userSchemaError, user) -> Void in
                     switch userSchemaError {
                     case .NONE:
-                        print(user!.account)
+                        self.user = user
+                        self.performSegue(withIdentifier: SignInSignUpViewController.UnWindSignInSignUpSegue, sender: self.btnSignIn)
                     case .INEXISTENT:
                         DispatchQueue.main.async {
                             self.txtAccount.text = nil
                             self.txtAccount.placeholder = "Non-existent Account"
+                            self.updateButtonState()
                         }
                     case .ERR_PASSWORD:
                         DispatchQueue.main.async {
                             self.txtPassword.text = nil
                             self.txtPassword.placeholder = "Incorrect Password"
+                            self.updateButtonState()
                         }
                     case .ERR_TASK:
                         print("Some thing maybe missing")
@@ -195,11 +203,13 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
                     
                     switch userSchemaError {
                     case .NONE:
-                        print(user!.account)
+                        self.user = user
+                        self.performSegue(withIdentifier: SignInSignUpViewController.UnWindSignInSignUpSegue, sender: self.btnSignIn)
                     case .EXISTENT:
                         DispatchQueue.main.async {
                             self.txtAccount.text = nil
                             self.txtAccount.placeholder = "Existent Account"
+                            self.updateButtonState()
                         }
                     case .ERR_TASK:
                         print("Some thing maybe missing")
@@ -225,6 +235,21 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
     //MARK: Navigation
     @objc func cancel(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    // This method lets you configure a view controller before it's presented.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        // Configure the destination view controller only when the save button is pressed.
+        guard let button = sender as? UIButton else {
+            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+        guard (button === btnSignIn) || (button === btnSignUp) else {
+            os_log("The SignIn SignUp was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
     }
 }
 

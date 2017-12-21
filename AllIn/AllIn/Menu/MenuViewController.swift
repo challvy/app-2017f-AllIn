@@ -10,6 +10,7 @@ import Foundation
 
 @objc protocol MenuViewControllerDelegate {
     func didSelectMenuCell(_ menuCell: MenuCell)
+    func didClickAllInImageView()
 }
 
 @IBDesignable
@@ -45,8 +46,7 @@ class MenuViewController: UIViewController {
     */
 
     @objc func allInImageViewClick() -> Void {
-        let signInSignup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "signInSignUpView") as! SignInSignUpViewController
-        self.present(signInSignup, animated: true, completion: nil)
+        self.delegate?.didClickAllInImageView()
     }
 }
 
