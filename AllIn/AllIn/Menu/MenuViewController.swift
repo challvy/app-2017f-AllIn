@@ -15,11 +15,13 @@ import Foundation
 
 @IBDesignable
 class MenuViewController: UIViewController {
-
+    
     //MARK: Properties
+    @IBOutlet weak var allInLabel: UILabel!
     @IBOutlet weak var allInImageView: UIImageView!
     @IBInspectable @IBOutlet weak var menuTableView: UITableView!
     weak var delegate: MenuViewControllerDelegate?
+    var userAccount: String?
     var menuCells: [MenuCell]!
     
     enum CellIdentifiers {
@@ -32,6 +34,7 @@ class MenuViewController: UIViewController {
         let alInImageClick = UITapGestureRecognizer(target: self, action: #selector(allInImageViewClick))
         allInImageView.addGestureRecognizer(alInImageClick)
         allInImageView.isUserInteractionEnabled = true
+        allInLabel!.text = userAccount ?? "AllIner"
     }
     
 

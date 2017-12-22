@@ -10,6 +10,7 @@ import Foundation
 struct User {
     let account: String
     let password: String
+    var rssSources = MenuCell.loadMenuCell()
 }
 
 extension User {
@@ -26,7 +27,7 @@ extension User {
         if let rssSources = json["rssSources"] as? [[String: Any]] {
             for each in rssSources {
                 let rssSource = MenuCell(json: each)!
-                print(rssSource.title)
+                self.rssSources.append(rssSource)
             }
         }
     }

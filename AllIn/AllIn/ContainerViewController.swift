@@ -71,6 +71,7 @@ class ContainerViewController: UIViewController {
             showShadowForMainViewController(shouldShowShadow)
         }
     }
+    var user: User? = nil
     
     let menuViewExpandedOffset: CGFloat = 150
     
@@ -79,7 +80,12 @@ class ContainerViewController: UIViewController {
     @IBAction func unwindToContainer(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? SignInSignUpViewController,
             let user = sourceViewController.user {
-            print("Hit here")
+            self.user = user
+            self.menuViewController?.menuCells = self.user!.rssSources
+            DispatchQueue.main.async {
+                self.menuViewController?.menuTableView.reloadData()
+                self.menuViewController?.allInLabel.text = self.user!.account
+            }
         }
     }
     
@@ -176,9 +182,13 @@ class ContainerViewController: UIViewController {
             menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menuView") as? MenuViewController
             
             menuViewController?.delegate = mainViewController
-            menuViewController!.menuCells = MenuCell.loadMenuCell()
+            if let user = self.user{
+                menuViewController!.menuCells = user.rssSources
+                menuViewController!.userAccount = user.account
+            } else {
+                menuViewController!.menuCells = MenuCell.loadMenuCell()
+            }
             view.insertSubview(menuViewController!.view, belowSubview: mainNavigationController.view)
-            
             addChildViewController(menuViewController!)
             menuViewController!.didMove(toParentViewController: self)
         }
