@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import Fuzi
 
 protocol ContentViewControllerDelegate {
     func didBackFromContent(_ isChanged: Bool, digestCell: DigestCell)
@@ -39,6 +40,8 @@ class ContentViewController: UIViewController {
         fontBoldButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         fontBoldButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
         
+        contentText.isEditable = false
+        
         if let digestCell = digestCell{
             titleLabel.text = digestCell.rssItem._title
         }
@@ -46,7 +49,7 @@ class ContentViewController: UIViewController {
         
         if let rssLink = digestCell?.rssItem._link {
             print(rssLink)
-            var req = URLRequest(urlString: "http://feeds.feedburner.com/zhihu-daily")!
+            var req = URLRequest(urlString: rssLink)!
             req.timeoutInterval = 5
             let session = URLSession.shared
             
@@ -55,15 +58,23 @@ class ContentViewController: UIViewController {
                     print(error!.localizedDescription)
                 } else{
                     if self.curSource == "知乎日报"{
-                        let parser = XMLParser(data: data!)
-                        let zhihuDailyXMLParser = ZhihuDailyXMLParser()
-                        parser.delegate = zhihuDailyXMLParser
-                        parser.parse()
+                        let html = String.init(data: data!, encoding: String.Encoding.utf8)!
+                        do {
+                            let doc = try HTMLDocument(string: html, encoding: String.Encoding.utf8)
+                            for div in doc.css("div"){
+                                if(div["class"] == "content") {
+                                    for p in div.xpath("//p") {
+                                        print(p.stringValue)
+                                    }
+                                    print(div.stringValue)
+                                    DispatchQueue.main.async {
+                                        //self.contentText.text.append(zhihuDailyXMLParser.curContent)
+                                        self.contentText.text = div.stringValue
+                                    }
+                                }
+                            }
+                        } catch {}
                         
-                        DispatchQueue.main.async {
-                            //self.contentText.text.append(zhihuDailyXMLParser.curContent)
-                            self.contentText.text = String.init(data: data!, encoding: String.Encoding.utf8)
-                        }
                     }
                 }
             }
