@@ -246,7 +246,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z14-39-Wcg">
-                                                            <rect key="frame" x="15" y="10" width="25" height="25"/>
+                                                            <rect key="frame" x="15" y="9.5" width="25" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="GlD-0C-xkZ"/>
                                                                 <constraint firstAttribute="width" constant="25" id="NII-ZV-A4f"/>

@@ -25,7 +25,7 @@ class MenuViewController: UIViewController {
     var menuCells: [MenuCell]!
     
     enum CellIdentifiers {
-            static let menuCell = "MenuTableViewCell"
+        static let menuCell = "MenuTableViewCell"
     }
     
     override func viewDidLoad() {

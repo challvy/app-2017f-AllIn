@@ -20,9 +20,10 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var txtTitle: UILabel!
     var txtCurDate: UILabel!
     var curDate: Date!
-    var txtLastReflashDate: UILabel!
-    var lastReflashDate: Date!
+    var txtLastRefreshDate: UILabel!
+    var lastRefreshDate: Date!
     var txtLine: UILabel!
+    var deltaTime: Double!
     @IBOutlet weak var digestTableView: UITableView!
     
     weak var delegate: DigestTableViewControllerDelegate?
@@ -76,11 +77,16 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         txtCurDate.textColor = UIColor(displayP3Red:64/255, green:64/255, blue:64/255, alpha:1)
         txtCurDate.textAlignment = .center
         
-        txtLastReflashDate = UILabel(frame: CGRect(x: 30, y: 70, width: mainTitleField.frame.size.width-60, height: 44))
-        txtLastReflashDate.text = "Updated \(dateformatter.string(from: curDate)) Ago"
-        txtLastReflashDate.font = UIFont.systemFont(ofSize: 10)
-        txtLastReflashDate.textColor = UIColor(displayP3Red:96/255, green:96/255, blue:96/255, alpha:1)
-        txtLastReflashDate.textAlignment = .center
+        txtLastRefreshDate = UILabel(frame: CGRect(x: 30, y: 70, width: mainTitleField.frame.size.width-60, height: 44))
+        if (deltaTime) != nil {
+            txtLastRefreshDate.text = "Updated \(Int(deltaTime!)) Seconds Ago"
+        } else {
+            txtLastRefreshDate.text = "Updated Just Now"
+        }
+        //txtLastReflashDate.text = "Updated \(Int(deltaTime!)) Seconds Ago"
+        txtLastRefreshDate.font = UIFont.systemFont(ofSize: 10)
+        txtLastRefreshDate.textColor = UIColor(displayP3Red:96/255, green:96/255, blue:96/255, alpha:1)
+        txtLastRefreshDate.textAlignment = .center
         
         txtLine = UILabel(frame: CGRect(x: 10, y: 119, width: mainTitleField.frame.size.width-20, height: 1))
         txtLine.font = UIFont.systemFont(ofSize: 24)
@@ -90,9 +96,10 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         mainTitleField.addSubview(txtTitle)
         mainTitleField.addSubview(txtCurDate)
-        mainTitleField.addSubview(txtLastReflashDate)
+        mainTitleField.addSubview(txtLastRefreshDate)
         mainTitleField.addSubview(txtLine)
     }
+
     
     @objc func refreshData() {
         self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
@@ -130,9 +137,15 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             dataTask.resume()
             
-        } else{
+        } else {
             self.digestTableView.refreshControl!.endRefreshing()
         }
+        if lastRefreshDate==nil {
+            lastRefreshDate = curDate
+        }
+        curDate = Date()
+        deltaTime = curDate.timeIntervalSince(lastRefreshDate)
+        txtLastRefreshDate.text = "Updated Just Now"
     }
     
     override func viewWillAppear(_ animated: Bool) {
