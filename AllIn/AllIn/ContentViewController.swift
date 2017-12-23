@@ -63,8 +63,24 @@ class ContentViewController: UIViewController {
                             let doc = try HTMLDocument(string: html, encoding: String.Encoding.utf8)
                             for div in doc.css("div"){
                                 if(div["class"] == "content") {
-                                    for p in div.xpath("//p") {
-                                        print(p.stringValue)
+                                    for divChild in div.children {
+                                        switch divChild.tag ?? "" {
+                                        case "p":
+                                            for each in divChild.children {
+                                                if ( each.tag == "strong" ){
+                                                    
+                                                }
+                                            }
+                                            print(divChild.stringValue)
+                                        case "figure":
+                                            for figureChild in divChild.children {
+                                                if(figureChild.tag == "img"){
+                                                    print("图片来源："+(figureChild.attributes["src"] ?? ""))
+                                                }
+                                            }
+                                        default:
+                                            print("Error: Unknown tag")
+                                        }
                                     }
                                     print(div.stringValue)
                                     DispatchQueue.main.async {
