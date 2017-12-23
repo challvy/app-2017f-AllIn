@@ -28,18 +28,22 @@ class ContainerViewController: UIViewController {
         imageView.frame = UIScreen.main.bounds
         self.view.addSubview(imageView)
         
+        mainNavigationController?.navigationBar.isHidden = true
+        
         // Initialize Main View
         mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "digestNavigation") as! UINavigationController
         view.addSubview(mainNavigationController.view)
         
         // Navigation Bar left button item
-        mainViewController = mainNavigationController.viewControllers.first as! DigestTableViewController
+        mainViewController = mainNavigationController.viewControllers.first as! DigestViewController
         
         mainViewController.delegate = self
         mainViewController.curSource = "AllIn"
         
+        /*
         mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
-        mainViewController.navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "MenuImage") //MenuImage is here!
+        mainViewController.navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "MenuImage") //MenuImage
+        */
         
         // Add Pan Gesture
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(recognizer:)))
@@ -60,7 +64,7 @@ class ContainerViewController: UIViewController {
     //MARK: Properties
     var mainNavigationController: UINavigationController!
     
-    var mainViewController: DigestTableViewController!
+    var mainViewController: DigestViewController!
     
     var menuViewController: MenuViewController?
     

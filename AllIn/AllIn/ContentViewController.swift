@@ -114,7 +114,7 @@ class ContentViewController: UIViewController {
         if let owningNavigationController = navigationController{
             owningNavigationController.popViewController(animated: true)
             delegate?.didBackFromContent(isChanged, digestCell: digestCell!)
-            owningNavigationController.navigationBar.isHidden = false
+            owningNavigationController.navigationBar.isHidden = true
         }
     }
     

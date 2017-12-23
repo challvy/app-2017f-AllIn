@@ -14,11 +14,16 @@ import SwiftHTTP
     func didClickAllInImageView()
 }
 
-class DigestTableViewController: UITableViewController {
+class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: Properties
-    @IBOutlet weak var menuBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var digestNavigationItem: UINavigationItem!
+    var txtTitle: UILabel!
+    var txtCurDate: UILabel!
+    var curDate: Date!
+    var txtLastReflashDate: UILabel!
+    var lastReflashDate: Date!
+    var txtLine: UILabel!
+    @IBOutlet weak var digestTableView: UITableView!
     
     weak var delegate: DigestTableViewControllerDelegate?
     
@@ -42,11 +47,51 @@ class DigestTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // Navigation Settings
-        
+        digestTableView.dataSource = self
+        digestTableView.delegate = self
         curDigestCells = allIn[curSource]
-        refreshControl = UIRefreshControl()
-        refreshControl!.addTarget(self, action: #selector(self.refreshData as ()->Void), for: .valueChanged)
+        digestTableView.refreshControl = UIRefreshControl()
+        digestTableView.refreshControl!.addTarget(self, action: #selector(self.refreshData as ()->Void), for: .valueChanged)
+        self.navigationController?.navigationBar.isHidden = true
         
+        let mainSize = UIScreen.main.bounds.size
+        let mainTitleField =  UIView(frame: CGRect(x: 0, y: 50, width: mainSize.width, height: 120))
+        mainTitleField.layer.borderWidth = 0
+        mainTitleField.layer.borderColor = UIColor.lightGray.cgColor
+        mainTitleField.backgroundColor = UIColor.white
+        self.view.addSubview(mainTitleField)
+        
+        txtTitle = UILabel(frame: CGRect(x: 30, y: 10, width: mainTitleField.frame.size.width-60, height: 44))
+        txtTitle.text = curSource
+        txtTitle.font = UIFont.systemFont(ofSize: 22)
+        txtTitle.textColor = UIColor(displayP3Red:65/255, green:171/255, blue:225/255, alpha:1)
+        txtTitle.textAlignment = .center
+        
+        txtCurDate = UILabel(frame: CGRect(x: 30, y: 40, width: mainTitleField.frame.size.width-60, height: 44))
+        curDate = Date()
+        let dateformatter = DateFormatter()
+        dateformatter.dateStyle = .full
+        txtCurDate.text = dateformatter.string(from: curDate)
+        txtCurDate.font = UIFont.systemFont(ofSize: 14)
+        txtCurDate.textColor = UIColor(displayP3Red:64/255, green:64/255, blue:64/255, alpha:1)
+        txtCurDate.textAlignment = .center
+        
+        txtLastReflashDate = UILabel(frame: CGRect(x: 30, y: 70, width: mainTitleField.frame.size.width-60, height: 44))
+        txtLastReflashDate.text = "Updated \(dateformatter.string(from: curDate)) Ago"
+        txtLastReflashDate.font = UIFont.systemFont(ofSize: 10)
+        txtLastReflashDate.textColor = UIColor(displayP3Red:96/255, green:96/255, blue:96/255, alpha:1)
+        txtLastReflashDate.textAlignment = .center
+        
+        txtLine = UILabel(frame: CGRect(x: 10, y: 119, width: mainTitleField.frame.size.width-20, height: 1))
+        txtLine.font = UIFont.systemFont(ofSize: 24)
+        txtLine.backgroundColor = UIColor(displayP3Red:65/255, green:171/255, blue:225/255, alpha:1)
+        txtLine.textAlignment = .center
+        txtLine.alignmentRect(forFrame: CGRect(x: 10, y: 120, width: mainTitleField.frame.size.width-20, height: 1))
+        
+        mainTitleField.addSubview(txtTitle)
+        mainTitleField.addSubview(txtCurDate)
+        mainTitleField.addSubview(txtLastReflashDate)
+        mainTitleField.addSubview(txtLine)
     }
     
     @objc func refreshData() {
@@ -78,15 +123,15 @@ class DigestTableViewController: UITableViewController {
                     
                     DispatchQueue.main.async {
                         self.curDigestCells = self.allIn[self.curSource]
-                        self.tableView.reloadData()
-                        self.refreshControl!.endRefreshing()
+                        self.digestTableView.reloadData()
+                        self.digestTableView.refreshControl!.endRefreshing()
                     }
                 }
             }
             dataTask.resume()
             
         } else{
-            self.refreshControl!.endRefreshing()
+            self.digestTableView.refreshControl!.endRefreshing()
         }
     }
     
@@ -94,9 +139,9 @@ class DigestTableViewController: UITableViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor(displayP3Red:65/256, green:171/256, blue:225/256, alpha:1.0)
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         
-        menuBarButtonItem.tintColor = UIColor.white
-        digestNavigationItem.title = curSource
-        digestNavigationItem.titleView?.tintColor = UIColor.white
+        //menuBarButtonItem.tintColor = UIColor.white
+        //digestNavigationItem.title = curSource
+        //digestNavigationItem.titleView?.tintColor = UIColor.white
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,12 +151,12 @@ class DigestTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         guard let digestCells = curDigestCells else{
             return 0
@@ -120,7 +165,7 @@ class DigestTableViewController: UITableViewController {
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.digestTableViewCell, for: indexPath) as? DigestTableViewCell else {
             fatalError("The dequeued cell is not an instance of DigestTableViewCell")
@@ -201,7 +246,6 @@ class DigestTableViewController: UITableViewController {
     */
 
     
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -216,7 +260,7 @@ class DigestTableViewController: UITableViewController {
             guard let selectedDigestTableViewCell = sender as? DigestTableViewCell else{
                 fatalError("Unexpected sender: \(String(describing: sender))")
             }
-            guard let indexPath = tableView.indexPath(for: selectedDigestTableViewCell) else{
+            guard let indexPath = self.digestTableView.indexPath(for: selectedDigestTableViewCell) else{
                 fatalError("The selected cell is not being display by the table")
             }
             contentViewController.curSource = curSource
@@ -231,10 +275,10 @@ class DigestTableViewController: UITableViewController {
 
 }
 
-extension DigestTableViewController: MenuViewControllerDelegate{
+extension DigestViewController: MenuViewControllerDelegate{
     func didSelectMenuCell(_ menuCell: MenuCell){
         curSource = menuCell.title
-        digestNavigationItem.title = curSource
+        txtTitle.text = curSource
         
         curURLString = menuCell.urlString
         if let rssLink = curURLString {
@@ -264,7 +308,7 @@ extension DigestTableViewController: MenuViewControllerDelegate{
                     }
                     DispatchQueue.main.async {
                         self.curDigestCells = self.allIn[self.curSource]
-                        self.tableView.reloadData()
+                        self.digestTableView.reloadData()
                     }
                 }
             }
@@ -272,13 +316,13 @@ extension DigestTableViewController: MenuViewControllerDelegate{
             dataTask.resume()
         } else{
             curDigestCells = allIn[curSource]
-            self.tableView.reloadData()
+            self.digestTableView.reloadData()
         }
         delegate?.collapseMenuViewController()
     }
 }
 
-extension DigestTableViewController: ContentViewControllerDelegate{
+extension DigestViewController: ContentViewControllerDelegate{
     func didBackFromContent(_ isChanged: Bool, digestCell: DigestCell){
         digestCell.isReaded = true
         if(isChanged){
@@ -294,7 +338,7 @@ extension DigestTableViewController: ContentViewControllerDelegate{
                 }
             }
         }
-        self.tableView.reloadData()
+        self.digestTableView.reloadData()
     }
     
     func didClickAllInImageView(){

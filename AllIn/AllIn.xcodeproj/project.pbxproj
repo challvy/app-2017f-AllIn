@@ -24,7 +24,7 @@
 		187C55AD1FEB53AE00AA3468 /* SignInSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */; };
 		187C55AF1FEB543F00AA3468 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55AE1FEB543F00AA3468 /* ServerConnection.swift */; };
 		187C55B11FEB546E00AA3468 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55B01FEB546E00AA3468 /* User.swift */; };
-		18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C21FD51D1300E33377 /* DigestTableViewController.swift */; };
+		18D787C31FD51D1300E33377 /* DigestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C21FD51D1300E33377 /* DigestViewController.swift */; };
 		18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */; };
 		18E7F0121FEE1F6200D90261 /* HTMLMarkupParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7F0111FEE1F6200D90261 /* HTMLMarkupParser.swift */; };
 		18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */; };
@@ -77,7 +77,7 @@
 		187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpViewController.swift; sourceTree = "<group>"; };
 		187C55AE1FEB543F00AA3468 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
 		187C55B01FEB546E00AA3468 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		18D787C21FD51D1300E33377 /* DigestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewController.swift; sourceTree = "<group>"; };
+		18D787C21FD51D1300E33377 /* DigestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestViewController.swift; sourceTree = "<group>"; };
 		18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewCell.swift; sourceTree = "<group>"; };
 		18E7F0111FEE1F6200D90261 /* HTMLMarkupParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLMarkupParser.swift; sourceTree = "<group>"; };
 		18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		1867B5E91FE006DA007472A0 /* Digest */ = {
 			isa = PBXGroup;
 			children = (
-				18D787C21FD51D1300E33377 /* DigestTableViewController.swift */,
+				18D787C21FD51D1300E33377 /* DigestViewController.swift */,
 				18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */,
 				182B106E1FD8F47100A8FCE0 /* DigestCell.swift */,
 			);
@@ -326,7 +326,7 @@
 				18F57D401FD6D8B2000D7D91 /* MenuTableViewCell.swift in Sources */,
 				1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */,
 				183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */,
-				18D787C31FD51D1300E33377 /* DigestTableViewController.swift in Sources */,
+				18D787C31FD51D1300E33377 /* DigestViewController.swift in Sources */,
 				187C55B11FEB546E00AA3468 /* User.swift in Sources */,
 				1872690A1FE6B1C1002D060F /* ZhihuDailyXMLParser.swift in Sources */,
 				18E7F0121FEE1F6200D90261 /* HTMLMarkupParser.swift in Sources */,
