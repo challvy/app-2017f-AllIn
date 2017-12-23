@@ -30,6 +30,7 @@ class ServerConnect: NSObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = httpBody
+        request.timeoutInterval = 5
         
         let task = session.dataTask(with: request) { (data, res, err) in
             if err != nil {
@@ -65,6 +66,7 @@ class ServerConnect: NSObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.httpBody = httpBody
+        request.timeoutInterval = 5
         
         let task = session.dataTask(with: request) { (data, res, err) in
             if err != nil {

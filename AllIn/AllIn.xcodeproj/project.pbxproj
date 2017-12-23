@@ -305,7 +305,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftHTTP.framework",
 			);
 			outputPaths = (
 			);
