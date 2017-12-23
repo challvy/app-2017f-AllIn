@@ -7,7 +7,6 @@
 
 import UIKit
 import Foundation
-import SwiftHTTP
 
 @objc protocol DigestTableViewControllerDelegate {
     func collapseMenuViewController()
@@ -98,8 +97,8 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
         
         if let rssLink = curURLString {
-            
-            var req = URLRequest(urlString: rssLink)!
+            let url = URL(string: rssLink)!
+            var req = URLRequest(url: url)
             req.timeoutInterval = 5
             let session = URLSession.shared
             
@@ -284,8 +283,8 @@ extension DigestViewController: MenuViewControllerDelegate{
         if let rssLink = curURLString {
             print(rssLink)
             self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
-            
-            var req = URLRequest(urlString: rssLink)!
+            let url = URL(string: rssLink)!
+            var req = URLRequest(url: url)
             req.timeoutInterval = 5
             let session = URLSession.shared
             

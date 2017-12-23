@@ -49,7 +49,8 @@ class ContentViewController: UIViewController {
         
         if let rssLink = digestCell?.rssItem._link {
             print(rssLink)
-            var req = URLRequest(urlString: rssLink)!
+            let url = URL(string: rssLink)!
+            var req = URLRequest(url: url)
             req.timeoutInterval = 5
             let session = URLSession.shared
             
