@@ -18,11 +18,12 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK: Properties
     var txtTitle: UILabel!
     var txtCurDate: UILabel!
-    var curDate: Date!
-    var txtLastRefreshDate: UILabel!
-    var lastRefreshDate: Date!
+    var txtRefresh: UILabel!
     var txtLine: UILabel!
-    var deltaTime: Double!
+    
+    var refreshDate: [String : Date]! = [:]
+    var newRefreshDate: [String : Date]! = [:]
+    
     @IBOutlet weak var digestTableView: UITableView!
     
     weak var delegate: DigestTableViewControllerDelegate?
@@ -30,6 +31,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var allIn: [String : [DigestCell]] = [:]
     var curDigestCells : [DigestCell]?
     var curSource: String!
+    var perSource: String!
     var curURLString: String?
     let isReadedAccessoryViewSize: CGFloat = 10
     
@@ -61,31 +63,28 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         mainTitleField.backgroundColor = UIColor.white
         self.view.addSubview(mainTitleField)
         
-        txtTitle = UILabel(frame: CGRect(x: 30, y: 10, width: mainTitleField.frame.size.width-60, height: 44))
+        txtTitle = UILabel(frame: CGRect(x: 30, y: 20, width: mainTitleField.frame.size.width-60, height: 44))
         txtTitle.text = curSource
         txtTitle.font = UIFont.systemFont(ofSize: 22)
         txtTitle.textColor = UIColor(displayP3Red:65/255, green:171/255, blue:225/255, alpha:1)
         txtTitle.textAlignment = .center
         
-        txtCurDate = UILabel(frame: CGRect(x: 30, y: 40, width: mainTitleField.frame.size.width-60, height: 44))
-        curDate = Date()
+        txtCurDate = UILabel(frame: CGRect(x: 30, y: 50, width: mainTitleField.frame.size.width-60, height: 44))
+        let today = Date()
         let dateformatter = DateFormatter()
-        dateformatter.dateStyle = .full
-        txtCurDate.text = dateformatter.string(from: curDate)
+        dateformatter.dateStyle = .medium
+        txtCurDate.text = dateformatter.string(from: today)
         txtCurDate.font = UIFont.systemFont(ofSize: 14)
         txtCurDate.textColor = UIColor(displayP3Red:64/255, green:64/255, blue:64/255, alpha:1)
         txtCurDate.textAlignment = .center
         
-        txtLastRefreshDate = UILabel(frame: CGRect(x: 30, y: 70, width: mainTitleField.frame.size.width-60, height: 44))
-        if (deltaTime) != nil {
-            txtLastRefreshDate.text = "Updated \(Int(deltaTime!)) Seconds Ago"
-        } else {
-            txtLastRefreshDate.text = "Updated Just Now"
-        }
-        //txtLastReflashDate.text = "Updated \(Int(deltaTime!)) Seconds Ago"
-        txtLastRefreshDate.font = UIFont.systemFont(ofSize: 10)
-        txtLastRefreshDate.textColor = UIColor(displayP3Red:96/255, green:96/255, blue:96/255, alpha:1)
-        txtLastRefreshDate.textAlignment = .center
+        txtRefresh = UILabel(frame: CGRect(x: 30, y: 80, width: mainTitleField.frame.size.width-60, height: 44))
+        newRefreshDate[curSource] = Date()
+        refreshDate[curSource] = Date()
+        txtRefresh.text = "Updated Just Now"
+        txtRefresh.font = UIFont.systemFont(ofSize: 10)
+        txtRefresh.textColor = UIColor(displayP3Red:96/255, green:96/255, blue:96/255, alpha:1)
+        txtRefresh.textAlignment = .center
         
         txtLine = UILabel(frame: CGRect(x: 10, y: 119, width: mainTitleField.frame.size.width-20, height: 1))
         txtLine.font = UIFont.systemFont(ofSize: 24)
@@ -95,10 +94,60 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         mainTitleField.addSubview(txtTitle)
         mainTitleField.addSubview(txtCurDate)
-        mainTitleField.addSubview(txtLastRefreshDate)
+        mainTitleField.addSubview(txtRefresh)
         mainTitleField.addSubview(txtLine)
     }
 
+    func deltaTime(dateFrom: Date, dateTo: Date) -> String{
+        let dateComponentsFormatter = DateComponentsFormatter()
+        dateComponentsFormatter.allowedUnits = .day
+        let deltaTime1: String? = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
+        if deltaTime1! > "0d" {
+            if deltaTime1! > "1d" {
+                var tmp = deltaTime1
+                tmp!.remove(at: tmp!.index(before: (tmp?.endIndex)!))
+                return "\(tmp!) days ago"
+            } else {
+                return "\(deltaTime1!) day ago"
+            }
+        } else {
+            dateComponentsFormatter.allowedUnits = .hour
+            let deltaTime2 = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
+            if deltaTime2! > "0" {
+                if deltaTime2! > "1" {
+                    return "\(deltaTime2!) hours ago"
+                } else {
+                    return "\(deltaTime2!) hour ago"
+                }
+            } else {
+                dateComponentsFormatter.allowedUnits = .minute
+                let deltaTime3 = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
+                if deltaTime3! > "0" {
+                    if deltaTime3! > "1" {
+                        return "\(deltaTime3!) minutes ago"
+                    } else {
+                        return "\(deltaTime3!) minute ago"
+                    }
+                } else {
+                    dateComponentsFormatter.allowedUnits = .second
+                    let deltaTime4 = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
+                    if deltaTime4! >= "10" {
+                        return "\(deltaTime4!) seconds ago"
+                    } else {
+                        return "Just Now"
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func updateDeltaTime(){
+        newRefreshDate[curSource] = Date()
+        if refreshDate[curSource] == nil {
+            refreshDate[curSource] = Date()
+        }
+        txtRefresh.text = "Updated \(deltaTime(dateFrom: refreshDate[curSource]!, dateTo: newRefreshDate[curSource]!) )"
+    }
     
     @objc func refreshData() {
         self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
@@ -139,12 +188,10 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             self.digestTableView.refreshControl!.endRefreshing()
         }
-        if lastRefreshDate==nil {
-            lastRefreshDate = curDate
-        }
-        curDate = Date()
-        deltaTime = curDate.timeIntervalSince(lastRefreshDate)
-        txtLastRefreshDate.text = "Updated Just Now"
+        
+        refreshDate[curSource] = newRefreshDate[curSource]
+        newRefreshDate[curSource] = Date()
+        txtRefresh.text = "Updated Just Now"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -187,7 +234,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         
-        /*
+        
         // 未读消息显示小红点
         if(!digestCell.isReaded){
             cell.accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: isReadedAccessoryViewSize, height: isReadedAccessoryViewSize))
@@ -196,10 +243,18 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else{
             cell.accessoryView = nil
         }
-         */
+ 
         
         cell.titleLabel.text =  digestCell.rssItem._title
-        cell.dateLabel.text = digestCell.rssItem._pubDate
+        if curSource == "知乎日报" {
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZZ"
+            let sourceTime: Date! = dateformatter.date(from: digestCell.rssItem._pubDate)
+            let now = Date()
+            cell.dateLabel.text = deltaTime(dateFrom: sourceTime, dateTo: now)
+        } else {
+            cell.dateLabel.text = digestCell.rssItem._pubDate
+        }
         
         if(!digestCell.isReaded){
             cell.accessoryType = .disclosureIndicator
@@ -289,8 +344,11 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 extension DigestViewController: MenuViewControllerDelegate{
     func didSelectMenuCell(_ menuCell: MenuCell){
+        
         curSource = menuCell.title
         txtTitle.text = curSource
+        
+        self.updateDeltaTime()
         
         curURLString = menuCell.urlString
         if let rssLink = curURLString {

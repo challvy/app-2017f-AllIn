@@ -23,7 +23,6 @@ public class MenuCell: NSObject, NSCoding {
     var title: String
     var image: UIImage?
     var urlString: String?
-    var reflashDate: Date!
     
     //MARK: Types
     struct PropertyKey {
@@ -37,9 +36,6 @@ public class MenuCell: NSObject, NSCoding {
         self.title = title
         self.image = image
         self.urlString = urlString
-        if(reflashDate==nil){
-            reflashDate = Date()
-        }
     }
     
     init?(json: [String: Any]){
@@ -50,9 +46,6 @@ public class MenuCell: NSObject, NSCoding {
         }
         self.title = title
         self.urlString = urlString
-        if(reflashDate==nil){
-            reflashDate = Date()
-        }
     }
     
     //MARK: NSCoding
@@ -71,9 +64,6 @@ public class MenuCell: NSObject, NSCoding {
         self.title = title
         image = aDecoder.decodeObject(forKey: PropertyKey.image) as? UIImage
         urlString = aDecoder.decodeObject(forKey: PropertyKey.urlString) as? String
-        if(reflashDate==nil){
-            reflashDate = Date()
-        }
     }
     
     static func loadMenuCell() -> [MenuCell] {
