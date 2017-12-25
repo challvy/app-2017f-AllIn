@@ -34,23 +34,31 @@ class HTMLMarkupParser {
     }
     
     static private func FigureMarkup(figure: XMLElement) -> String? {
-        var urlString: String? = nil
+        var imgUrl: String? = nil
         for figureChild in figure.children {
             if(figureChild.tag == "img"){
-                urlString = ImgMarkup(img: figureChild)
+                imgUrl = ImgMarkup(img: figureChild)
                 break
             }
         }
-        return urlString
+        return imgUrl
     }
     
     static private func ImgMarkup(img: XMLElement) -> String? {
-        return img.attributes["src"]
+        let imgSrc = img.attributes["src"]
+        return imgSrc
     }
     
     static private func PMarkup(p: XMLElement) -> NSAttributedString? {
+        // 这个框架貌似对转字符串后的stringvalue分割支持的不是很好，
+        //Todo: 用<RE>分割rawXML，然后根据里面的标签来进行定制吧
+        print(p.rawXML)
+        print(p.stringValue)
         var content: NSAttributedString? = nil
         content = NSAttributedString(string: p.stringValue)
+        for pChild in p.children {
+            print(pChild.rawXML)
+        }
         return content
     }
     

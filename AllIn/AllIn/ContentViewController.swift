@@ -59,35 +59,49 @@ class ContentViewController: UIViewController {
                     print(error!.localizedDescription)
                 } else{
                     if self.curSource == "知乎日报"{
+                        // 将data转为attributedString，图片无法自适应且无法定制属性
+                        /*
+                        let attributedString = try? NSAttributedString.init(data: data!, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+                        DispatchQueue.main.async {
+                            self.contentText.insertString(attributedString)
+                        }
+                        */
+                        
                         let html = String.init(data: data!, encoding: String.Encoding.utf8)!
                         do {
                             let doc = try HTMLDocument(string: html, encoding: String.Encoding.utf8)
                             for div in doc.css("div"){
                                 if(div["class"] == "content") {
                                     for divChild in div.children {
-                                        switch divChild.tag ?? "" {
-                                        case "p":
-                                            for each in divChild.children {
-                                                if ( each.tag == "strong" ){
-                                                    
+                                        if let markup = HTMLMarkupParser.markups[divChild.tag ?? ""] {
+                                            print(divChild.tag ?? "")
+                                            switch markup {
+                                            case .ImgMarkup(let parser):
+                                                if let imgURLString = parser(divChild) {
+                                                    let imgURL = URL(string: imgURLString)!
+                                                    let data = try! Data.init(contentsOf: imgURL)
+                                                    let img = UIImage(data: data)!
+                                                    DispatchQueue.main.sync {
+                                                        self.contentText.insertPicture(img, mode: .fitTextView)
+                                                    }
                                                 }
-                                            }
-                                            print(divChild.stringValue)
-                                        case "figure":
-                                            for figureChild in divChild.children {
-                                                if(figureChild.tag == "img"){
-                                                    print("图片来源："+(figureChild.attributes["src"] ?? ""))
+                                            case .StrMarkup(let parser):
+                                                if let attributedStr = parser(divChild) {
+                                                    DispatchQueue.main.sync {
+                                                        self.contentText.insertString(attributedStr)
+                                                    }
                                                 }
+                                            default:
+                                                print("Error: Unknown tag")
                                             }
-                                        default:
-                                            print("Error: Unknown tag")
                                         }
                                     }
-                                    print(div.stringValue)
-                                    DispatchQueue.main.async {
-                                        //self.contentText.text.append(zhihuDailyXMLParser.curContent)
-                                        self.contentText.text = div.stringValue
-                                    }
+                                    /*
+                                     DispatchQueue.main.async {
+                                     //self.contentText.text.append(zhihuDailyXMLParser.curContent)
+                                     self.contentText.text = div.stringValue
+                                     }
+                                     */
                                 }
                             }
                         } catch {}
