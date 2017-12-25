@@ -11,6 +11,7 @@ import Foundation
 @objc protocol MenuViewControllerDelegate {
     func didSelectMenuCell(_ menuCell: MenuCell)
     func didClickAllInImageView()
+    func didClickSettingImageView()
 }
 
 @IBDesignable
@@ -20,6 +21,8 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var allInLabel: UILabel!
     @IBOutlet weak var allInImageView: UIImageView!
     @IBInspectable @IBOutlet weak var menuTableView: UITableView!
+    @IBOutlet weak var settingImageView: UIImageView!
+    
     weak var delegate: MenuViewControllerDelegate?
     var userAccount: String?
     var menuCells: [MenuCell]!
@@ -35,6 +38,10 @@ class MenuViewController: UIViewController {
         allInImageView.addGestureRecognizer(alInImageClick)
         allInImageView.isUserInteractionEnabled = true
         allInLabel!.text = userAccount ?? "AllIner"
+        
+        let settingImageClick = UITapGestureRecognizer(target: self, action: #selector(settingImageViewClick))
+        settingImageView.addGestureRecognizer(settingImageClick)
+        settingImageView.isUserInteractionEnabled = true
     }
     
 
@@ -51,6 +58,11 @@ class MenuViewController: UIViewController {
     @objc func allInImageViewClick() -> Void {
         self.delegate?.didClickAllInImageView()
     }
+    
+    @objc func settingImageViewClick() -> Void {
+        self.delegate?.didClickSettingImageView()
+    }
+    
 }
 
 //MARK: Table View Data Source

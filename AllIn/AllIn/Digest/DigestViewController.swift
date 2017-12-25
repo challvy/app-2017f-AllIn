@@ -11,6 +11,7 @@ import Foundation
 @objc protocol DigestTableViewControllerDelegate {
     func collapseMenuViewController()
     func didClickAllInImageView()
+    func didClickSettingImageView()
 }
 
 class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -101,38 +102,37 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func deltaTime(dateFrom: Date, dateTo: Date) -> String{
         let dateComponentsFormatter = DateComponentsFormatter()
         dateComponentsFormatter.allowedUnits = .day
-        let deltaTime1: String? = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
-        if deltaTime1! > "0d" {
-            if deltaTime1! > "1d" {
-                var tmp = deltaTime1
-                tmp!.remove(at: tmp!.index(before: (tmp?.endIndex)!))
-                return "\(tmp!) days ago"
+        var deltaTime: String? = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
+        if deltaTime! > "0d" {
+            deltaTime!.remove(at: deltaTime!.index(before: (deltaTime?.endIndex)!))
+            if deltaTime! > "1d" {
+                return "\(deltaTime!) days ago"
             } else {
-                return "\(deltaTime1!) day ago"
+                return "\(deltaTime!) day ago"
             }
         } else {
             dateComponentsFormatter.allowedUnits = .hour
-            let deltaTime2 = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
-            if deltaTime2! > "0" {
-                if deltaTime2! > "1" {
-                    return "\(deltaTime2!) hours ago"
+            deltaTime = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
+            if deltaTime! > "0" {
+                if deltaTime! > "1" {
+                    return "\(deltaTime!) hours ago"
                 } else {
-                    return "\(deltaTime2!) hour ago"
+                    return "\(deltaTime!) hour ago"
                 }
             } else {
                 dateComponentsFormatter.allowedUnits = .minute
-                let deltaTime3 = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
-                if deltaTime3! > "0" {
-                    if deltaTime3! > "1" {
-                        return "\(deltaTime3!) minutes ago"
+                deltaTime = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
+                if deltaTime! > "0" {
+                    if deltaTime! > "1" {
+                        return "\(deltaTime!) minutes ago"
                     } else {
-                        return "\(deltaTime3!) minute ago"
+                        return "\(deltaTime!) minute ago"
                     }
                 } else {
                     dateComponentsFormatter.allowedUnits = .second
-                    let deltaTime4 = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
-                    if deltaTime4! >= "10" {
-                        return "\(deltaTime4!) seconds ago"
+                    deltaTime = dateComponentsFormatter.string(from: dateFrom, to: dateTo)
+                    if deltaTime! >= "10" {
+                        return "\(deltaTime!) seconds ago"
                     } else {
                         return "Just Now"
                     }
@@ -180,18 +180,19 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.curDigestCells = self.allIn[self.curSource]
                         self.digestTableView.reloadData()
                         self.digestTableView.refreshControl!.endRefreshing()
+                        self.refreshDate[self.curSource] = self.newRefreshDate[self.curSource]
+                        self.newRefreshDate[self.curSource] = Date()
+                        self.txtRefresh.text = "Updated Just Now"
                     }
                 }
             }
             dataTask.resume()
+            txtRefresh.text = "Updating..."
             
         } else {
             self.digestTableView.refreshControl!.endRefreshing()
         }
         
-        refreshDate[curSource] = newRefreshDate[curSource]
-        newRefreshDate[curSource] = Date()
-        txtRefresh.text = "Updated Just Now"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -232,7 +233,6 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         guard let digestCell = curDigestCells?[indexPath.row] else {
             fatalError("digestCell = nil")
         }
-        
         
         
         // 未读消息显示小红点
@@ -343,6 +343,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
 }
 
 extension DigestViewController: MenuViewControllerDelegate{
+    
     func didSelectMenuCell(_ menuCell: MenuCell){
         
         curSource = menuCell.title
@@ -390,9 +391,19 @@ extension DigestViewController: MenuViewControllerDelegate{
         }
         delegate?.collapseMenuViewController()
     }
+    
+    func didClickAllInImageView(){
+        self.delegate?.didClickAllInImageView()
+    }
+    
+    func didClickSettingImageView(){
+        self.delegate?.didClickSettingImageView()
+    }
+    
 }
 
 extension DigestViewController: ContentViewControllerDelegate{
+    
     func didBackFromContent(_ isChanged: Bool, digestCell: DigestCell){
         digestCell.isReaded = true
         if(isChanged){
@@ -411,7 +422,4 @@ extension DigestViewController: ContentViewControllerDelegate{
         self.digestTableView.reloadData()
     }
     
-    func didClickAllInImageView(){
-        self.delegate?.didClickAllInImageView()
-    }
 }

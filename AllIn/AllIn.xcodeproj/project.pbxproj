@@ -17,6 +17,8 @@
 		182B97B81FCC0E71002D9A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B71FCC0E71002D9A55 /* Assets.xcassets */; };
 		182B97C61FCC0E71002D9A55 /* AllInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97C51FCC0E71002D9A55 /* AllInTests.swift */; };
 		183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */; };
+		1843560F1FF12171001A018F /* SettingAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843560E1FF12171001A018F /* SettingAccountViewController.swift */; };
+		184356111FF121B3001A018F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184356101FF121B3001A018F /* SettingViewController.swift */; };
 		1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EC1FE007A1007472A0 /* RssItem.swift */; };
 		1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */; };
 		1872690A1FE6B1C1002D060F /* ZhihuDailyXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */; };
@@ -72,6 +74,8 @@
 		182B97C51FCC0E71002D9A55 /* AllInTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllInTests.swift; sourceTree = "<group>"; };
 		182B97C71FCC0E71002D9A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		1843560E1FF12171001A018F /* SettingAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAccountViewController.swift; sourceTree = "<group>"; };
+		184356101FF121B3001A018F /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1867B5EC1FE007A1007472A0 /* RssItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItem.swift; sourceTree = "<group>"; };
 		1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssXMLParser.swift; sourceTree = "<group>"; };
 		187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhihuDailyXMLParser.swift; sourceTree = "<group>"; };
@@ -139,8 +143,9 @@
 			isa = PBXGroup;
 			children = (
 				181A36AD1FF0EEBE00D80117 /* HttpParser */,
-				187C55AB1FEB537A00AA3468 /* SignInSignUp */,
 				1867B5EB1FE00719007472A0 /* RssFeed */,
+				187C55AB1FEB537A00AA3468 /* SignInSignUp */,
+				184356101FF121B3001A018F /* SettingViewController.swift */,
 				1867B5EA1FE006F9007472A0 /* Menu */,
 				1867B5E91FE006DA007472A0 /* Digest */,
 				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
@@ -207,6 +212,7 @@
 			children = (
 				187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */,
 				187C55B01FEB546E00AA3468 /* User.swift */,
+				1843560E1FF12171001A018F /* SettingAccountViewController.swift */,
 			);
 			path = SignInSignUp;
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 				18F57D421FD6DCAB000D7D91 /* MenuCell.swift in Sources */,
 				18F57D401FD6D8B2000D7D91 /* MenuTableViewCell.swift in Sources */,
 				1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */,
+				184356111FF121B3001A018F /* SettingViewController.swift in Sources */,
 				183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */,
 				18D787C31FD51D1300E33377 /* DigestViewController.swift in Sources */,
 				187C55B11FEB546E00AA3468 /* User.swift in Sources */,
@@ -349,6 +356,7 @@
 				18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */,
 				181A36B11FF0EF3F00D80117 /* ExtensionUITextView.swift in Sources */,
 				1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */,
+				1843560F1FF12171001A018F /* SettingAccountViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,33 +16,48 @@ enum MenuState{
 
 class ContainerViewController: UIViewController {
 
+    //MARK: Properties
+    var mainNavigationController: UINavigationController!
+    var mainViewController: DigestViewController!
+    var menuViewController: MenuViewController?
+    var currentState = MenuState.Collapsed{
+        didSet{
+            // show shadow when collapsed
+            let shouldShowShadow = currentState != .Collapsed
+            showShadowForMainViewController(shouldShowShadow)
+        }
+    }
+    var user: User? = nil
+    let menuViewExpandedOffset: CGFloat = 150
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         // Set StatusBar Content Light Color
         UIApplication.shared.statusBarStyle = .lightContent
+        // Hide the NavigationBar
+        mainNavigationController?.navigationBar.isHidden = true
         
+        /*
         // Add background for root container
-        let imageView = UIImageView(image: UIImage(named: "back"))
+        let imageView = UIImageView(image: UIImage(named: "background"))
         imageView.frame = UIScreen.main.bounds
         self.view.addSubview(imageView)
-        
-        mainNavigationController?.navigationBar.isHidden = true
+         */
         
         // Initialize Main View
         mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "digestNavigation") as! UINavigationController
         view.addSubview(mainNavigationController.view)
-        
-        // Navigation Bar left button item
         mainViewController = mainNavigationController.viewControllers.first as! DigestViewController
-        
         mainViewController.delegate = self
         mainViewController.curSource = "AllIn"
         
         /*
+        // Navigation Bar left button item
         mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu as ()->())
-        mainViewController.navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "MenuImage") //MenuImage
+        mainViewController.navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "MenuImage")
         */
         
         // Add Pan Gesture
@@ -56,29 +71,12 @@ class ContainerViewController: UIViewController {
         */
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    //MARK: Properties
-    var mainNavigationController: UINavigationController!
-    
-    var mainViewController: DigestViewController!
-    
-    var menuViewController: MenuViewController?
-    
-    var currentState = MenuState.Collapsed{
-        didSet{
-            // show shadow when collapsed
-            let shouldShowShadow = currentState != .Collapsed
-            showShadowForMainViewController(shouldShowShadow)
-        }
-    }
-    var user: User? = nil
-    
-    let menuViewExpandedOffset: CGFloat = 150
-    
     
     //MARK: Actions
     @IBAction func unwindToContainer(sender: UIStoryboardSegue){
@@ -92,6 +90,7 @@ class ContainerViewController: UIViewController {
             }
         }
     }
+    
     
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer){
         
@@ -147,6 +146,7 @@ class ContainerViewController: UIViewController {
         }
     }
     
+    
     //MARK: Animmation
     func animateMainView(shouldExpand: Bool) {
         if(shouldExpand){
@@ -166,9 +166,11 @@ class ContainerViewController: UIViewController {
         }
     }
     
+    
     func animateMainViewXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: .curveEaseInOut, animations: { self.mainNavigationController.view.frame.origin.x = targetPosition }, completion: completion)
     }
+    
     
     func showShadowForMainViewController(_ shouldShowShadow: Bool) {
         // set/cancel shadow for MainView
@@ -179,6 +181,7 @@ class ContainerViewController: UIViewController {
             mainNavigationController.view.layer.shadowOpacity = 0
         }
     }
+    
     
     //MARK: Menu view controller
     func addMenuViewController(){
@@ -199,13 +202,24 @@ class ContainerViewController: UIViewController {
     }
 }
 
+
 //MARK: DigestTableViewController Delegate
 extension ContainerViewController: DigestTableViewControllerDelegate {
+
     func collapseMenuViewController(){
         animateMainView(shouldExpand: false)
     }
+    
     func didClickAllInImageView(){
         let signInSignup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "signInSignUpView") as! SignInSignUpViewController
         self.present(signInSignup, animated: true, completion: nil)
     }
+    
+    func didClickSettingImageView() {
+        let setting = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "settingView") as! SettingViewController
+        self.present(setting, animated: true, completion: nil)
+    }
+    
 }
+
+//MARK:
