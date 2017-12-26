@@ -8,12 +8,17 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-    
+
     @IBOutlet weak var returnButton: UIButton!
+    @IBAction func unwindFromSettingView(_ sender: UIStoryboardSegue){
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

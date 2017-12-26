@@ -79,7 +79,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         txtCurDate.textColor = UIColor(displayP3Red:64/255, green:64/255, blue:64/255, alpha:1)
         txtCurDate.textAlignment = .center
         
-        txtRefresh = UILabel(frame: CGRect(x: 30, y: 80, width: mainTitleField.frame.size.width-60, height: 44))
+        txtRefresh = UILabel(frame: CGRect(x: 30, y: 75, width: mainTitleField.frame.size.width-60, height: 44))
         newRefreshDate[curSource] = Date()
         refreshDate[curSource] = Date()
         txtRefresh.text = "Updated Just Now"

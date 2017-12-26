@@ -9,8 +9,8 @@ import UIKit
 
 class MenuTableViewCell: UITableViewCell {
 
-    @IBInspectable @IBOutlet weak var iconImageView: UIImageView!
-    @IBInspectable @IBOutlet weak var cellTitleLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var cellTitleLabel: UILabel!
     
     
     func configureForMenu(_ menu: MenuCell) {
@@ -22,7 +22,7 @@ class MenuTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         // Initialization code
-        self.cellTitleLabel.textColor = UIColor(displayP3Red:64/256, green:64/256, blue:64/256, alpha:1.0)
+        self.cellTitleLabel.textColor = UIColor(displayP3Red:96/256, green:96/256, blue:96/256, alpha:1.0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

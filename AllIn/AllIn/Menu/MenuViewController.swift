@@ -14,15 +14,16 @@ import Foundation
     func didClickSettingImageView()
 }
 
-@IBDesignable
 class MenuViewController: UIViewController {
     
     //MARK: Properties
     @IBOutlet weak var allInLabel: UILabel!
     @IBOutlet weak var allInImageView: UIImageView!
-    @IBInspectable @IBOutlet weak var menuTableView: UITableView!
+    @IBOutlet weak var menuTableView: UITableView!
     @IBOutlet weak var settingImageView: UIImageView!
-    
+    @IBAction func unwindFromSettingView(_ sender: UIStoryboardSegue){
+        
+    }
     weak var delegate: MenuViewControllerDelegate?
     var userAccount: String?
     var menuCells: [MenuCell]!
