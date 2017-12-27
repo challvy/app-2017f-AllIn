@@ -70,6 +70,7 @@ public class MenuCell: NSObject, NSCoding {
         return [
             MenuCell(title: "AllIn", image: #imageLiteral(resourceName: "AllInImage"), urlString: nil),
             MenuCell(title: "ZhihuDaily", image: #imageLiteral(resourceName: "ZhihuDailyImage"), urlString: "http://feeds.feedburner.com/zhihu-daily"),
+            MenuCell(title: "Hupu", image: nil, urlString: "https://bbs.hupu.com"),
         ]
     }
 }

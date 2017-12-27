@@ -18,6 +18,8 @@ class SettingAccountViewController: UIViewController, UITextFieldDelegate {
     var btnReset: UIButton!
     var btnCancel: UIButton!
     
+    var user: User?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

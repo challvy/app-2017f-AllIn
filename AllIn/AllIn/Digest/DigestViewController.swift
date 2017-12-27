@@ -354,37 +354,71 @@ extension DigestViewController: MenuViewControllerDelegate{
         if let rssLink = curURLString {
             print(rssLink)
             self.allIn[self.curSource] = self.allIn[self.curSource] ?? []
-            let url = URL(string: rssLink)!
-            var req = URLRequest(url: url)
-            req.timeoutInterval = 5
-            let session = URLSession.shared
             
-            let dataTask = session.dataTask(with: req){ (data, response, error) -> Void in
-                if error != nil{
-                    print(error!.localizedDescription)
-                } else{
-                    print("get data from Rss Source in didSelectMenuCell")
-                    let parser = XMLParser(data: data!)
-                    let rssXMLParser = RssXMLParser()
-                    parser.delegate = rssXMLParser
-                    parser.parse()
-                    
-                    for (index, rssItem) in rssXMLParser.rssItems.enumerated() {
-                        if(DigestCell.checkItemExist(digestCells: self.allIn[self.curSource]!, rssItem: rssItem)) {
-                            print("Break at index: ", index)
-                            break
+            if curSource == "Hupu" {
+                let url = URL(string: rssLink)!
+                var req = URLRequest(url: url)
+                req.timeoutInterval = 5
+                let session = URLSession.shared
+                
+                let dataTask = session.dataTask(with: req){ (data, response, error) -> Void in
+                    if error != nil{
+                        print(error!.localizedDescription)
+                    } else{
+                        print("get data from Rss Source in didSelectMenuCell")
+                        let hupuRssParser =  HupuRssParser()
+                        hupuRssParser.parser(data: data)
+                        
+                        /*
+                        for (index, rssItem) in rssXMLParser.rssItems.enumerated() {
+                            if(DigestCell.checkItemExist(digestCells: self.allIn[self.curSource]!, rssItem: rssItem)) {
+                                print("Break at index: ", index)
+                                break
+                            }
+                            rssItem.setSource(_source: self.curSource)
+                            self.allIn[self.curSource]!.insert(DigestCell(rssItem: rssItem), at: index)
                         }
-                        rssItem.setSource(_source: self.curSource)
-                        self.allIn[self.curSource]!.insert(DigestCell(rssItem: rssItem), at: index)
-                    }
-                    DispatchQueue.main.async {
-                        self.curDigestCells = self.allIn[self.curSource]
-                        self.digestTableView.reloadData()
+                        DispatchQueue.main.async {
+                            self.curDigestCells = self.allIn[self.curSource]
+                            self.digestTableView.reloadData()
+                        }
+ */
                     }
                 }
+                dataTask.resume()
             }
+            else {
+                let url = URL(string: rssLink)!
+                var req = URLRequest(url: url)
+                req.timeoutInterval = 5
+                let session = URLSession.shared
             
-            dataTask.resume()
+                let dataTask = session.dataTask(with: req){ (data, response, error) -> Void in
+                    if error != nil{
+                        print(error!.localizedDescription)
+                    } else{
+                        print("get data from Rss Source in didSelectMenuCell")
+                        let parser = XMLParser(data: data!)
+                        let rssXMLParser = RssXMLParser()
+                        parser.delegate = rssXMLParser
+                        parser.parse()
+                        
+                        for (index, rssItem) in rssXMLParser.rssItems.enumerated() {
+                            if(DigestCell.checkItemExist(digestCells: self.allIn[self.curSource]!, rssItem: rssItem)) {
+                                print("Break at index: ", index)
+                                break
+                            }
+                            rssItem.setSource(_source: self.curSource)
+                            self.allIn[self.curSource]!.insert(DigestCell(rssItem: rssItem), at: index)
+                        }
+                        DispatchQueue.main.async {
+                            self.curDigestCells = self.allIn[self.curSource]
+                            self.digestTableView.reloadData()
+                        }
+                    }
+                }
+                dataTask.resume()
+            }
         } else{
             curDigestCells = allIn[curSource]
             self.digestTableView.reloadData()

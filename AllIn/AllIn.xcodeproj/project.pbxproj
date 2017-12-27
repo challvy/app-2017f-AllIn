@@ -23,7 +23,7 @@
 		1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */; };
 		186C1DCD1FF3D68400FC193B /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186C1DCC1FF3D68400FC193B /* ExtensionString.swift */; };
 		186C1DCF1FF3D6B600FC193B /* ZhihuDailyHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186C1DCE1FF3D6B600FC193B /* ZhihuDailyHTMLParser.swift */; };
-		1872690A1FE6B1C1002D060F /* ZhihuDailyXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */; };
+		186C1DD11FF3DD5200FC193B /* HupuRssParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186C1DD01FF3DD5200FC193B /* HupuRssParser.swift */; };
 		18772E891FED3A3D00444E4D /* Fuzi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18772E881FED3A3D00444E4D /* Fuzi.framework */; };
 		18772E8A1FED3A3D00444E4D /* Fuzi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18772E881FED3A3D00444E4D /* Fuzi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		187C55AD1FEB53AE00AA3468 /* SignInSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */; };
@@ -83,7 +83,7 @@
 		1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssXMLParser.swift; sourceTree = "<group>"; };
 		186C1DCC1FF3D68400FC193B /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
 		186C1DCE1FF3D6B600FC193B /* ZhihuDailyHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhihuDailyHTMLParser.swift; sourceTree = "<group>"; };
-		187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhihuDailyXMLParser.swift; sourceTree = "<group>"; };
+		186C1DD01FF3DD5200FC193B /* HupuRssParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HupuRssParser.swift; sourceTree = "<group>"; };
 		18772E881FED3A3D00444E4D /* Fuzi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fuzi.framework; sourceTree = "<group>"; };
 		187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpViewController.swift; sourceTree = "<group>"; };
 		187C55AE1FEB543F00AA3468 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				182B10741FD9681600A8FCE0 /* FeedModel.swift */,
 				1867B5EC1FE007A1007472A0 /* RssItem.swift */,
 				1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */,
-				187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */,
+				186C1DD01FF3DD5200FC193B /* HupuRssParser.swift */,
 			);
 			path = RssFeed;
 			sourceTree = "<group>";
@@ -355,7 +355,6 @@
 				18D787C31FD51D1300E33377 /* DigestViewController.swift in Sources */,
 				186C1DCD1FF3D68400FC193B /* ExtensionString.swift in Sources */,
 				187C55B11FEB546E00AA3468 /* User.swift in Sources */,
-				1872690A1FE6B1C1002D060F /* ZhihuDailyXMLParser.swift in Sources */,
 				188E4C401FF2A597002E4E69 /* SourceManagementViewController.swift in Sources */,
 				18E7F0121FEE1F6200D90261 /* HTMLMarkupParser.swift in Sources */,
 				187C55AF1FEB543F00AA3468 /* ServerConnection.swift in Sources */,
@@ -367,6 +366,7 @@
 				182B10771FD969FE00A8FCE0 /* FeedManager.swift in Sources */,
 				18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */,
 				181A36B11FF0EF3F00D80117 /* ExtensionUITextView.swift in Sources */,
+				186C1DD11FF3DD5200FC193B /* HupuRssParser.swift in Sources */,
 				1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */,
 				1843560F1FF12171001A018F /* SettingAccountViewController.swift in Sources */,
 			);
