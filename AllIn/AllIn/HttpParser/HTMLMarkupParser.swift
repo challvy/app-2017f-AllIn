@@ -6,16 +6,19 @@
 //
 
 import Foundation
+import UIKit
 import Fuzi
 
 enum Markup {
     case ImgMarkup( (XMLElement) -> String? )
     case NodeSetMarkup( (NodeSet) -> String? )
-    case StrMarkup( (XMLElement) -> NSAttributedString? )
+    case StrMarkup( (XMLElement) -> NSMutableAttributedString? )
+    case PMarkup( (XMLElement) -> (NSMutableAttributedString?, String?))
 }
 
 class HTMLMarkupParser {
     
+    static var fontSize: CGFloat = 15
     
     static let markups = [
         
@@ -23,10 +26,24 @@ class HTMLMarkupParser {
         
         "img": Markup.ImgMarkup(ImgMarkup),
         
-        "p": Markup.StrMarkup(PMarkup),
+        "p": Markup.PMarkup(PMarkup),
         
         "strong": Markup.StrMarkup(StrongMarkup)
         
+    ]
+    
+    static let paragraphSytle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+    
+    static let strAttributes = [
+        
+        "strong": [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize + 1, weight: .bold),
+        ],
+        
+        "normal": [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize),
+            NSAttributedStringKey.paragraphStyle: HTMLMarkupParser.paragraphSytle,
+        ]
     ]
     
     static private func DivMarkup(div: NodeSet) -> String? {
@@ -49,22 +66,40 @@ class HTMLMarkupParser {
         return imgSrc
     }
     
-    static private func PMarkup(p: XMLElement) -> NSAttributedString? {
+    static private func PMarkup(p: XMLElement) -> (NSMutableAttributedString?, String?) {
         // 这个框架貌似对转字符串后的stringvalue分割支持的不是很好，
         //Todo: 用<RE>分割rawXML，然后根据里面的标签来进行定制吧
-        print(p.rawXML)
+        let rawString = p.stringValue
+        var imgSrc: String?
+        let content: NSMutableAttributedString? = NSMutableAttributedString(string: p.stringValue + "\n")
         print(p.stringValue)
-        var content: NSAttributedString? = nil
-        content = NSAttributedString(string: p.stringValue)
+        content?.addAttributes(HTMLMarkupParser.strAttributes["normal"]!, range: NSRange.init(location: 0, length: content!.length))
         for pChild in p.children {
-            print(pChild.rawXML)
+            switch pChild.tag ?? "" {
+            case "strong":
+                let strongRange = rawString.searchTargetStringByRegex(targetString: pChild.stringValue)
+                content?.addAttributes(HTMLMarkupParser.strAttributes["strong"]!, range: strongRange[0].range)
+            case "img":
+                imgSrc = ImgMarkup(img: pChild)
+            default:
+                continue
+            }
         }
+        return (content, imgSrc)
+    }
+    
+    static private func StrongMarkup(strong: XMLElement) -> NSMutableAttributedString? {
+        var content: NSMutableAttributedString? = nil
+        content = NSMutableAttributedString(string: strong.stringValue)
+        content!.addAttributes(strAttributes["strong"]!, range: NSRange.init(location: 0, length: content!.length))
         return content
     }
     
-    static private func StrongMarkup(strong: XMLElement) -> NSAttributedString? {
-        var content: NSAttributedString? = nil
-        content = NSAttributedString(string: strong.stringValue)
-        return content
+    static public func setParagraphStyleLineSpacing(_ lineSpacing: CGFloat) {
+        HTMLMarkupParser.paragraphSytle.lineSpacing = lineSpacing
+    }
+    
+    static public func setFontSize(_ fontSize: CGFloat) {
+        HTMLMarkupParser.fontSize = fontSize
     }
 }

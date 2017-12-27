@@ -21,6 +21,8 @@
 		184356111FF121B3001A018F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184356101FF121B3001A018F /* SettingViewController.swift */; };
 		1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EC1FE007A1007472A0 /* RssItem.swift */; };
 		1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */; };
+		186C1DCD1FF3D68400FC193B /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186C1DCC1FF3D68400FC193B /* ExtensionString.swift */; };
+		186C1DCF1FF3D6B600FC193B /* ZhihuDailyHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186C1DCE1FF3D6B600FC193B /* ZhihuDailyHTMLParser.swift */; };
 		1872690A1FE6B1C1002D060F /* ZhihuDailyXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */; };
 		18772E891FED3A3D00444E4D /* Fuzi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18772E881FED3A3D00444E4D /* Fuzi.framework */; };
 		18772E8A1FED3A3D00444E4D /* Fuzi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18772E881FED3A3D00444E4D /* Fuzi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -79,6 +81,8 @@
 		184356101FF121B3001A018F /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1867B5EC1FE007A1007472A0 /* RssItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItem.swift; sourceTree = "<group>"; };
 		1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssXMLParser.swift; sourceTree = "<group>"; };
+		186C1DCC1FF3D68400FC193B /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
+		186C1DCE1FF3D6B600FC193B /* ZhihuDailyHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhihuDailyHTMLParser.swift; sourceTree = "<group>"; };
 		187269091FE6B1C1002D060F /* ZhihuDailyXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhihuDailyXMLParser.swift; sourceTree = "<group>"; };
 		18772E881FED3A3D00444E4D /* Fuzi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fuzi.framework; sourceTree = "<group>"; };
 		187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpViewController.swift; sourceTree = "<group>"; };
@@ -116,7 +120,9 @@
 			isa = PBXGroup;
 			children = (
 				181A36B01FF0EF3F00D80117 /* ExtensionUITextView.swift */,
+				186C1DCC1FF3D68400FC193B /* ExtensionString.swift */,
 				18E7F0111FEE1F6200D90261 /* HTMLMarkupParser.swift */,
+				186C1DCE1FF3D6B600FC193B /* ZhihuDailyHTMLParser.swift */,
 			);
 			path = HttpParser;
 			sourceTree = "<group>";
@@ -347,6 +353,7 @@
 				184356111FF121B3001A018F /* SettingViewController.swift in Sources */,
 				183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */,
 				18D787C31FD51D1300E33377 /* DigestViewController.swift in Sources */,
+				186C1DCD1FF3D68400FC193B /* ExtensionString.swift in Sources */,
 				187C55B11FEB546E00AA3468 /* User.swift in Sources */,
 				1872690A1FE6B1C1002D060F /* ZhihuDailyXMLParser.swift in Sources */,
 				188E4C401FF2A597002E4E69 /* SourceManagementViewController.swift in Sources */,
@@ -356,6 +363,7 @@
 				182B10751FD9681600A8FCE0 /* FeedModel.swift in Sources */,
 				18F57D3E1FD6AD02000D7D91 /* ContentViewController.swift in Sources */,
 				187C55AD1FEB53AE00AA3468 /* SignInSignUpViewController.swift in Sources */,
+				186C1DCF1FF3D6B600FC193B /* ZhihuDailyHTMLParser.swift in Sources */,
 				182B10771FD969FE00A8FCE0 /* FeedManager.swift in Sources */,
 				18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */,
 				181A36B11FF0EF3F00D80117 /* ExtensionUITextView.swift in Sources */,

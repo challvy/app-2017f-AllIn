@@ -330,7 +330,6 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
             guard let indexPath = self.digestTableView.indexPath(for: selectedDigestTableViewCell) else{
                 fatalError("The selected cell is not being display by the table")
             }
-            contentViewController.curSource = curSource
             contentViewController.digestCell = curDigestCells![indexPath.row]
             contentViewController.delegate = self
             self.navigationController?.navigationBar.isHidden = true
@@ -375,6 +374,7 @@ extension DigestViewController: MenuViewControllerDelegate{
                             print("Break at index: ", index)
                             break
                         }
+                        rssItem.setSource(_source: self.curSource)
                         self.allIn[self.curSource]!.insert(DigestCell(rssItem: rssItem), at: index)
                     }
                     DispatchQueue.main.async {
@@ -409,12 +409,12 @@ extension DigestViewController: ContentViewControllerDelegate{
         if(isChanged){
             digestCell.isFavorite = !digestCell.isFavorite
             if(digestCell.isFavorite){
-                allIn["Favorites"] = allIn["Favorites"] ?? []
-                allIn["Favorites"]!.append(digestCell)
+                allIn["AllIn"] = allIn["AllIn"] ?? []
+                allIn["AllIn"]!.append(digestCell)
             }
             else{
-                if let indexOfDigestCell = allIn["Favorites"]?.index(of: digestCell){
-                    allIn["Favorites"]?.remove(at: indexOfDigestCell)
+                if let indexOfDigestCell = allIn["AllIn"]?.index(of: digestCell){
+                    allIn["AllIn"]?.remove(at: indexOfDigestCell)
                     curDigestCells = allIn[curSource]
                 }
             }

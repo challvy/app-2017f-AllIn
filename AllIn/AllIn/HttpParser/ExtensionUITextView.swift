@@ -72,6 +72,8 @@ extension UITextView {
             self.attributedText = mutableStr
             //恢复光标的位置（上面一句代码执行之后，光标会移到最后面）
             self.selectedRange = newSelectedRange
+        
+            self.insertText("\n\n")
         /*
             //移动滚动条（确保光标在可视区域内）
             self.scrollRangeToVisible(newSelectedRange)

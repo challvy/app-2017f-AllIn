@@ -69,6 +69,8 @@ class ContainerViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlePanGesture as () -> ()))
         mainNavigationController.view.addGestureRecognizer(tapGestureRecognizer)
         */
+        
+        HTMLMarkupParser.setParagraphStyleLineSpacing(10)
     }
 
     

@@ -69,8 +69,7 @@ public class MenuCell: NSObject, NSCoding {
     static func loadMenuCell() -> [MenuCell] {
         return [
             MenuCell(title: "AllIn", image: #imageLiteral(resourceName: "AllInImage"), urlString: nil),
-            MenuCell(title: "Favorites", image: #imageLiteral(resourceName: "isFavoriteImage"), urlString: nil),
-            MenuCell(title: "知乎日报", image: #imageLiteral(resourceName: "ZhihuDailyImage"), urlString: "http://feeds.feedburner.com/zhihu-daily"),
+            MenuCell(title: "ZhihuDaily", image: #imageLiteral(resourceName: "ZhihuDailyImage"), urlString: "http://feeds.feedburner.com/zhihu-daily"),
         ]
     }
 }
