@@ -12,7 +12,8 @@ import Fuzi
 enum Markup {
     case ImgMarkup( (XMLElement) -> String? )
     case NodeSetMarkup( (NodeSet) -> String? )
-    case StrMarkup( (XMLElement) -> NSMutableAttributedString? )
+    case StrMarkup((XMLElement) -> NSMutableAttributedString? )
+    case DivMarkup( (XMLElement, String?, ((NSAttributedString?, UIImage?)-> Void)) -> Void)
     case PMarkup( (XMLElement) -> (NSMutableAttributedString?, String?))
 }
 
@@ -22,13 +23,17 @@ class HTMLMarkupParser {
     
     static let markups = [
         
+        "div": Markup.DivMarkup(DivMarkup),
+        
         "figure": Markup.ImgMarkup(FigureMarkup),
         
         "img": Markup.ImgMarkup(ImgMarkup),
         
         "p": Markup.PMarkup(PMarkup),
         
-        "strong": Markup.StrMarkup(StrongMarkup)
+        "strong": Markup.StrMarkup(StrongMarkup),
+        
+        "br": Markup.StrMarkup(BrMarkup),
         
     ]
     
@@ -46,8 +51,26 @@ class HTMLMarkupParser {
         ]
     ]
     
-    static private func DivMarkup(div: NodeSet) -> String? {
-        return nil
+    static private func DivMarkup(div: XMLElement, classValue: String?, insertFunc: ((NSAttributedString?, UIImage?)-> Void)) -> Void {
+        // 这个做的思路不太对
+        if classValue == "quote-content" {
+            let rawString = div.stringValue
+            var imgSrc: String?
+            let content: NSMutableAttributedString? = NSMutableAttributedString(string: div.stringValue + "\n")
+            content?.addAttributes(HTMLMarkupParser.strAttributes["normal"]!, range: NSRange.init(location: 0, length: content!.length))
+            for divChild in div.children {
+                switch divChild.tag ?? "" {
+                case "strong":
+                    let strongRange = rawString.searchTargetStringByRegex(targetString: divChild.stringValue)
+                    content?.addAttributes(HTMLMarkupParser.strAttributes["strong"]!, range: strongRange[0].range)
+                case "img":
+                    imgSrc = ImgMarkup(img: divChild)
+                    
+                default:
+                    continue
+                }
+            }
+        }
     }
     
     static private func FigureMarkup(figure: XMLElement) -> String? {
@@ -92,6 +115,13 @@ class HTMLMarkupParser {
         var content: NSMutableAttributedString? = nil
         content = NSMutableAttributedString(string: strong.stringValue)
         content!.addAttributes(strAttributes["strong"]!, range: NSRange.init(location: 0, length: content!.length))
+        return content
+    }
+    
+    static private func BrMarkup(br: XMLElement) -> NSMutableAttributedString? {
+        var content: NSMutableAttributedString? = nil
+        content = NSMutableAttributedString(string: br.stringValue)
+        content!.addAttributes(strAttributes["normal"]!, range: NSRange.init(location: 0, length: content!.length))
         return content
     }
     
