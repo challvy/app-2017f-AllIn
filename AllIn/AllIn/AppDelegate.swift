@@ -14,7 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // To judge wheather it's the first time to launch app
+        if(!(UserDefaults.standard.bool(forKey: "evenLaunched"))) {
+            UserDefaults.standard.set(true, forKey: "evenLaunched")
+            let guideViewController = GuideViewController()
+            self.window!.rootViewController=guideViewController;
+        }
         return true
     }
 

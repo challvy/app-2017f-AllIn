@@ -20,6 +20,7 @@
 		1843560F1FF12171001A018F /* SettingAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843560E1FF12171001A018F /* SettingAccountViewController.swift */; };
 		184356111FF121B3001A018F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184356101FF121B3001A018F /* SettingViewController.swift */; };
 		184B247D1FF501F200518081 /* HupuHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B247C1FF501F200518081 /* HupuHTMLParser.swift */; };
+		184B247F1FF52DCA00518081 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B247E1FF52DCA00518081 /* GuideViewController.swift */; };
 		1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EC1FE007A1007472A0 /* RssItem.swift */; };
 		1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */; };
 		186C1DCD1FF3D68400FC193B /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186C1DCC1FF3D68400FC193B /* ExtensionString.swift */; };
@@ -81,6 +82,7 @@
 		1843560E1FF12171001A018F /* SettingAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAccountViewController.swift; sourceTree = "<group>"; };
 		184356101FF121B3001A018F /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		184B247C1FF501F200518081 /* HupuHTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HupuHTMLParser.swift; sourceTree = "<group>"; };
+		184B247E1FF52DCA00518081 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		1867B5EC1FE007A1007472A0 /* RssItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssItem.swift; sourceTree = "<group>"; };
 		1867B5EE1FE00A14007472A0 /* RssXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssXMLParser.swift; sourceTree = "<group>"; };
 		186C1DCC1FF3D68400FC193B /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				1867B5E91FE006DA007472A0 /* Digest */,
 				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
 				18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */,
+				184B247E1FF52DCA00518081 /* GuideViewController.swift */,
 				187C55AE1FEB543F00AA3468 /* ServerConnection.swift */,
 				182B97B01FCC0E71002D9A55 /* AppDelegate.swift */,
 				182B97B41FCC0E71002D9A55 /* Main.storyboard */,
@@ -359,6 +362,7 @@
 				186C1DCD1FF3D68400FC193B /* ExtensionString.swift in Sources */,
 				187C55B11FEB546E00AA3468 /* User.swift in Sources */,
 				188E4C401FF2A597002E4E69 /* SourceManagementViewController.swift in Sources */,
+				184B247F1FF52DCA00518081 /* GuideViewController.swift in Sources */,
 				18E7F0121FEE1F6200D90261 /* HTMLMarkupParser.swift in Sources */,
 				187C55AF1FEB543F00AA3468 /* ServerConnection.swift in Sources */,
 				182B106F1FD8F47100A8FCE0 /* DigestCell.swift in Sources */,
