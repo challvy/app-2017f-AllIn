@@ -219,6 +219,7 @@ extension ContainerViewController: DigestTableViewControllerDelegate {
     
     func didClickSettingImageView() {
         let setting = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "settingView") as! SettingViewController
+        setting.user = self.user
         self.present(setting, animated: true, completion: nil)
     }
     

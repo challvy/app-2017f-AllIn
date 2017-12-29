@@ -13,25 +13,23 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
     static let UnWindSignInSignUpSegue = "unwindToContainerWithSender"
     
     //MARK: Properties
+    var txtSettingsAccount: UILabel!
+    var txtLineMain: UILabel!
+    
     var txtAccount: UITextField!
     var txtPassword: UITextField!
-    
-    var loginState: LoginState = LoginState.NONE
     var btnSignIn: UIButton!
     var btnSignUp: UIButton!
     var btnCancel: UIButton!
     
     var user: User?
+    var loginState: LoginState = LoginState.NONE
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
-        
-        
-        
-        addLogininBackground()
-        addCanelBtn()
-        
+        initUI()
         updateButtonState()
     }
 
@@ -45,7 +43,9 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if textField.isEqual(txtAccount){
+            
         } else if textField.isEqual(txtPassword) {
+            
         }
         return true
     }
@@ -71,7 +71,28 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
         }
         updateButtonState()
     }
+    
+    //MARK: Navigation
+    // This method lets you configure a view controller before it's presented.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        // Configure the destination view controller only when the save button is pressed.
+        guard let button = sender as? UIButton else {
+            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+        guard (button === btnSignIn) || (button === btnSignUp) else {
+            os_log("The SignIn SignUp was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+    }
+    
     //MARK: Button Action
+    @objc func cancel(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func btnTapped(_ button: UIButton){
         if button.isEqual(btnSignIn) {
             // action for Sign in
@@ -175,9 +196,23 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
         btnSignIn.isEnabled = loginState == .COMPLETE
     }
     
-    private func addLogininBackground() {
+    private func initUI() {
         let mainSize = UIScreen.main.bounds.size
-        //登录框背景
+        
+        // Title
+        txtSettingsAccount = UILabel(frame: CGRect(x: 60, y: 23, width: mainSize.width-60, height: 44))
+        txtSettingsAccount.text = "Welcome"
+        txtSettingsAccount.font = UIFont.systemFont(ofSize: 18)
+        txtSettingsAccount.textColor = UIColor(displayP3Red:64/255, green:64/255, blue:64/255, alpha:1)
+        txtSettingsAccount.textAlignment = .left
+        
+        txtLineMain = UILabel(frame: CGRect(x: 15, y: 79, width: mainSize.width-30, height: 1))
+        txtLineMain.backgroundColor = UIColor(displayP3Red:65/255, green:171/255, blue:225/255, alpha:1)
+        txtLineMain.alignmentRect(forFrame: CGRect(x: 10, y: 120, width: mainSize.width-20, height: 1))
+        self.view.addSubview(txtSettingsAccount)
+        self.view.addSubview(txtLineMain)
+        
+        // Content
         let loginBackground =  UIView(frame: CGRect(x: 15, y: 250, width: mainSize.width-30, height: 220))
         loginBackground.layer.borderWidth = 0.5
         loginBackground.layer.borderColor = UIColor.lightGray.cgColor
@@ -185,7 +220,7 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
         loginBackground.layer.cornerRadius = 15
         self.view.addSubview(loginBackground)
         
-        // Account text field
+        // >Account text field
         txtAccount = UITextField(frame: CGRect(x: 30, y: 30, width: loginBackground.frame.size.width-60, height: 44))
         txtAccount.delegate = self
         txtAccount.layer.cornerRadius = 5
@@ -200,7 +235,7 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
         imgAccount.image = #imageLiteral(resourceName: "AccountImage")
         txtAccount.leftView!.addSubview(imgAccount)
         
-        // Password text field
+        // >Password text field
         txtPassword = UITextField(frame: CGRect(x: 30, y: 90, width: loginBackground.frame.size.width-60, height: 44))
         txtPassword.delegate = self
         txtPassword.layer.cornerRadius = 5
@@ -215,10 +250,7 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
         imgPassword.image = #imageLiteral(resourceName: "PasswordImage")
         txtPassword.leftView!.addSubview(imgPassword)
         
-        loginBackground.addSubview(txtAccount)
-        loginBackground.addSubview(txtPassword)
-        
-        // Sign in Button
+        // >Sign in Button
         btnSignIn = UIButton(frame: CGRect(x: 30+loginBackground.frame.size.width/2-15, y: 150, width: loginBackground.frame.size.width/2-45, height: 44))
         btnSignIn.layer.cornerRadius = 3
         btnSignIn.setTitleColor(UIColor.white, for: .normal)
@@ -226,7 +258,7 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
         btnSignIn.backgroundColor = UIColor(displayP3Red:65/256, green:171/256, blue:225/256, alpha:1.0)
         btnSignIn.addTarget(self, action: #selector(btnTapped(_:)), for: .touchUpInside)
         
-        // Sign up Button
+        // >Sign up Button
         btnSignUp = UIButton(frame: CGRect(x: 30, y: 150, width: loginBackground.frame.size.width/2-45, height: 44))
         btnSignUp.layer.cornerRadius = 3
         btnSignUp.setTitleColor(UIColor.black, for: .normal)
@@ -234,39 +266,18 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
         btnSignUp.backgroundColor = UIColor.lightGray
         btnSignUp.addTarget(self, action: #selector(btnTapped(_:)), for: .touchUpInside)
         
+        loginBackground.addSubview(txtAccount)
+        loginBackground.addSubview(txtPassword)
         loginBackground.addSubview(btnSignIn)
         loginBackground.addSubview(btnSignUp)
-    }
-    
-    private func addCanelBtn() {
+        
         // Cancel Button
         btnCancel = UIButton(frame: CGRect(x: 20, y: 30, width: 30, height: 30))
-        btnCancel.setImage(#imageLiteral(resourceName: "CancelImage"), for: .normal)
+        btnCancel.setImage(#imageLiteral(resourceName: "ReturnBlueImage"), for: .normal)
         btnCancel.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
-        
-        
         self.view.addSubview(btnCancel)
     }
 
-    //MARK: Navigation
-    @objc func cancel(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // This method lets you configure a view controller before it's presented.
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
-        // Configure the destination view controller only when the save button is pressed.
-        guard let button = sender as? UIButton else {
-            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
-            return
-        }
-        guard (button === btnSignIn) || (button === btnSignUp) else {
-            os_log("The SignIn SignUp was not pressed, cancelling", log: OSLog.default, type: .debug)
-            return
-        }
-    }
 }
 
 enum LoginState{

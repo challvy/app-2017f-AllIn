@@ -17,6 +17,7 @@ public class MenuCell: NSObject, NSCoding {
         "Favorites": #imageLiteral(resourceName: "isFavoriteImage"),
         "ZhihuDaily":  #imageLiteral(resourceName: "ZhihuDailyImage"),
         "Weibo":  #imageLiteral(resourceName: "WeiboImage"),
+        "Hupu": #imageLiteral(resourceName: "HupuImage"),
     ]
     
     //MARK: Properties
@@ -70,7 +71,7 @@ public class MenuCell: NSObject, NSCoding {
         return [
             MenuCell(title: "AllIn", image: #imageLiteral(resourceName: "AllInImage"), urlString: nil),
             MenuCell(title: "ZhihuDaily", image: #imageLiteral(resourceName: "ZhihuDailyImage"), urlString: "http://feeds.feedburner.com/zhihu-daily"),
-            MenuCell(title: "Hupu", image: nil, urlString: "https://bbs.hupu.com"),
+            MenuCell(title: "Hupu", image: #imageLiteral(resourceName: "HupuImage"), urlString: "https://bbs.hupu.com"),
         ]
     }
 }

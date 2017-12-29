@@ -31,7 +31,9 @@
 		187C55AD1FEB53AE00AA3468 /* SignInSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */; };
 		187C55AF1FEB543F00AA3468 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55AE1FEB543F00AA3468 /* ServerConnection.swift */; };
 		187C55B11FEB546E00AA3468 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55B01FEB546E00AA3468 /* User.swift */; };
-		188E4C401FF2A597002E4E69 /* SourceManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E4C3F1FF2A597002E4E69 /* SourceManagementViewController.swift */; };
+		1887D3DB1FF63C8B0071D7BE /* SourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887D3DA1FF63C8B0071D7BE /* SourceTableViewCell.swift */; };
+		1887D3DD1FF641ED0071D7BE /* SourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887D3DC1FF641ED0071D7BE /* SourceCell.swift */; };
+		1887D3DF1FF645600071D7BE /* SettingDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887D3DE1FF645600071D7BE /* SettingDisplayViewController.swift */; };
 		18D787C31FD51D1300E33377 /* DigestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C21FD51D1300E33377 /* DigestViewController.swift */; };
 		18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */; };
 		18E7F0121FEE1F6200D90261 /* HTMLMarkupParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7F0111FEE1F6200D90261 /* HTMLMarkupParser.swift */; };
@@ -92,7 +94,9 @@
 		187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpViewController.swift; sourceTree = "<group>"; };
 		187C55AE1FEB543F00AA3468 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
 		187C55B01FEB546E00AA3468 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		188E4C3F1FF2A597002E4E69 /* SourceManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceManagementViewController.swift; sourceTree = "<group>"; };
+		1887D3DA1FF63C8B0071D7BE /* SourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceTableViewCell.swift; sourceTree = "<group>"; };
+		1887D3DC1FF641ED0071D7BE /* SourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCell.swift; sourceTree = "<group>"; };
+		1887D3DE1FF645600071D7BE /* SettingDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDisplayViewController.swift; sourceTree = "<group>"; };
 		18D787C21FD51D1300E33377 /* DigestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestViewController.swift; sourceTree = "<group>"; };
 		18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewCell.swift; sourceTree = "<group>"; };
 		18E7F0111FEE1F6200D90261 /* HTMLMarkupParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLMarkupParser.swift; sourceTree = "<group>"; };
@@ -201,12 +205,14 @@
 		1867B5EA1FE006F9007472A0 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				184356101FF121B3001A018F /* SettingViewController.swift */,
-				1843560E1FF12171001A018F /* SettingAccountViewController.swift */,
-				188E4C3F1FF2A597002E4E69 /* SourceManagementViewController.swift */,
 				183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */,
 				18F57D3F1FD6D8B2000D7D91 /* MenuTableViewCell.swift */,
 				18F57D411FD6DCAB000D7D91 /* MenuCell.swift */,
+				184356101FF121B3001A018F /* SettingViewController.swift */,
+				1843560E1FF12171001A018F /* SettingAccountViewController.swift */,
+				1887D3DE1FF645600071D7BE /* SettingDisplayViewController.swift */,
+				1887D3DA1FF63C8B0071D7BE /* SourceTableViewCell.swift */,
+				1887D3DC1FF641ED0071D7BE /* SourceCell.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -355,13 +361,13 @@
 				182B97B11FCC0E71002D9A55 /* AppDelegate.swift in Sources */,
 				18F57D421FD6DCAB000D7D91 /* MenuCell.swift in Sources */,
 				18F57D401FD6D8B2000D7D91 /* MenuTableViewCell.swift in Sources */,
+				1887D3DF1FF645600071D7BE /* SettingDisplayViewController.swift in Sources */,
 				1867B5EF1FE00A14007472A0 /* RssXMLParser.swift in Sources */,
 				184356111FF121B3001A018F /* SettingViewController.swift in Sources */,
 				183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */,
 				18D787C31FD51D1300E33377 /* DigestViewController.swift in Sources */,
 				186C1DCD1FF3D68400FC193B /* ExtensionString.swift in Sources */,
 				187C55B11FEB546E00AA3468 /* User.swift in Sources */,
-				188E4C401FF2A597002E4E69 /* SourceManagementViewController.swift in Sources */,
 				184B247F1FF52DCA00518081 /* GuideViewController.swift in Sources */,
 				18E7F0121FEE1F6200D90261 /* HTMLMarkupParser.swift in Sources */,
 				187C55AF1FEB543F00AA3468 /* ServerConnection.swift in Sources */,
@@ -375,8 +381,10 @@
 				18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */,
 				181A36B11FF0EF3F00D80117 /* ExtensionUITextView.swift in Sources */,
 				186C1DD11FF3DD5200FC193B /* HupuRssParser.swift in Sources */,
+				1887D3DD1FF641ED0071D7BE /* SourceCell.swift in Sources */,
 				1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */,
 				1843560F1FF12171001A018F /* SettingAccountViewController.swift in Sources */,
+				1887D3DB1FF63C8B0071D7BE /* SourceTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,9 +21,7 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var allInImageView: UIImageView!
     @IBOutlet weak var menuTableView: UITableView!
     @IBOutlet weak var settingImageView: UIImageView!
-    @IBAction func unwindFromSettingView(_ sender: UIStoryboardSegue){
-        
-    }
+    
     weak var delegate: MenuViewControllerDelegate?
     var userAccount: String?
     var menuCells: [MenuCell]!
@@ -31,6 +29,11 @@ class MenuViewController: UIViewController {
     enum CellIdentifiers {
         static let menuCell = "MenuTableViewCell"
     }
+    
+    @IBAction func unwindFromSettingView(_ sender: UIStoryboardSegue){
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

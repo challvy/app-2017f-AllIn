@@ -50,7 +50,7 @@ class GuideViewController: UIViewController, UIScrollViewDelegate {
     //scrollview滚动的时候就会调用
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        /*
+        
         let twidth = CGFloat(numOfPages-1) * self.view.bounds.size.width
         //如果在最后一个页面继续滑动的话就会跳转到主页面
         if(scrollView.contentOffset.x > twidth)
@@ -59,7 +59,7 @@ class GuideViewController: UIViewController, UIScrollViewDelegate {
             let viewController = mainStoryboard.instantiateInitialViewController()
             self.present(viewController!, animated: true, completion:nil)
         }
- */
+ 
     }
     
     /*

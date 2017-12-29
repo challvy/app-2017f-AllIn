@@ -12,7 +12,6 @@ class MenuTableViewCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var cellTitleLabel: UILabel!
     
-    
     func configureForMenu(_ menu: MenuCell) {
         iconImageView.image = menu.image
         cellTitleLabel.text = menu.title
