@@ -21,6 +21,7 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var allInImageView: UIImageView!
     @IBOutlet weak var menuTableView: UITableView!
     @IBOutlet weak var settingImageView: UIImageView!
+    @IBOutlet weak var settingsLabel: UILabel!
     
     weak var delegate: MenuViewControllerDelegate?
     var userAccount: String?
@@ -46,6 +47,9 @@ class MenuViewController: UIViewController {
         let settingImageClick = UITapGestureRecognizer(target: self, action: #selector(settingImageViewClick))
         settingImageView.addGestureRecognizer(settingImageClick)
         settingImageView.isUserInteractionEnabled = true
+        
+        settingsLabel.addGestureRecognizer(settingImageClick)
+        settingsLabel.isUserInteractionEnabled = true
     }
     
 

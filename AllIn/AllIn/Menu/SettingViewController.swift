@@ -7,10 +7,6 @@
 
 import UIKit
 
-@objc protocol SettingViewControllerDelegate {
-    func didSelectSourceCell(_ sourceCell: MenuCell)
-}
-
 class SettingViewController: UIViewController {
     
     //MARK: Properties
@@ -32,7 +28,6 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var sourceTableView: UITableView!
     var sourceCells: [MenuCell] = MenuCell.loadMenuCell()
     let sourceTableViewCell: String = "sourceTableViewCell"
-    weak var delegate: SettingViewControllerDelegate?
     
     @IBAction func unwindFromSettingView(_ sender: UIStoryboardSegue){
         
@@ -74,12 +69,14 @@ class SettingViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    func didSelectSourceCell(_ sourceCell: MenuCell){
+        
+    }
     
     //MARK: Private Methods
     private func loadSource(){
         //sourceCells = self.user!.rssSources
-        
-        //sourceCells = MenuCell.loadMenuCell()
+        sourceCells = MenuCell.loadMenuCell()
     }
     
     private func initUI() {
@@ -175,8 +172,8 @@ extension SettingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: sourceTableViewCell, for: indexPath) as? MenuTableViewCell else {
-            fatalError("The dequeued cell is not an instance of MenuTableViewCell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: sourceTableViewCell, for: indexPath) as? SourceTableViewCell else {
+            fatalError("The dequeued cell is not an instance of SourceTableViewCell")
         }
         cell.configureForMenu(sourceCells[indexPath.row])
         return cell
@@ -187,6 +184,6 @@ extension SettingViewController: UITableViewDataSource {
 extension SettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sourceCell = sourceCells[indexPath.row]
-        delegate?.didSelectSourceCell(sourceCell)
+        didSelectSourceCell(sourceCell)
     }
 }

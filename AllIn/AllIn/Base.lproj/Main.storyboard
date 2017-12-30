@@ -323,7 +323,10 @@
                                                 <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68E-Uf-Pd9">
-                                                <rect key="frame" x="45" y="10.5" width="63.5" height="20.5"/>
+                                                <rect key="frame" x="45" y="10.5" width="200" height="20.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="5BK-KZ-Twk"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.37647058823529411" green="0.37647058823529411" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
@@ -364,6 +367,7 @@
                         <outlet property="allInLabel" destination="6H1-S0-keK" id="rpw-V8-fuN"/>
                         <outlet property="menuTableView" destination="Ph1-Em-R1Q" id="b3k-OV-aOo"/>
                         <outlet property="settingImageView" destination="agf-0x-jXT" id="qCl-zR-SM5"/>
+                        <outlet property="settingsLabel" destination="68E-Uf-Pd9" id="tOx-kr-e00"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L30-gE-r8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -426,6 +430,9 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="n2m-oy-6xZ" id="f5F-ff-LBQ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
