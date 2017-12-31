@@ -19,7 +19,9 @@ class ContainerViewController: UIViewController {
     //MARK: Properties
     var mainNavigationController: UINavigationController!
     var mainViewController: DigestViewController!
+    //var mainBViewController: DigestBViewController!
     var menuViewController: MenuViewController?
+    
     var currentState = MenuState.Collapsed{
         didSet{
             // show shadow when collapsed
@@ -29,7 +31,7 @@ class ContainerViewController: UIViewController {
     }
     var user: User? = nil
     let menuViewExpandedOffset: CGFloat = 150
-    
+    var backgroundImg: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,7 @@ class ContainerViewController: UIViewController {
         
         // Set StatusBar Content Light Color
         UIApplication.shared.statusBarStyle = .lightContent
+        
         // Hide the NavigationBar
         mainNavigationController?.navigationBar.isHidden = true
         
@@ -50,6 +53,7 @@ class ContainerViewController: UIViewController {
         // Initialize Main View
         mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "digestNavigation") as! UINavigationController
         view.addSubview(mainNavigationController.view)
+        
         mainViewController = mainNavigationController.viewControllers.first as! DigestViewController
         mainViewController.delegate = self
         mainViewController.curSource = "AllIn"
@@ -200,13 +204,17 @@ class ContainerViewController: UIViewController {
             view.insertSubview(menuViewController!.view, belowSubview: mainNavigationController.view)
             addChildViewController(menuViewController!)
             menuViewController!.didMove(toParentViewController: self)
+            
+            if let bgi = backgroundImg {
+                menuViewController!.setBackgroundImg(img: bgi)
+            }
         }
     }
 }
 
 
 //MARK: DigestTableViewController Delegate
-extension ContainerViewController: DigestTableViewControllerDelegate {
+extension ContainerViewController: DigestTableViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     func collapseMenuViewController(){
         animateMainView(shouldExpand: false)
@@ -223,6 +231,36 @@ extension ContainerViewController: DigestTableViewControllerDelegate {
         self.present(setting, animated: true, completion: nil)
     }
     
+    func didClickBackgroundImg() {
+        let imagePickerController = UIImagePickerController()
+        
+        // Only allow photos to be picked, not taken.
+        imagePickerController.sourceType = .photoLibrary
+        
+        // Make sure ViewController is notified when the user picks an image.
+        imagePickerController.delegate = self
+        
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        
+        // The info dictionary may contain multiple representations of the image. You want to use the original.
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        // Set photoImageView to display the selected image.
+        self.backgroundImg = selectedImage
+        menuViewController!.setBackgroundImg(img:self.backgroundImg)
+        
+        // Dismiss the picker.
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
-
-//MARK:

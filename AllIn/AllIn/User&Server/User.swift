@@ -4,13 +4,14 @@
 //
 //  Created by apple on 2017/12/21.
 //
-
+import UIKit
 import Foundation
 
 struct User {
     let account: String
     let password: String
     var rssSources = MenuCell.loadMenuCell()
+    //var backgroundImg: UIImage
 }
 
 extension User {

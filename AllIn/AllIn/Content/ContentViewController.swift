@@ -19,8 +19,6 @@ class ContentViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var contentText: UITextView!
-    @IBOutlet weak var fontSizeButton: UIButton!
-    @IBOutlet weak var fontBoldButton: UIButton!
     
     var digestCell: DigestCell?
     var delegate: ContentViewControllerDelegate?
@@ -32,13 +30,12 @@ class ContentViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         self.navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "ReturnImage")
+
+        /*
         fontSizeButton.setImage(#imageLiteral(resourceName: "FontSizeImage"), for: .normal)
         fontSizeButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         fontSizeButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        
-        fontBoldButton.setImage(#imageLiteral(resourceName: "FontBoldImage"), for: .normal)
-        fontBoldButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        fontBoldButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
+         */
         
         contentText.isEditable = false
         
@@ -48,6 +45,7 @@ class ContentViewController: UIViewController {
         setFavoriteButton(digestCell!.isFavorite)
         
         parserLink()
+        titleLabel.adjustsFontSizeToFitWidth = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -103,6 +101,7 @@ class ContentViewController: UIViewController {
                 let url = URL(string: rssLink)!
                 let req = URLRequest(url: url)
                 _webView?.loadRequest(req)
+                //_webView?.string
                 
             } else {
                 let url = URL(string: rssLink)!

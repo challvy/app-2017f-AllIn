@@ -74,4 +74,5 @@ public class MenuCell: NSObject, NSCoding {
             MenuCell(title: "Hupu", image: #imageLiteral(resourceName: "HupuImage"), urlString: "https://bbs.hupu.com"),
         ]
     }
+    
 }

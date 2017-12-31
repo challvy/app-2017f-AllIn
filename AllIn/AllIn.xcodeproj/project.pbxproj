@@ -16,6 +16,8 @@
 		182B97B61FCC0E71002D9A55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B41FCC0E71002D9A55 /* Main.storyboard */; };
 		182B97B81FCC0E71002D9A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182B97B71FCC0E71002D9A55 /* Assets.xcassets */; };
 		182B97C61FCC0E71002D9A55 /* AllInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182B97C51FCC0E71002D9A55 /* AllInTests.swift */; };
+		1835A1B51FF90FA500A33A04 /* DigestBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835A1B41FF90FA500A33A04 /* DigestBTableViewCell.swift */; };
+		1835A1B91FF91D9A00A33A04 /* DigestBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835A1B81FF91D9A00A33A04 /* DigestBViewController.swift */; };
 		183D0CAD1FD3E3D000069BDB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */; };
 		1843560F1FF12171001A018F /* SettingAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1843560E1FF12171001A018F /* SettingAccountViewController.swift */; };
 		184356111FF121B3001A018F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184356101FF121B3001A018F /* SettingViewController.swift */; };
@@ -32,7 +34,6 @@
 		187C55AF1FEB543F00AA3468 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55AE1FEB543F00AA3468 /* ServerConnection.swift */; };
 		187C55B11FEB546E00AA3468 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C55B01FEB546E00AA3468 /* User.swift */; };
 		1887D3DB1FF63C8B0071D7BE /* SourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887D3DA1FF63C8B0071D7BE /* SourceTableViewCell.swift */; };
-		1887D3DD1FF641ED0071D7BE /* SourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887D3DC1FF641ED0071D7BE /* SourceCell.swift */; };
 		1887D3DF1FF645600071D7BE /* SettingDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887D3DE1FF645600071D7BE /* SettingDisplayViewController.swift */; };
 		18D787C31FD51D1300E33377 /* DigestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C21FD51D1300E33377 /* DigestViewController.swift */; };
 		18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */; };
@@ -80,6 +81,8 @@
 		182B97C11FCC0E71002D9A55 /* AllInTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllInTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		182B97C51FCC0E71002D9A55 /* AllInTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllInTests.swift; sourceTree = "<group>"; };
 		182B97C71FCC0E71002D9A55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1835A1B41FF90FA500A33A04 /* DigestBTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestBTableViewCell.swift; sourceTree = "<group>"; };
+		1835A1B81FF91D9A00A33A04 /* DigestBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestBViewController.swift; sourceTree = "<group>"; };
 		183D0CAC1FD3E3D000069BDB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		1843560E1FF12171001A018F /* SettingAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAccountViewController.swift; sourceTree = "<group>"; };
 		184356101FF121B3001A018F /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -95,7 +98,6 @@
 		187C55AE1FEB543F00AA3468 /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
 		187C55B01FEB546E00AA3468 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1887D3DA1FF63C8B0071D7BE /* SourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceTableViewCell.swift; sourceTree = "<group>"; };
-		1887D3DC1FF641ED0071D7BE /* SourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCell.swift; sourceTree = "<group>"; };
 		1887D3DE1FF645600071D7BE /* SettingDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDisplayViewController.swift; sourceTree = "<group>"; };
 		18D787C21FD51D1300E33377 /* DigestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestViewController.swift; sourceTree = "<group>"; };
 		18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestTableViewCell.swift; sourceTree = "<group>"; };
@@ -159,17 +161,16 @@
 		182B97AF1FCC0E71002D9A55 /* AllIn */ = {
 			isa = PBXGroup;
 			children = (
-				181A36AD1FF0EEBE00D80117 /* HttpParser */,
-				1867B5EB1FE00719007472A0 /* RssFeed */,
-				187C55AB1FEB537A00AA3468 /* SignInSignUp */,
-				1867B5EA1FE006F9007472A0 /* Menu */,
-				1867B5E91FE006DA007472A0 /* Digest */,
-				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
-				18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */,
-				184B247E1FF52DCA00518081 /* GuideViewController.swift */,
-				187C55AE1FEB543F00AA3468 /* ServerConnection.swift */,
 				182B97B01FCC0E71002D9A55 /* AppDelegate.swift */,
 				182B97B41FCC0E71002D9A55 /* Main.storyboard */,
+				184B247E1FF52DCA00518081 /* GuideViewController.swift */,
+				182B97B21FCC0E71002D9A55 /* ContainerViewController.swift */,
+				1835A1B11FF8CB7200A33A04 /* Content */,
+				1867B5E91FE006DA007472A0 /* Digest */,
+				181A36AD1FF0EEBE00D80117 /* HttpParser */,
+				1867B5EA1FE006F9007472A0 /* Menu */,
+				1867B5EB1FE00719007472A0 /* RssFeed */,
+				187C55AB1FEB537A00AA3468 /* User&Server */,
 				182B97B71FCC0E71002D9A55 /* Assets.xcassets */,
 				182B97BC1FCC0E71002D9A55 /* Info.plist */,
 			);
@@ -185,6 +186,14 @@
 			path = AllInTests;
 			sourceTree = "<group>";
 		};
+		1835A1B11FF8CB7200A33A04 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				18F57D3D1FD6AD02000D7D91 /* ContentViewController.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
 		1867B5E51FE00381007472A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +206,8 @@
 			children = (
 				18D787C21FD51D1300E33377 /* DigestViewController.swift */,
 				18D787C61FD52ED500E33377 /* DigestTableViewCell.swift */,
+				1835A1B81FF91D9A00A33A04 /* DigestBViewController.swift */,
+				1835A1B41FF90FA500A33A04 /* DigestBTableViewCell.swift */,
 				182B106E1FD8F47100A8FCE0 /* DigestCell.swift */,
 			);
 			path = Digest;
@@ -212,7 +223,6 @@
 				1843560E1FF12171001A018F /* SettingAccountViewController.swift */,
 				1887D3DE1FF645600071D7BE /* SettingDisplayViewController.swift */,
 				1887D3DA1FF63C8B0071D7BE /* SourceTableViewCell.swift */,
-				1887D3DC1FF641ED0071D7BE /* SourceCell.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -229,13 +239,14 @@
 			path = RssFeed;
 			sourceTree = "<group>";
 		};
-		187C55AB1FEB537A00AA3468 /* SignInSignUp */ = {
+		187C55AB1FEB537A00AA3468 /* User&Server */ = {
 			isa = PBXGroup;
 			children = (
+				187C55AE1FEB543F00AA3468 /* ServerConnection.swift */,
 				187C55AC1FEB53AE00AA3468 /* SignInSignUpViewController.swift */,
 				187C55B01FEB546E00AA3468 /* User.swift */,
 			);
-			path = SignInSignUp;
+			path = "User&Server";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,6 +380,7 @@
 				186C1DCD1FF3D68400FC193B /* ExtensionString.swift in Sources */,
 				187C55B11FEB546E00AA3468 /* User.swift in Sources */,
 				184B247F1FF52DCA00518081 /* GuideViewController.swift in Sources */,
+				1835A1B51FF90FA500A33A04 /* DigestBTableViewCell.swift in Sources */,
 				18E7F0121FEE1F6200D90261 /* HTMLMarkupParser.swift in Sources */,
 				187C55AF1FEB543F00AA3468 /* ServerConnection.swift in Sources */,
 				182B106F1FD8F47100A8FCE0 /* DigestCell.swift in Sources */,
@@ -379,9 +391,9 @@
 				184B247D1FF501F200518081 /* HupuHTMLParser.swift in Sources */,
 				182B10771FD969FE00A8FCE0 /* FeedManager.swift in Sources */,
 				18D787C71FD52ED500E33377 /* DigestTableViewCell.swift in Sources */,
+				1835A1B91FF91D9A00A33A04 /* DigestBViewController.swift in Sources */,
 				181A36B11FF0EF3F00D80117 /* ExtensionUITextView.swift in Sources */,
 				186C1DD11FF3DD5200FC193B /* HupuRssParser.swift in Sources */,
-				1887D3DD1FF641ED0071D7BE /* SourceCell.swift in Sources */,
 				1867B5ED1FE007A1007472A0 /* RssItem.swift in Sources */,
 				1843560F1FF12171001A018F /* SettingAccountViewController.swift in Sources */,
 				1887D3DB1FF63C8B0071D7BE /* SourceTableViewCell.swift in Sources */,

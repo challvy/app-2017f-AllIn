@@ -1,21 +1,14 @@
 //
-//  ContentTableViewController.swift
+//  DigestBTableViewController.swift
 //  AllIn
 //
-//  Created by apple on 2017/12/4.
+//  Created by Apple on 2017/12/31.
 //
 
 import UIKit
 import Foundation
 
-@objc protocol DigestTableViewControllerDelegate {
-    func collapseMenuViewController()
-    func didClickAllInImageView()
-    func didClickSettingImageView()
-    func didClickBackgroundImg()
-}
-
-class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DigestBViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: Properties
     var txtTitle: UILabel!
@@ -27,7 +20,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var refreshDate: [String : Date]! = [:]
     var newRefreshDate: [String : Date]! = [:]
     
-    @IBOutlet weak var digestTableView: UITableView!
+    @IBOutlet weak var digestBTableView: UITableView!
     var curTableView: UITableView!
     
     weak var delegate: DigestTableViewControllerDelegate?
@@ -40,24 +33,24 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let isReadedAccessoryViewSize: CGFloat = 10
     
     enum CellIdentifiers {
-        static let digestTableViewCell = "DigestTableViewCell"
+        static let digestBTableViewCell = "DigestBTableViewCell"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // Navigation Settings
-        digestTableView.dataSource = self
-        digestTableView.delegate = self
+        digestBTableView.dataSource = self
+        digestBTableView.delegate = self
         curDigestCells = allIn[curSource]
-        digestTableView.refreshControl = UIRefreshControl()
-        digestTableView.refreshControl!.addTarget(self, action: #selector(self.refreshData as ()->Void), for: .valueChanged)
+        digestBTableView.refreshControl = UIRefreshControl()
+        digestBTableView.refreshControl!.addTarget(self, action: #selector(self.refreshData as ()->Void), for: .valueChanged)
         self.navigationController?.navigationBar.isHidden = true
         
         let mainSize = UIScreen.main.bounds.size
@@ -91,11 +84,11 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
         txtRefresh.textAlignment = .center
         
         /*
-        txtLine = UILabel(frame: CGRect(x: 10, y: 119, width: mainTitleField.frame.size.width-20, height: 1))
-        txtLine.font = UIFont.systemFont(ofSize: 24)
-        txtLine.backgroundColor = UIColor(displayP3Red:65/255, green:171/255, blue:225/255, alpha:1)
-        txtLine.textAlignment = .center
-        txtLine.alignmentRect(forFrame: CGRect(x: 10, y: 120, width: mainTitleField.frame.size.width-20, height: 1))
+         txtLine = UILabel(frame: CGRect(x: 10, y: 119, width: mainTitleField.frame.size.width-20, height: 1))
+         txtLine.font = UIFont.systemFont(ofSize: 24)
+         txtLine.backgroundColor = UIColor(displayP3Red:65/255, green:171/255, blue:225/255, alpha:1)
+         txtLine.textAlignment = .center
+         txtLine.alignmentRect(forFrame: CGRect(x: 10, y: 120, width: mainTitleField.frame.size.width-20, height: 1))
          */
         
         mainTitleField.addSubview(txtTitle)
@@ -128,14 +121,14 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     /*
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
-        //设置cell的显示动画为3D缩放
-        //xy方向缩放的初始值为0.1
-        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
-        //设置动画时间为0.25秒，xy方向缩放的最终值为1
-        UIView.animate(withDuration: 0.25, animations: {cell.layer.transform=CATransform3DMakeScale(1, 1, 1)})
+     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+     //设置cell的显示动画为3D缩放
+     //xy方向缩放的初始值为0.1
+     cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1)
+     //设置动画时间为0.25秒，xy方向缩放的最终值为1
+     UIView.animate(withDuration: 0.25, animations: {cell.layer.transform=CATransform3DMakeScale(1, 1, 1)})
      }
-    */
+     */
     
     /*
      // Override to support conditional editing of the table view.
@@ -182,10 +175,10 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
             guard let contentViewController = segue.destination as? ContentViewController else{
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            guard let selectedDigestTableViewCell = sender as? DigestTableViewCell else{
+            guard let selectedDigestBTableViewCell = sender as? DigestTableViewCell else{
                 fatalError("Unexpected sender: \(String(describing: sender))")
             }
-            guard let indexPath = self.digestTableView.indexPath(for: selectedDigestTableViewCell) else{
+            guard let indexPath = self.digestBTableView.indexPath(for: selectedDigestBTableViewCell) else{
                 fatalError("The selected cell is not being display by the table")
             }
             contentViewController.digestCell = curDigestCells![indexPath.row]
@@ -213,8 +206,8 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.digestTableViewCell, for: indexPath) as? DigestTableViewCell else {
-            fatalError("The dequeued cell is not an instance of DigestTableViewCell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.digestBTableViewCell, for: indexPath) as? DigestBTableViewCell else {
+            fatalError("The dequeued cell is not an instance of DigestBTableViewCell")
         }
         guard let digestCell = curDigestCells?[indexPath.row] else {
             fatalError("digestCell = nil")
@@ -235,9 +228,9 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
             dateformatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZZ"
             let sourceTime: Date! = dateformatter.date(from: digestCell.rssItem._pubDate)
             let now = Date()
-            cell.dateLabel.text = deltaTime(dateFrom: sourceTime, dateTo: now)
+        cell.dateLabel.text = deltaTime(dateFrom: sourceTime, dateTo: now)
         } else {
-            cell.dateLabel.text = digestCell.rssItem._pubDate
+        cell.dateLabel.text = digestCell.rssItem._pubDate
         }
         
         if(!digestCell.isReaded){
@@ -280,8 +273,8 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         }
                         DispatchQueue.main.async {
                             self.curDigestCells = self.allIn[self.curSource]
-                            self.digestTableView.reloadData()
-                            self.digestTableView.refreshControl!.endRefreshing()
+                            self.digestBTableView.reloadData()
+                            self.digestBTableView.refreshControl!.endRefreshing()
                             
                             self.refreshDate[self.curSource] = self.newRefreshDate[self.curSource]
                             self.newRefreshDate[self.curSource] = Date()
@@ -307,7 +300,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         let rssXMLParser = RssXMLParser()
                         parser.delegate = rssXMLParser
                         parser.parse()
-
+                        
                         for (index, rssItem) in rssXMLParser.rssItems.enumerated() {
                             if(DigestCell.checkItemExist(digestCells: self.allIn[self.curSource]!, rssItem: rssItem)){
                                 print("Break at index: ", index)
@@ -315,11 +308,11 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             }
                             self.allIn[self.curSource]!.insert(DigestCell(rssItem: rssItem), at: index)
                         }
-                    
+                        
                         DispatchQueue.main.async {
                             self.curDigestCells = self.allIn[self.curSource]
-                            self.digestTableView.reloadData()
-                            self.digestTableView.refreshControl!.endRefreshing()
+                            self.digestBTableView.reloadData()
+                            self.digestBTableView.refreshControl!.endRefreshing()
                             
                             self.refreshDate[self.curSource] = self.newRefreshDate[self.curSource]
                             self.newRefreshDate[self.curSource] = Date()
@@ -332,7 +325,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 dataTask.resume()
             }
         } else {
-            self.digestTableView.refreshControl!.endRefreshing()
+            self.digestBTableView.refreshControl!.endRefreshing()
             
             self.refreshDate[self.curSource] = self.newRefreshDate[self.curSource]
             self.newRefreshDate[self.curSource] = Date()
@@ -341,7 +334,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.progressView.setProgress(1.0, animated: true)
         }
         
-        self.digestTableView.refreshControl!.endRefreshing()
+        self.digestBTableView.refreshControl!.endRefreshing()
     }
     
     @objc func updateDeltaTime(){
@@ -395,7 +388,7 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 }
 
-extension DigestViewController: MenuViewControllerDelegate{
+extension DigestBViewController: MenuViewControllerDelegate{
     
     func didSelectMenuCell(_ menuCell: MenuCell){
         // 开始refresh
@@ -434,7 +427,7 @@ extension DigestViewController: MenuViewControllerDelegate{
                         }
                         DispatchQueue.main.async {
                             self.curDigestCells = self.allIn[self.curSource]
-                            self.digestTableView.reloadData()
+                            self.digestBTableView.reloadData()
                             self.progressView.setProgress(1.0, animated: true)
                         }
                     }
@@ -446,7 +439,7 @@ extension DigestViewController: MenuViewControllerDelegate{
                 var req = URLRequest(url: url)
                 req.timeoutInterval = 5
                 let session = URLSession.shared
-            
+                
                 let dataTask = session.dataTask(with: req){ (data, response, error) -> Void in
                     if error != nil{
                         print(error!.localizedDescription)
@@ -468,7 +461,7 @@ extension DigestViewController: MenuViewControllerDelegate{
                         
                         DispatchQueue.main.async {
                             self.curDigestCells = self.allIn[self.curSource]
-                            self.digestTableView.reloadData()
+                            self.digestBTableView.reloadData()
                             self.progressView.setProgress(1.0, animated: true)
                         }
                     }
@@ -477,7 +470,7 @@ extension DigestViewController: MenuViewControllerDelegate{
             }
         } else{
             curDigestCells = allIn[curSource]
-            self.digestTableView.reloadData()
+            self.digestBTableView.reloadData()
             self.progressView.setProgress(1.0, animated: true)
         }
         delegate?.collapseMenuViewController()
@@ -497,7 +490,8 @@ extension DigestViewController: MenuViewControllerDelegate{
     
 }
 
-extension DigestViewController: ContentViewControllerDelegate{
+
+extension DigestBViewController: ContentViewControllerDelegate{
     
     func didBackFromContent(_ isChanged: Bool, digestCell: DigestCell){
         digestCell.isReaded = true
@@ -514,7 +508,8 @@ extension DigestViewController: ContentViewControllerDelegate{
                 }
             }
         }
-        self.digestTableView.reloadData()
+        self.digestBTableView.reloadData()
     }
     
 }
+

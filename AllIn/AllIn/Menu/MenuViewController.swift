@@ -12,11 +12,13 @@ import Foundation
     func didSelectMenuCell(_ menuCell: MenuCell)
     func didClickAllInImageView()
     func didClickSettingImageView()
+    func didClickBackgroundImgView()
 }
 
-class MenuViewController: UIViewController {
+class MenuViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //MARK: Properties
+    @IBOutlet weak var backgroundImg: UIImageView!
     @IBOutlet weak var allInLabel: UILabel!
     @IBOutlet weak var allInImageView: UIImageView!
     @IBOutlet weak var menuTableView: UITableView!
@@ -35,21 +37,31 @@ class MenuViewController: UIViewController {
         
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //menuTableView.reloadData()
         let alInImageClick = UITapGestureRecognizer(target: self, action: #selector(allInImageViewClick))
         allInImageView.addGestureRecognizer(alInImageClick)
         allInImageView.isUserInteractionEnabled = true
+        
+        let alInLabelClick = UITapGestureRecognizer(target: self, action: #selector(allInImageViewClick))
         allInLabel!.text = userAccount ?? "AllIner"
+        allInLabel.addGestureRecognizer(alInLabelClick)
+        allInLabel.isUserInteractionEnabled = true
         
         let settingImageClick = UITapGestureRecognizer(target: self, action: #selector(settingImageViewClick))
         settingImageView.addGestureRecognizer(settingImageClick)
         settingImageView.isUserInteractionEnabled = true
         
-        settingsLabel.addGestureRecognizer(settingImageClick)
+        let settingLabelClick = UITapGestureRecognizer(target: self, action: #selector(settingImageViewClick))
+        settingsLabel.addGestureRecognizer(settingLabelClick)
         settingsLabel.isUserInteractionEnabled = true
+        
+        let backgroundImgClick = UITapGestureRecognizer(target: self, action: #selector(selectBackgroundImg))
+        backgroundImg.addGestureRecognizer(backgroundImgClick)
+        backgroundImg.isUserInteractionEnabled = true
+        
     }
     
 
@@ -71,6 +83,15 @@ class MenuViewController: UIViewController {
         self.delegate?.didClickSettingImageView()
     }
     
+    @objc func selectBackgroundImg() -> Void {
+        self.delegate?.didClickBackgroundImgView()
+    }
+    
+    @objc func setBackgroundImg(img: UIImage?) -> Void {
+        if let tmp = img {
+            backgroundImg.image = tmp
+        }
+    }
 }
 
 //MARK: Table View Data Source
