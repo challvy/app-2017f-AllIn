@@ -93,7 +93,7 @@ class ContentViewController: UIViewController {
     
     private func parserLink() {
         if let rssLink = digestCell?.rssItem._link {
-            if digestCell?.rssItem._source == "Hupu" {
+            if digestCell?.rssItem._source != "ZhihuDaily" {
                 _webView = UIWebView(frame: CGRect.init(x: UIScreen.main.bounds.origin.x, y: UIScreen.main.bounds.origin.y + (self.navigationController?.navigationBar.frame.height)! + UIApplication.shared.statusBarFrame.height, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - UIApplication.shared.statusBarFrame.height - (self.navigationController?.navigationBar.frame.height)!))
                 _webView?.scalesPageToFit = true
                 _webView?.scrollView.bounces = false

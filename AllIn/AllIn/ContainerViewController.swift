@@ -31,10 +31,13 @@ class ContainerViewController: UIViewController {
     }
     var user: User? = nil
     let menuViewExpandedOffset: CGFloat = 150
+    
+    let userFilePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]+"/user"
     var backgroundImg: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(userFilePath)
         // Do any additional setup after loading the view, typically from a nib.
         
         // Set StatusBar Content Light Color
@@ -49,6 +52,10 @@ class ContainerViewController: UIViewController {
         imageView.frame = UIScreen.main.bounds
         self.view.addSubview(imageView)
          */
+        
+        if let userData = NSKeyedUnarchiver.unarchiveObject(withFile: userFilePath) as? User{
+            user = userData
+        }
         
         // Initialize Main View
         mainNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "digestNavigation") as! UINavigationController
@@ -91,8 +98,26 @@ class ContainerViewController: UIViewController {
             self.user = user
             self.menuViewController?.menuCells = self.user!.rssSources
             DispatchQueue.main.async {
+                if let userData = self.user {
+                    NSKeyedArchiver.archiveRootObject(userData, toFile: self.userFilePath)
+                }
                 self.menuViewController?.menuTableView.reloadData()
                 self.menuViewController?.allInLabel.text = self.user!.account
+            }
+        } else if let sourceViewController = sender.source as? SettingAccountViewController,
+            let user = sourceViewController.user {
+            self.user = user
+            if let userData = self.user {
+                NSKeyedArchiver.archiveRootObject(userData, toFile: userFilePath)
+            }
+        } else if let sourceViewController = sender.source as? SettingViewController {
+            DispatchQueue.main.async {
+                self.user?.rssSources = sourceViewController.sourceCells
+                if let userData = self.user {
+                    NSKeyedArchiver.archiveRootObject(userData, toFile: self.userFilePath)
+                }
+                self.menuViewController?.menuCells = sourceViewController.sourceCells
+                self.menuViewController?.menuTableView.reloadData()
             }
         }
     }
@@ -228,6 +253,7 @@ extension ContainerViewController: DigestTableViewControllerDelegate, UIImagePic
     func didClickSettingImageView() {
         let setting = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "settingView") as! SettingViewController
         setting.user = self.user
+        setting.sourceCells = self.menuViewController?.menuCells
         self.present(setting, animated: true, completion: nil)
     }
     

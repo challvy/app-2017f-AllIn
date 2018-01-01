@@ -137,6 +137,7 @@ class SettingDisplayViewController: UIViewController {
         pickerSize.delegate = sizePickerViewDelegate
         pickerSize.backgroundColor = UIColor(displayP3Red:254/256, green:254/256, blue:254/256, alpha:1.0)
         
+        
         txtLineA3 = UILabel(frame: CGRect(x: 15, y: 179, width: SettingsField.frame.size.width-30, height: 1))
         txtLineA3.backgroundColor = UIColor(displayP3Red:235/255, green:235/255, blue:235/255, alpha:1)
         txtLineA3.alignmentRect(forFrame: CGRect(x: 10, y: 120, width: SettingsField.frame.size.width-20, height: 1))
@@ -218,30 +219,35 @@ class SettingDisplayViewController: UIViewController {
         btnCancel.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
         
         self.view.addSubview(btnCancel)
-        
-        view.addSubview(pickerSize)
+        self.view.addSubview(pickerSize)
+        pickerSize.selectRow(Int(HTMLMarkupParser.fontSize - sizePickerViewDelegate.minSize), inComponent: 0, animated: true)
+        pickerFont.selectRow(UIFont.familyNames.index(of: HTMLMarkupParser.fontType) ?? 0, inComponent: 0, animated: true)
     }
 
 }
 
 class SizePickerViewDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    var minSize = 8
-    var sizeNum = 23
+    var minSize: CGFloat = 8
+    var sizeNum: CGFloat = 23
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return sizeNum
+        return Int(sizeNum)
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        SettingDisplayViewController.txtSize.text = "\(row + minSize)"
-        return "\(row + minSize)"
+        SettingDisplayViewController.txtSize.text = "\(row + Int(minSize))"
+        return "\(row + Int(minSize))"
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //将在滑动停止后触发，并打印出选中列和行索引
+        HTMLMarkupParser.fontSize = CGFloat(row) + minSize
+    }
 }
 
 class FontPickerViewDegelate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -261,4 +267,8 @@ class FontPickerViewDegelate: NSObject, UIPickerViewDataSource, UIPickerViewDele
         return familyNames[row]
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //将在滑动停止后触发，并打印出选中列和行索引
+        HTMLMarkupParser.fontType = familyNames[row]
+    }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class SettingAccountViewController: UIViewController, UITextFieldDelegate {
 
@@ -45,12 +46,95 @@ class SettingAccountViewController: UIViewController, UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     
+    //MARK: UITextField Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if(textField.isEqual(txtCurPassword)){
+            if let curPassword = txtCurPassword.text {
+                txtCurPassword.text = curPassword.trimmingCharacters(in: .whitespaces)
+            }
+        }
+    }
     
     // Button Action
     @objc func cancel(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc func btnTapped(_ button: UIButton){
+        if button.isEqual(btnConfirm) {
+            print("action for Confirm")
+            guard let user = self.user else{
+                txtCurPassword.text = nil
+                txtNewPassword.text = nil
+                txtNewPasswordAgain.text = nil
+                txtCurPassword.placeholder = "Please login in firstly"
+                txtNewPassword.placeholder = "Please login in firstly"
+                txtNewPasswordAgain.placeholder = "Please login in firstly"
+                return
+            }
+            guard let strCur = txtCurPassword.text else {
+                txtCurPassword.placeholder = "Please input current password"
+                return
+            }
+            guard let strNew = txtNewPassword.text else {
+                txtNewPassword.placeholder = "Please input new password"
+                return
+            }
+            guard let strNewAgain = txtNewPasswordAgain.text else {
+                txtNewPasswordAgain.placeholder = "Please input new password again"
+                return
+            }
+            if strCur != user.password {
+                txtCurPassword.text = nil
+                txtCurPassword.placeholder = "Please input correct password"
+                return
+            }
+            if strNew != strNewAgain {
+                txtNewPassword.text = nil
+                txtNewPasswordAgain.text = nil
+                txtNewPassword.placeholder = "Please input same password"
+                txtNewPasswordAgain.placeholder = "Please input same password"
+                return
+            }
+            let path = "http://localhost:3000/users/user/" + user.account + "/" + strNew
+            let params = NSMutableDictionary()
+            params["account"] = user.account
+            params["password"] = strNew
+            
+            var jsonData: Data? = nil
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+                ServerConnect.httpPutUser(urlPath: path, httpBody: jsonData!){
+                    (userSchemaError, user) -> Void in
+                    switch userSchemaError {
+                    case .NONE:
+                        self.user?.password = strNew
+                        self.performSegue(withIdentifier: "unwindToContainerWithSender", sender: self.btnConfirm)
+                    case .ERR_TASK:
+                        print("Some thing maybe missing")
+                    case .ERR_JSON_SERIALIZATION:
+                        print("Error in Json Serialization")
+                    default:
+                        print("Error: undefined")
+                    }
+                }
+            } catch {
+                fatalError("Error: Json Serialization failed in Sign in")
+            }
+            
+        } else if button.isEqual(btnReset) {
+            // action for Sign up
+            print("action for Reset")
+            txtCurPassword.text = nil
+            txtNewPassword.text = nil
+            txtNewPasswordAgain.text = nil
+        }
+    }
     
     // private functions
     private func initUI(){
@@ -84,6 +168,7 @@ class SettingAccountViewController: UIViewController, UITextFieldDelegate {
         txtCurPassword.layer.borderColor = UIColor.lightGray.cgColor
         txtCurPassword.tintColor = UIColor.black
         txtCurPassword.layer.borderWidth = 0.5
+        txtCurPassword.isSecureTextEntry = true
         txtCurPassword.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         txtCurPassword.leftViewMode = .always
         txtCurPassword.placeholder = "Current Password:"
@@ -132,7 +217,7 @@ class SettingAccountViewController: UIViewController, UITextFieldDelegate {
         btnConfirm.setTitleColor(UIColor.white, for: .normal)
         btnConfirm.setTitle("Confirm", for: .normal)
         btnConfirm.backgroundColor = UIColor(displayP3Red:65/256, green:171/256, blue:225/256, alpha:1.0)
-        //btnConfirm.addTarget(self, action: #selector(btnTapped(_:)), for: .touchUpInside)
+        btnConfirm.addTarget(self, action: #selector(btnTapped(_:)), for: .touchUpInside)
         
         // >Reset Button
         btnReset = UIButton(frame: CGRect(x: 30, y: 210, width: loginBackground.frame.size.width/2-45, height: 44))
@@ -140,7 +225,7 @@ class SettingAccountViewController: UIViewController, UITextFieldDelegate {
         btnReset.setTitleColor(UIColor.black, for: .normal)
         btnReset.setTitle("Reset", for: .normal)
         btnReset.backgroundColor = UIColor.lightGray
-        //btnReset.addTarget(self, action: #selector(btnTapped(_:)), for: .touchUpInside)
+        btnReset.addTarget(self, action: #selector(btnTapped(_:)), for: .touchUpInside)
         
         // Cancel Button
         btnCancel = UIButton(frame: CGRect(x: 20, y: 30, width: 30, height: 30))

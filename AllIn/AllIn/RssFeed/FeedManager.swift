@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
+// FeedManager暂时弃用，因为Rss源没找到太多，不具有测试的条件，暂时以Http为主
 class FeedManager{
-    
 
     //MARK: Singleton
     static let sharedFeedManager = FeedManager()

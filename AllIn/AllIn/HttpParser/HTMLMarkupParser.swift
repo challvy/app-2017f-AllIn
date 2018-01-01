@@ -19,7 +19,25 @@ enum Markup {
 
 class HTMLMarkupParser {
     
-    static var fontSize: CGFloat = 15
+    static var fontSize: CGFloat = 15 {
+        didSet {
+            HTMLMarkupParser.fontStrongType = UIFont.boldSystemFont(ofSize: fontSize + 1)
+            if(UIFont.familyNames.contains(fontType)){
+                HTMLMarkupParser.fontNormalType = UIFont(name: fontType, size: fontSize)!
+            } else {
+                fontNormalType = UIFont.systemFont(ofSize: fontSize)
+            }
+        }
+    }
+    static var fontType: String = "System" {
+        didSet {
+            if(UIFont.familyNames.contains(fontType)){
+                HTMLMarkupParser.fontNormalType = UIFont(name: fontType, size: HTMLMarkupParser.fontSize)!
+            }
+        }
+    }
+    static var fontNormalType: UIFont = UIFont.systemFont(ofSize: HTMLMarkupParser.fontSize)
+    static var fontStrongType: UIFont = UIFont.boldSystemFont(ofSize: HTMLMarkupParser.fontSize + 1)
     
     static let markups = [
         
@@ -42,11 +60,11 @@ class HTMLMarkupParser {
     static let strAttributes = [
         
         "strong": [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize + 1, weight: .bold),
+            NSAttributedStringKey.font: HTMLMarkupParser.fontStrongType,
         ],
         
         "normal": [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize),
+            NSAttributedStringKey.font: HTMLMarkupParser.fontNormalType,
             NSAttributedStringKey.paragraphStyle: HTMLMarkupParser.paragraphSytle,
         ]
     ]

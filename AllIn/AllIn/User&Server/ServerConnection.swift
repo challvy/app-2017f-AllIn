@@ -112,6 +112,68 @@ class ServerConnect: NSObject {
                 switch httpRes.statusCode {
                 case 200:
                     callback(.NONE, nil)
+                case 300:
+                    callback(.INEXISTENT, nil)
+                case 400:
+                    callback(.ERR, nil)
+                default:
+                    fatalError("Error: unknown res.status in post user")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    static public func httpDelRss(urlPath: String, httpBody: Data,
+                                   callback: @escaping (UserSchemaError, User?)->Void){
+        let session = URLSession.shared
+        let url = URL(string: urlPath)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.httpBody = httpBody
+        
+        let task = session.dataTask(with: request) { (data, res, err) in
+            if err != nil {
+                callback(.ERR_TASK, nil)
+            } else {
+                let httpRes = res as! HTTPURLResponse
+                switch httpRes.statusCode {
+                case 200:
+                    callback(.NONE, nil)
+                case 350:
+                    callback(.INEXISTENT, nil)
+                case 400:
+                    callback(.ERR, nil)
+                default:
+                    fatalError("Error: unknown res.status in post user")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    static public func httpPutRss(urlPath: String, httpBody: Data,
+                                  callback: @escaping (UserSchemaError, User?)->Void){
+        let session = URLSession.shared
+        let url = URL(string: urlPath)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = httpBody
+        
+        let task = session.dataTask(with: request) { (data, res, err) in
+            if err != nil {
+                callback(.ERR_TASK, nil)
+            } else {
+                let httpRes = res as! HTTPURLResponse
+                switch httpRes.statusCode {
+                case 200:
+                    callback(.NONE, nil)
+                case 350:
+                    callback(.INEXISTENT, nil)
+                case 400:
+                    callback(.ERR, nil)
+                case 300:
+                    callback(.ERR_TASK, nil)
                 default:
                     fatalError("Error: unknown res.status in post user")
                 }

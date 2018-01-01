@@ -29,7 +29,7 @@ class SettingViewController: UIViewController {
     var txtLineB1: UILabel!
     
     @IBOutlet weak var sourceTableView: UITableView!
-    var sourceCells: [MenuCell] = MenuCell.loadMenuCell()
+    var sourceCells: [MenuCell]!
     let sourceTableViewCell: String = "sourceTableViewCell"
     
     @IBAction func unwindFromSettingView(_ sender: UIStoryboardSegue){
@@ -52,7 +52,7 @@ class SettingViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(animated)
     }
-
+    
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -63,6 +63,7 @@ class SettingViewController: UIViewController {
     //MARK: Button Action
     @objc func btnAccountTapped(_ sender: UIButton) {
         let setting = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "settingAccountView") as! SettingAccountViewController
+        setting.user = self.user
         self.present(setting, animated: true, completion: nil)
     }
     
@@ -72,7 +73,8 @@ class SettingViewController: UIViewController {
     }
     
     @objc func cancel(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        sourceCells.remove(at: sourceCells.endIndex-1)
+        self.performSegue(withIdentifier: "unwindToContainerWithSender", sender: sender)
     }
     
     @objc func btnEditTapped(_ sender: UIButton) {
@@ -86,6 +88,8 @@ class SettingViewController: UIViewController {
     }
     
     func checkURL(_ url: String) -> Bool {
+        // To fix: http://这种格式对于http请求来说不能当作字符串处理，要作为httpBody进行传输
+        return true
         guard url.count > 8 else {
             return false
         }
@@ -134,6 +138,38 @@ class SettingViewController: UIViewController {
         self.present(alertController!,animated:true,completion:nil)
     }
     
+    func tryAddRssSource() {
+        if(user != nil ){
+            let path = "http://localhost:3000/users/userRssSource/" + user!.account + "/" + self.sourceName! + "/" + self.sourceURL!
+            let params = NSMutableDictionary()
+            var jsonData: Data? = nil
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+                ServerConnect.httpPutRss(urlPath: path, httpBody: jsonData!){
+                    (userSchemaError, user) -> Void in
+                    switch userSchemaError {
+                    case .NONE:
+                        DispatchQueue.main.async {
+                            self.sourceCells.insert(MenuCell(title: self.sourceName!, image: nil, urlString: self.sourceURL!), at: self.sourceCells.endIndex-1)
+                            self.sourceTableView.reloadData()
+                            self.addedSucccessfullyAlert()
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            self.errorURLAlert()
+                        }
+                    }
+                }
+            } catch {
+                fatalError("Error: Json Serialization failed in Delete RssSource")
+            }
+        } else {
+            self.sourceCells.insert(MenuCell(title: self.sourceName!, image: nil, urlString: self.sourceURL!), at: self.sourceCells.endIndex-1)
+            self.sourceTableView.reloadData()
+            self.addedSucccessfullyAlert()
+        }
+    }
+    
     func changedSucccessfullyAlert() {
         var alertController: UIAlertController?
         
@@ -167,7 +203,7 @@ class SettingViewController: UIViewController {
                 
                 NotificationCenter.default.addObserver(self, selector: #selector(self.alertTextFieldDidChange(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
                 
-                textField.placeholder = "URL"
+                textField.placeholder = "Url"
             })
             
             let actionCancel = UIAlertAction(title:"Cancel",style:UIAlertActionStyle.cancel,handler:{(paramAction:UIAlertAction!) in
@@ -189,7 +225,7 @@ class SettingViewController: UIViewController {
                     self?.errorURLAlert()
                 } else {
                     // Flag of Adding sources
-                    self?.addedSucccessfullyAlert()
+                    self?.tryAddRssSource()
                 }
             })
             
@@ -238,7 +274,7 @@ class SettingViewController: UIViewController {
                     self?.errorURLAlert()
                 } else {
                     // Flag of Adding sources
-                    self?.changedSucccessfullyAlert()
+                    self?.tryAddRssSource()
                 }
             })
             
@@ -268,7 +304,6 @@ class SettingViewController: UIViewController {
     //MARK: Private Methods
     private func loadSource(){
         //sourceCells = self.user!.rssSources
-        sourceCells = MenuCell.loadMenuCell()
         let cell = MenuCell(title: "Add", image: #imageLiteral(resourceName: "AddImage"), urlString: nil)
         sourceCells.append(cell)
     }
@@ -434,6 +469,29 @@ extension SettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            if(user != nil && user!.rssSources.contains(sourceCells[indexPath.row])){
+                let path = "http://localhost:3000/users/userRssSource/" + user!.account + "/" + sourceCells[indexPath.row].title
+                let params = NSMutableDictionary()
+                var jsonData: Data? = nil
+                do {
+                    jsonData = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+                    ServerConnect.httpDelRss(urlPath: path, httpBody: jsonData!){
+                        (userSchemaError, user) -> Void in
+                        switch userSchemaError {
+                        case .NONE:
+                            print("Success!")
+                        case .ERR_TASK:
+                            print("Some thing maybe missing")
+                        case .ERR_JSON_SERIALIZATION:
+                            print("Error in Json Serialization")
+                        default:
+                            print("Error: undefined")
+                        }
+                    }
+                } catch {
+                    fatalError("Error: Json Serialization failed in Delete RssSource")
+                }
+            }
             sourceCells.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
