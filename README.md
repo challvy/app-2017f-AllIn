@@ -12,6 +12,13 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 
 ## 功能说明
 
+### 导航界面
+
+* 利用UserDefaults，实现第一次启动app时，进行界面导航；
+
+![GuideView](https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/GuideView.png)
+
+
 ### 信息获取
 
 * 对于RSS源，进行网络请求，获取信息，进行XML解析，添加到主页的digests中；
