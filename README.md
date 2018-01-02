@@ -59,7 +59,7 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 > 网上找了一下可以用javascript代码设置字体等信息，有点来不及，希望以后补上！
 
 
-![MenuView](https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/HTMLContentView.png)
+![Menu](https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/HTMLContent.png)
 
 
 ### 登陆
@@ -82,7 +82,7 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 * 先输入正确的原密码，再连续两次输入一致的新密码；
 * 与后端进行交互；
 
-![SettingAccountView](https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/SettingAccountView.png)
+![SettingAccountView2](https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/SettingAccountView2.png)
 
 #### 二、字体设置
 
