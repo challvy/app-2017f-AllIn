@@ -7,6 +7,9 @@
 
 * Xcode: 9.1；
 * Swift: 4.0；
+* 使用第三方代码库Fuzi进行HTML解析；
+* 借助Carthage管理第三方依赖；
+* 后端使用 NodeJs + express + mongodb，开发本地服务器，使用了mongoose模块；
 
 ## 应用介绍
 
@@ -124,11 +127,6 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 * 功能划分比较混乱，许多东西都是初次上手，代码复用度也不是太高，没有很好地进行抽象；
 * 两人编写的时候分工不是太好，利用git进行项目管理，总是出现合并冲突；
 
-
-## 其他说明
-
-* 后端使用 NodeJs + express + mongodb，开发本地服务器，使用了mongoose模块；
-* 使用第三方代码库Fuzi进行HTML解析，借助Carthage管理第三方依赖；
 
 ## 总结
 
