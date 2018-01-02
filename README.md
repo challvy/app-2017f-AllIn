@@ -7,6 +7,9 @@
 
 AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基础上，增加了如Hupu这类主流论坛的支持；
 
+** 建议使用iPhone8Plus 以获得最佳体验**
+> 就是auto-layout做的不太好，因为许多界面都是代码画的；
+
 ![AllIn](https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/AllIn.png)
 
 
