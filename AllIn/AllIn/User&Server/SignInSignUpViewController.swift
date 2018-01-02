@@ -25,6 +25,11 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
     var user: User?
     var loginState: LoginState = LoginState.NONE
     
+    var offsetHand:CGFloat = 60
+    var imgLeftHand:UIImageView!
+    var imgRightHand:UIImageView!
+    var flagAminiated:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,10 +56,36 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if(textField.isEqual(txtAccount)){
+        if(textField.isEqual(txtAccount)) && flagAminiated==0{
             // edit Account
-        } else if textField.isEqual(txtPassword){
-            // edit
+            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                
+                self.imgLeftHand.frame = CGRect(x:self.imgLeftHand.frame.origin.x - self.offsetHand,
+                                                y:self.imgLeftHand.frame.origin.y + 30,
+                                                width:self.imgLeftHand.frame.size.width,
+                                                height:self.imgLeftHand.frame.size.height)
+                
+                self.imgRightHand.frame = CGRect(x:self.imgRightHand.frame.origin.x + self.offsetHand,
+                                                 y:self.imgRightHand.frame.origin.y + 30,
+                                                 width:self.imgRightHand.frame.size.width,
+                                                 height:self.imgRightHand.frame.size.height)
+            })
+            flagAminiated = 1
+        } else if textField.isEqual(txtPassword) && flagAminiated==1{
+            // edit password
+            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                
+                self.imgLeftHand.frame = CGRect(x: self.imgLeftHand.frame.origin.x + self.offsetHand,
+                                                y:self.imgLeftHand.frame.origin.y - 30,
+                                                width:self.imgLeftHand.frame.size.width,
+                                                height:self.imgLeftHand.frame.size.height)
+                
+                self.imgRightHand.frame = CGRect(x:self.imgRightHand.frame.origin.x - self.offsetHand,
+                                                 y:self.imgRightHand.frame.origin.y - 30,
+                                                 width:self.imgRightHand.frame.size.width,
+                                                 height:self.imgRightHand.frame.size.height)
+            })
+            flagAminiated = 0
         }
     }
     
@@ -199,6 +230,19 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
     private func initUI() {
         let mainSize = UIScreen.main.bounds.size
         
+        let imgDoreamon = UIImageView(frame: CGRect(x: 30, y: 165, width: mainSize.width-60, height: mainSize.width-60))
+        imgDoreamon.image = #imageLiteral(resourceName: "DoraemonImage")
+        self.view.addSubview(imgDoreamon)
+    
+        imgLeftHand = UIImageView(frame: CGRect(x: mainSize.width/2-117, y: 210, width: 120, height: 120))
+        imgLeftHand.image = #imageLiteral(resourceName: "leftHandImage")
+        self.view.addSubview(imgLeftHand)
+        
+        imgRightHand = UIImageView(frame: CGRect(x: mainSize.width/2-1, y: 210, width: 120, height: 120))
+        imgRightHand.image = #imageLiteral(resourceName: "rightHandImage")
+        self.view.addSubview(imgRightHand)
+        
+        
         // Title
         txtSettingsAccount = UILabel(frame: CGRect(x: 60, y: 23, width: mainSize.width-60, height: 44))
         txtSettingsAccount.text = "Welcome"
@@ -212,13 +256,15 @@ class SignInSignUpViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(txtSettingsAccount)
         self.view.addSubview(txtLineMain)
         
+
         // Content
-        let loginBackground =  UIView(frame: CGRect(x: 15, y: 250, width: mainSize.width-30, height: 220))
+        let loginBackground =  UIView(frame: CGRect(x: 15, y: 300, width: mainSize.width-30, height: 220))
         loginBackground.layer.borderWidth = 0.5
         loginBackground.layer.borderColor = UIColor.lightGray.cgColor
         loginBackground.backgroundColor = UIColor.white
         loginBackground.layer.cornerRadius = 15
         self.view.addSubview(loginBackground)
+        
         
         // >Account text field
         txtAccount = UITextField(frame: CGRect(x: 30, y: 30, width: loginBackground.frame.size.width-60, height: 44))

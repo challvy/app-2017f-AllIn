@@ -39,6 +39,8 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var curURLString: String?
     let isReadedAccessoryViewSize: CGFloat = 10
     
+    let allInFilePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]+"/allIn"
+    
     enum CellIdentifiers {
         static let digestTableViewCell = "DigestTableViewCell"
     }
@@ -51,6 +53,8 @@ class DigestViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        allIn["AllIn"] = NSKeyedUnarchiver.unarchiveObject(withFile: allInFilePath) as? [DigestCell]
         
         // Navigation Settings
         digestTableView.dataSource = self
@@ -506,10 +510,16 @@ extension DigestViewController: ContentViewControllerDelegate{
             if(digestCell.isFavorite){
                 allIn["AllIn"] = allIn["AllIn"] ?? []
                 allIn["AllIn"]!.append(digestCell)
+                if let allInner = allIn["AllIn"]{
+                    NSKeyedArchiver.archiveRootObject(allInner, toFile: self.allInFilePath)
+                }
             }
             else{
                 if let indexOfDigestCell = allIn["AllIn"]?.index(of: digestCell){
                     allIn["AllIn"]?.remove(at: indexOfDigestCell)
+                    if let allInner = allIn["AllIn"]{
+                        NSKeyedArchiver.archiveRootObject(allInner, toFile: self.allInFilePath)
+                    }
                     curDigestCells = allIn[curSource]
                 }
             }
