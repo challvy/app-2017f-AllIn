@@ -44,7 +44,7 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 > 网上找了一下可以用javascript代码设置字体等信息，有点来不及，希望以后补上！
 
 
-<img src="https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/HTMLContentView.png" width="500">
+<img src="https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/HTMLContentView.png" height="600">
 
 
 ### 登陆
