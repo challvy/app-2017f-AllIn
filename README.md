@@ -24,6 +24,7 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 * 对于RSS源，进行网络请求，获取信息，进行XML解析，添加到主页的digests中；
 * 对于HTML网页，获取网页内容，借助Fuzi框架进行HTML解析，添加到主页的digests中；
 * 显示已读/未读，帮助用户更好地浏览；
+* 显示更新事件，帮助重度手机患者规律地获取信息；
 * 收藏功能——"AllIn"板块，存储了所有收藏内容；
 * 下拉tableview进行刷新，每次仅更新新的文章摘要；
 
@@ -41,11 +42,13 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 
 * 根据RSS格式的规范，编写XML解析器，并根据标签属性生成富文本，输出到ContentView；
 * 可根据用户设置进行字体大小、种类的个性化设置；
+* 收藏本文至**AllIn**
 
 ![RssContentView](https://github.com/challvy/app-2017f-AllIn/raw/master/Screenshots/RssContentView.png)
 
 #### 二、HTML文章浏览
 
+* 收藏本文至**AllIn**
 * 由于HTML格式比较复杂，没有统一内容标准，暂时利用了UIWebView加载页面进行内容输出，希望以后优化；
 * 因为使用UIWebView显示的，字体设置等无法对其起作用
 > 网上找了一下可以用javascript代码设置字体等信息，有点来不及，希望以后补上！
