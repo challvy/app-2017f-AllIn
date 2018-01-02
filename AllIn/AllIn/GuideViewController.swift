@@ -10,7 +10,7 @@ import UIKit
 class GuideViewController: UIViewController, UIScrollViewDelegate {
 
     
-    let numOfPages = 2
+    let numOfPages = 3
     
     var btnEnter: UIButton!
     
@@ -33,10 +33,6 @@ class GuideViewController: UIViewController, UIScrollViewDelegate {
             scrollView.addSubview(imgView)
         }
         scrollView.contentOffset = CGPoint.zero
-        
-        btnEnter = UIButton(frame: CGRect(x: 20, y: 30, width: 30, height: 30))
-        btnEnter.setImage(#imageLiteral(resourceName: "CancelImage"), for: .normal)
-        scrollView.addSubview(btnEnter)
         
         self.view.addSubview(scrollView)
     }
