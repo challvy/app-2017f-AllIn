@@ -9,7 +9,7 @@
 * Swift: 4.0；
 * 使用第三方代码库Fuzi进行HTML解析；
 * 借助Carthage管理第三方依赖；
-* 后端使用 NodeJs + express + mongodb，开发本地服务器，使用了mongoose模块；
+* 后端使用 NodeJs + Express + Mongodb，开发本地服务器，使用了Mongoose模块；
 
 ## 应用介绍
 
@@ -19,9 +19,8 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 
 
 **建议使用iPhone8Plus 以获得最佳体验**
-> 就是Auto-Layout做的不太好，因为许多界面都是代码画的；
-
-
+> 因为Auto Layout做得不够友好，许多界面代码化了；
+ 
 ## 功能说明
 
 ### 导航界面
@@ -101,8 +100,8 @@ AllIn是一款聚合阅读内容的类RSS阅读器，在普通RSS阅读器的基
 
 #### 三、信息源编辑
 
-* 在设置中加入了可编辑的tableView，利用AlertView进行源的添加与修改；
-> 由于json传数据的一些问题，有所限制；
+* 在设置中加入了可编辑的TableView，利用AlertView进行源的添加与修改；
+> 由于JSON传数据的一些问题，有所限制；
 * 非法的信息源将会弹出警告框；
 > 本来要求源遵守http://、htpps://的格式，但是在后端put方面出了点问题，暂时弃用此功能；
 
